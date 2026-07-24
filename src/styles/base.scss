@@ -1,0 +1,488 @@
+
+/* ==========================================================================
+   Custom Variables
+   ========================================================================== */
+
+:root {
+  --block: 40px;
+  --red: #d24040;
+  --blue: #00a0c8;
+  --green: #10c840;
+  --yellow: #fac800;
+  --brown: #a0694b;
+  --brown2: #736464;
+  --black: #101820;
+  --offwhite: #f0f0dc;
+  --background-color: var(--yellow);
+  --text-color: var(--black);
+  --link-color: var(--blue);
+  --font-stack-heading: neue-haas-grotesk-display, sans-serif;
+  --font-stack-text: neue-haas-grotesk-text, sans-serif;
+  --weight-normal: 400;
+  --weight-bold: 700;
+}
+
+html[data-theme='light'] {
+  --background-color: var(--yellow);
+  --text-color: var(--black);
+  --link-color: var(--blue);
+}
+
+html[data-theme='dark'] {
+  --background-color: var(--black);
+  --text-color: var(--yellow);
+  --link-color: var(--blue);
+}
+
+/* ==========================================================================
+   Per-page background (crossfaded via View Transitions, see .page-backdrop)
+   ========================================================================== */
+
+html[data-page='home'] {
+  --background-color: var(--yellow);
+}
+
+html[data-page='colophon'] {
+  --background-color: var(--blue);
+}
+
+.page-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--background-color);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.6s ease;
+  }
+}
+
+/* ==========================================================================
+   General Styles
+   ========================================================================== */
+
+html {
+  font-size: 100%; /*16px*/
+
+  @media screen and (max-width: 675px) {
+    font-size: 87.5%; /*16px*/
+  }
+} 
+
+body,
+p {
+  font-family: var(--font-stack-text);
+  font-weight: var(--weight-normal);
+  font-style: normal;
+  color: var(--text-color);
+  line-height: 1.55;
+}
+
+a {
+  color: var(--link-color);
+
+  &:hover {
+    color: var(--green);
+  }
+}
+
+body {
+  position: relative;
+  /* background-color: var(--yellow); */
+}
+
+.list-reset {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+//Sections general
+
+.section {
+  padding-bottom: var(--block);
+}
+
+.section {
+  border-top: 2px solid var(--black);
+  padding-top: var(--block);
+  
+  &.site-header {
+    padding-top: calc(var(--block) * 1.25);
+    border-top: none;
+  }
+}
+
+//Brian Learns CSS GRID!
+.intro,
+.section-intro {
+  @media screen and (min-width: 675px) {
+    width: calc(var(--block) * 7);
+  }
+
+  @media screen and (min-width: 900px) {
+    width: calc(var(--block) * 10);
+  }
+}
+
+.gridder {
+  @media screen and (min-width: 675px) {
+    display: grid;
+    grid-template-columns: calc(var(--block) * 7) 1fr;
+    gap: var(--block);
+  }
+
+  @media screen and (min-width: 900px) {
+    grid-template-columns: calc(var(--block) * 10) 1fr;
+    gap: var(--block) calc(var(--block) / 2);
+  }
+  
+  @media screen and (min-width: 1300px) {
+    grid-template-columns: calc(var(--block) * 12) 1fr;
+  }
+}
+
+
+@media screen and (min-width: 1300px) {
+  .work-imgs,
+  .skill-sets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--block) / 2);
+  }
+}
+
+.section-video,
+.video-wrapper,
+.section-skills-header-wrapper,
+.skill-sets {
+  @media screen and (max-width: 1299px) {
+    grid-column: span 2;
+  }
+}
+
+.site-header,
+.site-main {
+  padding-left: calc(var(--block) / 2);
+  padding-right: calc(var(--block) / 2);
+
+  @media screen and (min-width: 675px) {
+    padding-left: var(--block);
+    padding-right: calc(var(--block) * 2);
+  }
+
+  @media screen and (min-width: 1300px) {
+    padding-right: calc(var(--block) * 4);
+  }
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+p {
+  margin-bottom: 1rem;
+  // letter-spacing: 0.25px;
+}
+
+strong {
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-bold);
+}
+
+// Headers  -- https://type-scale.com/
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-bold);
+  line-height: 1.05;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  line-height: 0.8;
+  font-size: 5.653rem; // Augmented Fourth
+
+  @media screen and (max-width: 675px) {
+    font-size: 4.209rem; // Perfect Fourth
+  }
+}
+
+h2 {
+  font-size: 3.998rem;
+
+  @media screen and (max-width: 675px) {
+    font-size: 3.157rem;
+  }
+}
+
+h3 {
+  font-size: 2.827rem;
+
+  @media screen and (max-width: 675px) {
+    font-size: 1.777rem;
+  }
+}
+
+h4 {
+  font-size: 1.999rem;
+
+  @media screen and (max-width: 675px) {
+    font-size: 1.333rem;
+  }
+
+  &.skill-set-hdr {
+    @media screen and (max-width: 899px) {
+      font-size: 1.677rem;
+    }
+  }
+}
+
+h5 {font-size: 1.414rem;}
+
+small, .text_small {
+  font-size: 0.707rem;
+
+  @media screen and (max-width: 675px) {
+    font-size: 0.75rem;
+  }
+}
+
+.hello {
+  font-size: 1rem;
+  display: block;
+  margin-left: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+// .name {
+//   @media screen and (max-width: 675px) {
+//     display: block;
+//   }
+// }
+
+.section-hdr {
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+  padding-bottom: calc(var(--block) * 4)
+}
+
+/* ==========================================================================
+   Skill Section
+   ========================================================================== */
+.saying {
+  @media screen and (max-width: 1300px) {
+    display: block;
+  }
+}
+.skill-list li {
+  display: flex;
+  align-items: center;
+  height: var(--block);
+}
+.skill-icons {
+  display: flex;
+  align-items: center;
+}
+.skill-svg {
+  width: calc(var(--block) - 10px);
+  height: calc(var(--block) - 10px);
+  padding: 5px;
+}
+.skill {
+  margin-left: 10px;
+  line-height: 1rem;
+}
+.skill-example {
+  font-size: 0.707rem;
+  display: block;
+}
+
+.set {
+  margin-bottom: var(--block);
+
+  & + .set {
+    margin-bottom: 0;
+  }
+}
+.skill-set-hdr {
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  
+  @media screen and (min-width: 675px) {
+    line-height: var(--block);
+  }
+}
+
+/* ==========================================================================
+   Work Section
+   ========================================================================== */
+
+.work-hdr {
+  margin-bottom: calc(var(--block) / 2);
+}
+
+.header-links, 
+.header-links:visited {
+  text-decoration: none;
+  color: var(--black);
+}
+.header-links:hover {
+  text-decoration: underline;
+  color: var(--blue);
+}
+
+article {
+  margin-bottom: 5rem;
+}
+
+.work-img {
+  width: 100%;
+  height: auto;
+  margin-bottom: var(--block);
+  border: 1px solid var(--blue);
+
+  .work-img--link:hover & {
+    border: 1px solid var(--green);
+  }
+}
+
+.work-displayads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--block) / 2);
+}
+
+.work-displayad--wrapper {
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-top: calc((250 / 300) * 100%);
+
+  iframe {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* ==========================================================================
+   Video Section
+   ========================================================================== */
+.video-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+.img-fluid, video {
+  width: 100%;
+  height: auto;
+}
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.contact-info {
+  display: flex;
+  align-items: flex-end;
+}
+
+// .contact-items {
+//   margin-bottom: 0.25rem;
+
+//   li {
+//     display: flex;
+//     align-items: center;
+//     height: var(--block);
+//     margin-bottom: calc(var(--block) / 4);
+//   }
+
+//   @media screen and (min-width: 675px) {
+//     position: relative;
+  
+//     li {
+//       display: inline-block;
+//     }
+  
+//     a {
+//       position: absolute;
+//       top: 0; left: 0;
+//     }
+//   }
+// }
+
+.contact-icons {
+  display: flex;
+  align-items: center;
+  margin-right: calc(var(--block) / 2);
+}
+.additional-link {
+  display: flex;
+  align-items: center;
+  height: var(--block);
+  margin-bottom: calc(var(--block) / 4);
+}
+.additional-link__svg {
+  width: var(--block);
+  height: var(--block);
+  padding: 5px;
+  margin-right: calc(var(--block) / 4);
+}
+
+.footer {
+  background-color: var(--black);
+  padding: 3rem 0;
+  text-align: center;
+  p {
+  color: var(--offwhite);
+  }
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.site-sidebar {
+  position: absolute;
+  top: var(--block);
+  right: var(--block);
+  width: calc(var(--block) * 1);
+}
+
+.bt-logo-wrapper {
+  width: calc(var(--block) * 1);
+  height: 0;
+  position: relative;
+  padding-top: 0.75%;
+}
+
+.bt-logo {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}

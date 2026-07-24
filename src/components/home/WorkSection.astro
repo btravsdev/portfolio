@@ -1,0 +1,41 @@
+---
+import WorkItem from './WorkItem.astro';
+import DisplayAdsSection from '../ads/DisplayAdsSection.astro';
+
+const workItems = [
+  {
+    id: 'eighty8-website',
+    title: '88 Brand Partners',
+    description: 'Updated agency website with the Roots Sage 9 framework for&nbsp;Wordpress.',
+    highlight: 'Used greensock to create a more exciting drawer system for team&nbsp;page.',
+    link: { href: 'https://88brandpartners.com/', label: '88brandpartners.com' },
+    images: [
+      { href: 'https://88brandpartners.com/', src: '/img/88bp-home.jpg', alt: 'Front Page of 88BrandPartners' },
+      { href: 'https://88brandpartners.com/team/', src: '/img/88bp-team.jpg', alt: 'Team Page of 88BrandPartners' },
+    ],
+  },
+  {
+    id: 'banner-website',
+    title: 'Banner Witcoff',
+    description: 'After a rebrand, rebuilt this Wordpress website with a large database.',
+    highlight:
+      'The biggest challenge was starting with a large database (with thousands of pdfs and posts) tied to a deprecated plugin. We managed this significant technical debt without requiring a rebuild of the database from&nbsp;scratch.',
+    link: { href: 'https://bannerwitcoff.com/', label: 'bannerwitcoff.com' },
+    images: [
+      { href: 'https://bannerwitcoff.com/', src: '/img/banner-home.jpg', alt: 'Front Page of BannerWitcoff' },
+      { href: 'https://bannerwitcoff.com/people/aabbott/', src: '/img/banner-person.jpg', alt: 'Bio of BannerWitcoff' },
+    ],
+  },
+];
+---
+
+<section id="work" class="section-work section">
+  <header class="section-header-wrapper">
+    <h2 class="section-hdr">Selected Work</h2>
+    <p class="section-intro sr-only">Here is a curated selection of my work</p>
+  </header>
+
+  {workItems.map((item) => <WorkItem {...item} />)}
+
+  <DisplayAdsSection />
+</section>

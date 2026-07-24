@@ -1,0 +1,9 @@
+// Order matters here: each partial's CSS is emitted in this order, and
+// later rules win ties in the cascade (e.g. head-animation's __home
+// selectors are meant to take precedence over the plain rules in base).
+
+@forward 'reset';
+@forward 'base';
+@forward 'head-animation';
+@forward 'colophon';
+@forward 'dark-mode';

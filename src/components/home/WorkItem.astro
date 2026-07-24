@@ -1,0 +1,34 @@
+---
+interface WorkImage {
+  href: string;
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  highlight: string;
+  link?: { href: string; label: string };
+  images: WorkImage[];
+}
+
+const { id, title, description, highlight, link, images } = Astro.props;
+---
+
+<article id={id} class="work-item gridder">
+  <div class="">
+    <h3 class="work-hdr">{title}</h3>
+    <p><strong>Description:</strong> <Fragment set:html={description} /></p>
+    <p><strong>Highlight:</strong> <Fragment set:html={highlight} /></p>
+    {link && (
+      <p><strong>Link:</strong> <a href={link.href} class="work-link">{link.label}</a></p>
+    )}
+  </div>
+  <div class="work-imgs">
+    {images.map((image) => (
+      <a class="work-img--link" href={image.href}><img class="work-img" src={image.src} alt={image.alt} /></a>
+    ))}
+  </div>
+</article>

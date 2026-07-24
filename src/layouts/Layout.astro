@@ -1,0 +1,69 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+import IconSprite from '../components/IconSprite.astro';
+import '../styles/main.scss';
+
+interface Props {
+  title: string;
+  pageId: 'home' | 'colophon';
+  bodyId?: string;
+  bodyClass?: string;
+  withIconSprite?: boolean;
+}
+
+const { title, pageId, bodyId, bodyClass, withIconSprite = false } = Astro.props;
+const themeColor = pageId === 'home' ? '#fac800' : '#00a0c8';
+---
+
+<!doctype html>
+<html class="no-js" lang="en" data-page={pageId}>
+
+<head>
+  <meta charset="utf-8">
+  <title>{title}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fac90f">
+  <meta name="msapplication-TileColor" content="#fac90f">
+  <meta name="theme-color" content="#fac90f">
+
+  <link rel="stylesheet" href="https://use.typekit.net/zbs8day.css">
+
+  <slot name="head" />
+
+  <ClientRouter />
+
+  <script>
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+  <meta name="theme-color" content={themeColor}>
+</head>
+
+<body id={bodyId} class={bodyClass}>
+
+  <div class="page-backdrop" transition:persist="page-backdrop"></div>
+
+  <slot />
+
+  <Footer showColophonLink={pageId === 'home'} />
+
+  <Sidebar variant={pageId === 'home' ? 'home' : undefined} />
+
+  {withIconSprite && <IconSprite />}
+
+  <script is:inline src="/js/vendor/modernizr-3.11.2.min.js"></script>
+  <!-- <script src="../scripts/animation.js"></script> -->
+
+</body>
+
+</html>

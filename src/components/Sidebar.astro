@@ -1,0 +1,16 @@
+---
+import BtLogo from './BtLogo.astro';
+import EightBitHead from './EightBitHead.astro';
+
+interface Props {
+  variant?: 'home';
+}
+
+const { variant } = Astro.props;
+---
+
+<aside class:list={['site-sidebar', variant === 'home' && 'site-sidebar__home']}>
+  <BtLogo />
+</aside>
+
+<EightBitHead variant={variant} />
