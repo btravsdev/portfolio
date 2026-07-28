@@ -1,0 +1,68 @@
+---
+import Icon from '../Icon.astro';
+---
+
+<section id="contact" class="section section-contact">
+  <header class="section-header-wrapper sr-only">
+    <h2 class="section-hdr">Additional info</h2>
+    <p class="section-intro">If you need more info, call, text, email, or look me up these other platforms:</p>
+  </header>
+  <div class="leftside-wrapper">
+    <h3 class="section-hdr"><span>Contact Me:</span></h3>
+  </div>
+  <div class="strongside-wrapper contact-info">
+    <ul class="list-reset contact-items">
+      <li>
+        <a class="additional-link" href="tel:773-726-3263">
+          <Icon name="phone" title="generic phone icon" class="additional-link__svg" />
+          <span class="additional-link__text">773-726-3263</span>
+        </a>
+      </li>
+      <li>
+        <a class="additional-link" href="mailto:holler@briantravers.com">
+          <Icon name="email2" title="another generic email icon" class="additional-link__svg" />
+          <span class="additional-link__text">holler@briantravers.com</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="leftside-wrapper">
+    <h3 class="section-hdr"><span>Links:</span></h3>
+  </div>
+  <div class="strongside-wrapper contact-info">
+    <ul class="list-reset contact-items">
+      <li>
+        <a class="additional-link" href="/btravs-resume-jun24.pdf">
+          <Icon name="pdf" title="PDF icon" class="additional-link__svg" />
+          <span class="additional-link__text">btravs-resume-jun24.pdf</span>
+        </a>
+      </li>
+      <li>
+        <a class="additional-link" href="https://github.com/btravsdev">
+          <Icon name="github" title="Github icon" class="additional-link__svg" />
+          <span class="additional-link__text">github.com/btravsdev</span>
+        </a>
+      </li>
+      <li>
+        <a class="additional-link" href="https://codepen.io/btravs">
+          <Icon name="codepen" title="Codepen icon" class="additional-link__svg" />
+          <span class="additional-link__text">codepen.io/btravs</span>
+        </a>
+      </li>
+      <li>
+        <a class="additional-link" href="https://www.linkedin.com/in/btravs/">
+          <Icon name="linkedin" title="Linkedin icon" class="additional-link__svg" />
+          <span class="additional-link__text">linkedin.com/in/btravs</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+
+.contact-info {
+  margin-bottom: var(--space-xl);
+}
+</style>

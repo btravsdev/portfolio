@@ -1,0 +1,60 @@
+---
+import NsAd from './NsAd.astro';
+import GcfdAd from './GcfdAd.astro';
+import CefcuAd from './CefcuAd.astro';
+import OrthoAd from './OrthoAd.astro';
+import '../../styles/displayads.css';
+---
+
+<article id="display-ads" class="work-item work-item--displayads">
+  <div class="work-displayads">
+    <NsAd />
+    <GcfdAd />
+    <CefcuAd />
+    <OrthoAd />
+  </div>
+  <div class="work-displayads-content">
+    <h3 class="work-hdr">Display Ads</h3>
+    <p>I like to think of display ads as quick static websites with subtle yet eye-catching animations with libraries like Greensock, SVGs and CSS. After years of building with Adobe Flash and others, I now hand-code each&nbsp;ad. Banners need to be seen by everyone, so extra attention needs to be spent on browser support (even&nbsp;IE11!).</p>
+  </div>
+</article>
+
+<script>
+  import '../../scripts/displayads.js';
+</script>
+
+<style lang="scss" is:global>
+@use '../../styles/breakpoints.scss' as *;
+
+.work-item--displayads {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  @include at-least(md) {
+    display: grid;
+    grid-template-columns: 600px 1fr;
+    gap: var(--gap);
+  }
+}
+.work-displayads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+
+.work-displayad--wrapper {
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-top: calc((250 / 300) * 100%);
+
+  iframe {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

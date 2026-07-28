@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  class?: string;
+}
+
+const { name, title, class: className = 'skill-svg' } = Astro.props;
+
+const icons = import.meta.glob('../icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+const raw = icons[`../icons/${name}.svg`];
+
+const escapeAttr = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+
+const markup = raw
+  ? raw.replace(
+      /<svg\b([^>]*)>/,
+      `<svg$1 class="${escapeAttr(className)}"><title>${escapeAttr(title)}</title>`,
+    )
+  : null;
+---
+
+{markup && <Fragment set:html={markup} />}

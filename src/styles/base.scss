@@ -1,0 +1,420 @@
+@use 'breakpoints' as *;
+
+/* ==========================================================================
+   Custom Variables
+   ========================================================================== */
+
+:root {
+  --white: #ffffff;
+  --black: #101820;
+  --offwhite: #f0f0dc;
+  --red: #d24040;
+  --blue: #00a0c8;
+  --green: #10c840;
+  --yellow: #fac800;
+  --brown: #a0694b;
+  --brown2: #736464;
+  --background-color: var(--yellow);
+  --text-color: var(--black);
+  --link-color: var(--blue);
+  --font-stack-heading: 'Inter', sans-serif;
+  --font-stack-text: 'Inter', sans-serif;
+  --font-size-h1: 5.653rem;
+  --font-size-h2: 3.998rem;
+  --font-size-h3: 2.827rem;
+  --font-size-h4: 1.999rem;
+  --font-size-h5: 1.414rem;
+  --font-size-small: 0.707rem;
+  --font-size-tiny: 0.75rem;
+  --weight-normal: 400;
+  --weight-bold: 700;
+  --space-xs: .25rem;
+  --space-sm: .5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2x: 8rem;
+  --space-3x: 12rem;
+  --space-4x: 16rem;
+  --space-5x: 20rem;
+  --space-6x: 24rem;
+  --space-7x: 28rem;
+  --space-8x: 32rem;
+  --space-9x: 36rem;
+  --space-10x: 40rem;
+  --block: var(--space-4x);
+  --gap: var(--space-md);
+  --max-width-text: 600px;
+}
+
+html[data-theme='light'] {
+  --background-color: var(--yellow);
+  --text-color: var(--black);
+  --link-color: var(--blue);
+}
+
+html[data-theme='dark'] {
+  --background-color: var(--black);
+  --text-color: var(--yellow);
+  --link-color: var(--blue);
+}
+
+/* ==========================================================================
+   Per-page background (crossfaded via View Transitions, see .page-backdrop)
+   ========================================================================== */
+
+html[data-page='developer'] {
+  --background-color: var(--yellow);
+}
+html[data-page='designer'] {
+  --background-color: var(--brown);
+}
+html[data-page='deejay'] {
+  --background-color: var(--green);
+}
+
+.page-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--background-color);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.6s ease;
+  }
+}
+
+/* ==========================================================================
+   General Styles
+   ========================================================================== */
+
+html {
+  font-size: 100%; /*16px*/
+
+  @include below(sm) {
+    font-size: 87.5%; /*14px*/
+  }
+} 
+
+body,
+p {
+  font-family: var(--font-stack-text);
+  font-weight: var(--weight-normal);
+  font-style: normal;
+  color: var(--text-color);
+  line-height: 1.55;
+}
+
+a {
+  color: var(--link-color);
+
+  &:hover {
+    color: var(--green);
+  }
+}
+
+body {
+  position: relative;
+}
+
+.list-reset {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+//Sections general
+.section {
+  padding-bottom: var(--space-2x);
+  position: relative;
+  z-index: 1;
+}
+
+
+@media screen and (min-width: 1300px) {
+  .work-imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--block) / 2);
+  }
+}
+
+.section-video,
+.video-wrapper,
+.section-skills-header-wrapper {
+  @media screen and (max-width: 1299px) {
+    grid-column: span 2;
+  }
+}
+
+.site-header,
+.site-main {
+  padding-left: var(--gap);
+  padding-right: var(--gap);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+p {
+  margin-bottom: 1rem;
+  // letter-spacing: 0.25px;
+}
+
+strong {
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-bold);
+}
+
+// Headers  -- https://type-scale.com/
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-bold);
+  line-height: 1.05;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  line-height: 0.8;
+  font-size: var(--font-size-h1); // Augmented Fourth
+
+  @media screen and (max-width: 675px) {
+    font-size: var(--font-size-h2); // Perfect Fourth
+  }
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+
+  @media screen and (max-width: 675px) {
+    font-size: var(--font-size-h3);
+  }
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+
+  @media screen and (max-width: 675px) {
+    font-size: var(--font-size-h4);
+  }
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+
+  @media screen and (max-width: 675px) {
+    font-size: var(--font-size-h5);
+  }
+
+  &.skill-set-hdr {
+    @media screen and (max-width: 899px) {
+      font-size: var(--font-size-h5);
+    }
+  }
+}
+
+h5 {font-size: var(--font-size-h5);}
+
+small, .text_small {
+  font-size: var(--font-size-small);
+
+  @media screen and (max-width: 675px) {
+    font-size: var(--font-size-tiny);
+  }
+}
+
+.hello {
+  font-size: 1rem;
+  font-weight: var(--weight-normal);
+  display: block;
+  margin-left: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-bottom: var(--space-lg);
+
+  span {
+    font-size: var(--font-size-h5);
+    flex: 0 0 auto;
+  }
+   &:after {
+    content: '';
+    flex: 1;
+    display: block;
+    width: 100%;
+    height: 0.9rem;
+    background-color: var(--black);
+    margin-top: var(--space-xs);
+   }
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+  padding-bottom: var(--space-4x);
+}
+
+.role-picker {
+  display: inline;
+}
+
+.role-picker__select {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 1.15em 0 0.1em;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 0.12em solid currentColor;
+  background-color: transparent;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 0.55em) 0.55em,
+    calc(100% - 0.2em) 0.55em;
+  background-size: 0.35em 0.35em, 0.35em 0.35em;
+  background-repeat: no-repeat;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  vertical-align: baseline;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--link-color);
+    outline: none;
+  }
+}
+
+/* ==========================================================================
+   Skill Section
+   ========================================================================== */
+.saying {
+  @media screen and (max-width: 1300px) {
+    display: block;
+  }
+}
+
+
+/* ==========================================================================
+   Video Section
+   ========================================================================== */
+.video-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+.img-fluid, video {
+  width: 100%;
+  height: auto;
+}
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.contact-info {
+  display: flex;
+  align-items: flex-end;
+}
+
+// .contact-items {
+//   margin-bottom: 0.25rem;
+
+//   li {
+//     display: flex;
+//     align-items: center;
+//     height: var(--block);
+//     margin-bottom: calc(var(--block) / 4);
+//   }
+
+//   @media screen and (min-width: 675px) {
+//     position: relative;
+  
+//     li {
+//       display: inline-block;
+//     }
+  
+//     a {
+//       position: absolute;
+//       top: 0; left: 0;
+//     }
+//   }
+// }
+
+.contact-icons {
+  display: flex;
+  align-items: center;
+  margin-right: calc(var(--block) / 2);
+}
+.additional-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+.additional-link__svg {
+  width: var(--space-lg);
+  height: var(--space-lg);
+  margin-right: var(--space-xs);
+}
+
+.footer {
+  background-color: var(--black);
+  padding: 3rem 0;
+  text-align: center;
+  p {
+  color: var(--offwhite);
+  }
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.site-sidebar {
+  position: absolute;
+  top: var(--block);
+  right: var(--block);
+  width: var(--space-2x);
+}
+
+.bt-logo-wrapper {
+  width: calc(var(--block) * 1);
+  height: 0;
+  position: relative;
+  padding-top: 0.75%;
+}
+
+.bt-logo {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}

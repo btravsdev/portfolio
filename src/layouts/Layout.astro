@@ -1,0 +1,65 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/main.scss';
+
+interface Props {
+  title: string;
+  pageId: 'developer' | 'designer' | 'deejay' | 'colophon';
+  bodyId?: string;
+  bodyClass?: string;
+}
+
+const { title, pageId, bodyId, bodyClass } = Astro.props;
+const themeColor = pageId === 'colophon' ? '#00a0c8' : '#fac800';
+const showColophonLink = pageId !== 'colophon';
+---
+
+<!doctype html>
+<html lang="en" data-page={pageId}>
+
+<head>
+  <meta charset="utf-8">
+  <title>{title}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fac90f">
+  <meta name="msapplication-TileColor" content="#fac90f">
+  <meta name="theme-color" content="#fac90f">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+
+  <slot name="head" />
+
+  <ClientRouter />
+
+  <script>
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+  <meta name="theme-color" content={themeColor}>
+</head>
+
+<body id={bodyId} class={bodyClass}>
+
+  <div class="page-backdrop" transition:persist="page-backdrop"></div>
+
+  <slot />
+
+  <Footer showColophonLink={showColophonLink} />
+
+  <!-- <Sidebar /> -->
+
+</body>
+
+</html>

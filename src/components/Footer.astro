@@ -1,0 +1,12 @@
+---
+interface Props {
+  showColophonLink?: boolean;
+}
+
+const { showColophonLink = false } = Astro.props;
+---
+
+<footer class="section footer">
+  <p><small>&copy; Copyright 2026, Brian Travers</small></p>
+  <!-- {showColophonLink && <p><small><a href="/colophon">Colophon</a></small></p>} -->
+</footer>

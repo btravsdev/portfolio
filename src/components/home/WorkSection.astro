@@ -1,0 +1,72 @@
+---
+import WorkItem from './WorkItem.astro';
+import DisplayAdsSection from '../ads/DisplayAdsSection.astro';
+
+const workItems = [
+  {
+    id: 'notorious111',
+    title: 'Notorious111',
+    description: 'Built the agency’s website using Vue, Nuxt, and GSAP, including its animation and interactive experiences.',
+    tags: ['Vue', 'Nuxt', 'GSAP', 'Animation'],
+    link: { href: 'https://notorious111.com/', label: 'notorious111.com' },
+    video: { src: '/video/notorious111.mp4', alt: 'Notorious 111 website', poster: '/video/notorious111.jpg' },
+    images: [
+      { href: 'https://notorious111.com/case-studies/orioles', src: '/img/n111-orioles.jpg', alt: 'Case study for the Baltimore Orioles' },
+      { href: 'https://notorious111.com/about', src: '/img/n111-about.jpg', alt: 'About page for Notorious 111' },
+    ],
+  },
+  {
+    id: 'ev-website',
+    title: 'Engel & Völkers Americas',
+    description: 'Handled much of the front-end development for this large Next.js project as part of a multidisciplinary team, with some back-end contributions.',
+    tags: ['Next.js', 'React', 'TypeScript', 'API', 'Storybook'],
+    link: { href: 'https://www.evrealestate.com/', label: 'evrealestate.com' },
+    video: { src: '/video/ev-home.mp4', alt: 'Engel & Völkers Americas website', poster: '/video/ev-home.jpg' },
+    images: [
+      { href: 'https://www.evrealestate.com/en/shops-and-advisors/shop-locator?currentPage=1', src: '/img/ev-listings.jpg', alt: 'Listings page for Engel & Völkers Americas' },
+      { href: 'https://www.evrealestate.com/en/lifestyle-properties/water', src: '/img/ev-property.jpg', alt: 'Example properties page for Engel & Völkers Americas' },
+    ],
+  },
+  {
+    id: 'kmc-website',
+    title: 'Kawasaki Engines',
+    description: 'Helped bring this Next.js website to launch as part of the development team. I’ve since served as its primary developer for maintenance and upgrades.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Sanity CMS', 'Storybook', 'Styled Components'],
+    link: { href: 'https://kawasakienginesusa.com/', label: 'kawasakienginesusa.com' },
+    video: { src: '/video/kmc-web.mp4', alt: 'Kawasaki Engines website', poster: '/video/kmc-web.jpg' },
+    images: [
+      { href: 'https://kawasakienginesusa.com/engines/critical-power1', src: '/img/kmc-critical-power.jpg', alt: 'Special feature page for Kawasaki Engines' },
+      { href: 'https://kawasakienginesusa.com/engines', src: '/img/kmc-engines.jpg', alt: 'Example engines page for Kawasaki Engines' },
+    ],
+  },
+];
+---
+
+<section id="work" class="section-work section">
+  <h2 class="section-hdr"><span>Selected Work</span></h2>
+
+  {workItems.map((item) => <WorkItem {...item} />)}
+
+  <DisplayAdsSection />
+</section>
+
+
+<style lang="scss">
+.work-hdr {
+  margin-bottom: var(--space-lg);
+}
+
+.header-links, 
+.header-links:visited {
+  text-decoration: none;
+  color: var(--black);
+}
+.header-links:hover {
+  text-decoration: underline;
+  color: var(--blue);
+}
+
+article {
+  margin-bottom: 5rem;
+}
+</style>

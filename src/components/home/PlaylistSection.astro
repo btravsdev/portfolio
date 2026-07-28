@@ -1,0 +1,27 @@
+---
+interface Props {
+  playlistId?: string;
+}
+
+const { playlistId = '7JrSfsk8unZn689lY9omTx' } = Astro.props;
+const embedSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
+---
+
+<section id="playlist" class="section-playlist section">
+  <header class="playlist-hdr-wrapper section-header-wrapper">
+    <h2 id="playlist-hdr" class="section-hdr">Playlist</h2>
+    <p class="section-intro">There is no typical or standard playlist; whether you want to hear the newest pop tracks, classic Motown or just want to do the chicken dance, I can help make the perfect soundtrack for your event. But here is a sample playlist of some of my current favorites.</p>
+  </header>
+  <div class="section-content playlist-wrapper">
+    <iframe
+      style="border-radius:12px"
+      src={embedSrc}
+      width="100%"
+      height="680"
+      frameBorder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      title="Spotify playlist"></iframe>
+  </div>
+</section>
