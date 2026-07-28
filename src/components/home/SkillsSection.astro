@@ -1,98 +1,175 @@
 ---
 import Icon from '../Icon.astro';
+
+interface SkillIcon {
+  name: string;
+  title: string;
+}
+
+interface SkillSet {
+  title: string;
+  icons?: SkillIcon[];
+  skills: string[];
+}
+
+const skillSets: SkillSet[] = [
+  {
+    title: 'Core',
+    icons: [
+      { name: 'html5', title: 'HTML5 icon' }, 
+      { name: 'css', title: 'SCSS icon' }, 
+      { name: 'javascript', title: 'JavaScript icon' }, 
+      { name: 'svg', title: 'SVG icon' }],
+    skills: ['HTML','CSS','SCSS','JavaScript','SVG'],
+  },
+  {
+    title: 'Frameworks',
+    icons: [
+      { name: 'vue', title: 'Vue icon' }, 
+      { name: 'nuxt', title: 'Nuxt icon' }, 
+      { name: 'react', title: 'React icon' }, 
+      { name: 'nextjs', title: 'Next.js icon' }, 
+      { name: 'astro', title: 'Astro icon' }],
+    skills: ['Vue','Nuxt','React','Next.js','Astro'],
+  },
+  {
+    title: 'Animation & Motion',
+    icons: [
+      { name: 'gsap', title: 'GSAP icon' },
+      { name: 'css', title: 'CSS animation icon' },
+      { name: 'after-effects', title: 'After Effects icon' }],
+    skills: ['GSAP','CSS animation','After Effects'],
+  },
+  {
+    title: 'CMS',
+    icons: [
+      { name: 'wordpress', title: 'WordPress logo' },
+      { name: 'wordpress', title: 'WordPress logo' },
+      { name: 'php', title: 'PHP logo' },
+      { name: 'laravel', title: 'Laravel icon' },
+    ],
+    skills: ['WordPress','PHP','Laravel'],
+  },
+  {
+    title: 'Tools',
+    icons: [
+      { name: 'git', title: 'Git / GitHub icon' },
+      { name: 'figma', title: 'Figma icon' },
+      { name: 'cursor', title: 'Cursor AI icon' },
+      { name: 'claude', title: 'Claude Code icon' },
+      { name: 'adobe', title: 'Adobe Creative Suite icon' },
+    ],
+    skills: ['Git','Figma','Cursor AI','Claude Code','Adobe Creative Suite'],
+  },
+  {
+    title: 'Back-end',
+    icons: [
+      { name: 'cloudflare', title: 'Cloudflare icon' },
+      { name: 'netlify', title: 'Netlify icon' },
+    ],
+    skills: ['Cloudflare','Netlify'],
+  },
+];
 ---
 
 <section id="skills" class="section section-skills gridder">
   <h2 id="skills-hdr" class="section-hdr"><span>Skills</span></h2>
 
-  <div id="skill-sets" class="skill-sets gridder">
-    <div class="skill-set">
-      <h3 class="skill-set-hdr sr-only">Fundamentals:</h3>
-      <ul class="skill-list">
-        <li>
-          <div class="skill-icons">
-            <Icon name="html5" title="HTML5 Icon" />
-          </div>
-          <div class="skill">HTML</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="css" title="CSS Icon" />
-          </div>
-          <div class="skill">CSS/Sass</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="javascript" title="Javascript Icon" />
-          </div>
-          <div class="skill">Javscript</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="svg" title="SVG Icon" />
-          </div>
-          <div class="skill">SVG</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="wordpress" title="Wordpress Logo" />
-          </div>
-          <div class="skill">Wordpress</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="a11y" title="Logo icon for A11y Project" />
-          </div>
-          <div class="skill">Accessibility (A11Y)</div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="email1" title="Generic email icon" />
-          </div>
-          <div class="skill">HTML Email</div>
-        </li>
-      </ul>
-    </div>
+  <ul class="skill-content-list">
+    <li>I build big websites and small landing pages alike with a purposeful mix of hand-written and AI-generated code.</li>
+    <li>Paramount to my process is creating accessibile, well-documented and maintainable code.</li>
+    <li>I have a historical knowledge and updated expertise in programming HTML email and display ad development.</li>
+    <li>My most valuable skill is my curiousity and passion for problem solving, adding value beyond the ‘dev team’.  Over the past few years, I’ve worked on data visualization, dashboards, 360-degree virtual tours, Snapchat games, Facebook video ads, broadcast commercials, in-stadium jumbotron video, custom MIDI audio tracks, website analytics reports among many others. The foundation of my skills are below:</li>
+  </ul>
 
-    <div class="skill-set">
-      <h4 class="skill-set-hdr sr-only">Notable experience:</h4>
-      <ul class="skill-list">
-        <li>
+  <div id="skill-sets" class="skill-sets">
+    {skillSets.map((set) => (
+      <div class="skill-set">
+        <h3 class="skill-set-hdr"><span>{set.title}</span></h3>
+        <div class="skills-wrapper">
           <div class="skill-icons">
-            <Icon name="react" title="React Icon" />
-            <Icon name="vue" title="Vue Icon" />
+            <div class="skill-icons-wrapper">
+              {set.icons && set.icons.length > 0 && set.icons.map((icon) => (
+                <div class="skill-icon">
+                  <Icon name={icon.name} title={icon.title} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="skill">JS Frameworks <span class="skill-example">(React, Vue)</span></div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="php" title="Php logo" />
-            <Icon name="laravel" title="Laravel icon" />
-          </div>
-          <div class="skill">PHP <span class="skill-example">(Laravel)</span></div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="gatsby" title="Gatsby JS icon" />
-            <Icon name="jeckyll" title="Jeckyll logo" />
-          </div>
-          <div class="skill">Static Site Generators <span class="skill-example">(Gatsby and Jekyll)</span></div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="drupal" title="Drupal Icon" />
-            <Icon name="squarespace" title="Squarespace Icon" />
-          </div>
-          <div class="skill">Other CMS's <span class="skill-example">(Drupal 7, Squarespace, Wix, etc)</span></div>
-        </li>
-        <li>
-          <div class="skill-icons">
-            <Icon name="github" title="Github Icon" />
-            <Icon name="digital-ocean" title="Digital Ocean logo" />
-          </div>
-          <div class="skill">Backend <span class="skill-example">(version control, basic setup &amp; maintenance)</span></div>
-        </li>
-      </ul>
-    </div>
+          <ul class="skill-list list-reset">
+            {set.skills.map((skill) => (
+              <li>
+                <span class="skill-name">{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
+
+<style lang="scss">
+@use '../../styles/breakpoints.scss' as *;
+
+.skill-content-list {
+  margin-bottom: var(--space-xl);
+}
+.skill-sets {
+  @include at-least(sm) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+  }
+
+  @include at-least(md) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.skills-wrapper {
+  --icon-size: var(--space-lg);
+  --icon-gap: var(--space-xs);
+
+  display: grid;
+  grid-template-columns: calc(var(--icon-size) * 2 + var(--icon-gap)) 1fr;
+  gap: var(--gap);
+}
+.skill-icons-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--icon-gap);
+}
+.skill-svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.set {
+  margin-bottom: var(--space-2x);
+
+  & + .set {
+    margin-bottom: 0;
+  }
+}
+.skill-set-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+
+  span{
+    font-size: var(--font-size-h5);
+    white-space: nowrap;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 0.9rem;
+    background-color: var(--black);
+    margin-top: var(--space-xs);
+  }
+}
+</style>

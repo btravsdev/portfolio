@@ -143,8 +143,7 @@ body {
 
 
 @media screen and (min-width: 1300px) {
-  .work-imgs,
-  .skill-sets {
+  .work-imgs {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--block) / 2);
@@ -153,8 +152,7 @@ body {
 
 .section-video,
 .video-wrapper,
-.section-skills-header-wrapper,
-.skill-sets {
+.section-skills-header-wrapper {
   @media screen and (max-width: 1299px) {
     grid-column: span 2;
   }
@@ -321,43 +319,7 @@ small, .text_small {
     display: block;
   }
 }
-.skill-list li {
-  display: flex;
-  align-items: center;
-}
-.skill-icons {
-  display: flex;
-  align-items: center;
-}
-.skill-svg {
-  width: var(--space-sm);
-  height: var(--space-sm);
-  padding: 5px;
-}
-.skill {
-  margin-left: 10px;
-  line-height: 1rem;
-}
-.skill-example {
-  font-size: var(--font-size-small);
-  display: block;
-}
 
-.set {
-  margin-bottom: var(--space-2x);
-
-  & + .set {
-    margin-bottom: 0;
-  }
-}
-.skill-set-hdr {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-  
-  @media screen and (min-width: 675px) {
-    line-height: var(--space-2x);
-  }
-}
 
 /* ==========================================================================
    Video Section
@@ -413,14 +375,12 @@ small, .text_small {
 .additional-link {
   display: flex;
   align-items: center;
-  height: var(--block);
-  margin-bottom: calc(var(--block) / 4);
+  margin-bottom: var(--space-xs);
 }
 .additional-link__svg {
-  width: var(--block);
-  height: var(--block);
-  padding: 5px;
-  margin-right: calc(var(--block) / 4);
+  width: var(--space-lg);
+  height: var(--space-lg);
+  margin-right: var(--space-xs);
 }
 
 .footer {

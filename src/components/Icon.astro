@@ -15,10 +15,6 @@ const icons = import.meta.glob('../icons/*.svg', {
 
 const raw = icons[`../icons/${name}.svg`];
 
-if (!raw) {
-  throw new Error(`Unknown icon: ${name}`);
-}
-
 const escapeAttr = (value: string) =>
   value
     .replaceAll('&', '&amp;')
@@ -26,10 +22,12 @@ const escapeAttr = (value: string) =>
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;');
 
-const markup = raw.replace(
-  /<svg\b([^>]*)>/,
-  `<svg$1 class="${escapeAttr(className)}"><title>${escapeAttr(title)}</title>`,
-);
+const markup = raw
+  ? raw.replace(
+      /<svg\b([^>]*)>/,
+      `<svg$1 class="${escapeAttr(className)}"><title>${escapeAttr(title)}</title>`,
+    )
+  : null;
 ---
 
-<Fragment set:html={markup} />
+{markup && <Fragment set:html={markup} />}

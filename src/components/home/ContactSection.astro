@@ -2,13 +2,13 @@
 import Icon from '../Icon.astro';
 ---
 
-<section id="contact" class="section section-contact gridder">
+<section id="contact" class="section section-contact">
   <header class="section-header-wrapper sr-only">
     <h2 class="section-hdr">Additional info</h2>
     <p class="section-intro">If you need more info, call, text, email, or look me up these other platforms:</p>
   </header>
   <div class="leftside-wrapper">
-    <h3 class="section-hdr">Contact Me:</h3>
+    <h3 class="section-hdr"><span>Contact Me:</span></h3>
   </div>
   <div class="strongside-wrapper contact-info">
     <ul class="list-reset contact-items">
@@ -28,7 +28,7 @@ import Icon from '../Icon.astro';
   </div>
 
   <div class="leftside-wrapper">
-    <h3 class="section-hdr">Links:</h3>
+    <h3 class="section-hdr"><span>Links:</span></h3>
   </div>
   <div class="strongside-wrapper contact-info">
     <ul class="list-reset contact-items">
@@ -53,3 +53,10 @@ import Icon from '../Icon.astro';
     </ul>
   </div>
 </section>
+
+<style lang="scss">
+
+.contact-info {
+  margin-bottom: var(--space-xl);
+}
+</style>
