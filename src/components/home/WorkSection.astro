@@ -4,38 +4,57 @@ import DisplayAdsSection from '../ads/DisplayAdsSection.astro';
 
 const workItems = [
   {
-    id: 'eighty8-website',
-    title: '88 Brand Partners',
-    description: 'Updated agency website with the Roots Sage 9 framework for&nbsp;Wordpress.',
-    highlight: 'Used greensock to create a more exciting drawer system for team&nbsp;page.',
-    link: { href: 'https://88brandpartners.com/', label: '88brandpartners.com' },
+    id: 'notorious111',
+    title: 'Notorious111',
+    description: 'Built the agency’s website using Vue, Nuxt, and GSAP, including its animation and interactive experiences.',
+    tags: ['Vue', 'Nuxt', 'GSAP', 'Animation'],
+    link: { href: 'https://notorious111.com/', label: 'notorious111.com' },
+    video: { src: '/video/notorious111.mp4', alt: 'Notorious 111 website', poster: '/video/notorious111.jpg' },
     images: [
-      { href: 'https://88brandpartners.com/', src: '/img/88bp-home.jpg', alt: 'Front Page of 88BrandPartners' },
-      { href: 'https://88brandpartners.com/team/', src: '/img/88bp-team.jpg', alt: 'Team Page of 88BrandPartners' },
+      { href: 'https://notorious111.com/case-studies/orioles', src: '/img/n111-orioles.jpg', alt: 'Case study for the Baltimore Orioles' },
+      { href: 'https://notorious111.com/about', src: '/img/n111-about.jpg', alt: 'About page for Notorious 111' },
     ],
   },
   {
-    id: 'banner-website',
-    title: 'Banner Witcoff',
-    description: 'After a rebrand, rebuilt this Wordpress website with a large database.',
-    highlight:
-      'The biggest challenge was starting with a large database (with thousands of pdfs and posts) tied to a deprecated plugin. We managed this significant technical debt without requiring a rebuild of the database from&nbsp;scratch.',
-    link: { href: 'https://bannerwitcoff.com/', label: 'bannerwitcoff.com' },
+    id: 'ev-website',
+    title: 'Engel & Völkers Americas',
+    description: 'Handled much of the front-end development for this large Next.js project as part of a multidisciplinary team, with some back-end contributions.',
+    tags: ['Next.js', 'React', 'TypeScript', 'API', 'Storybook', 'Styled Components'],
+    link: { href: 'https://www.evrealestate.com/', label: 'evrealestate.com' },
+    video: { src: '/video/ev-home.mp4', alt: 'Engel & Völkers Americas website', poster: '/video/ev-home.jpg' },
     images: [
-      { href: 'https://bannerwitcoff.com/', src: '/img/banner-home.jpg', alt: 'Front Page of BannerWitcoff' },
-      { href: 'https://bannerwitcoff.com/people/aabbott/', src: '/img/banner-person.jpg', alt: 'Bio of BannerWitcoff' },
+      { href: 'https://www.evrealestate.com/en/shops-and-advisors/shop-locator?currentPage=1', src: '/img/ev-listings.jpg', alt: 'Listings page for Engel & Völkers Americas' },
+      { href: 'https://www.evrealestate.com/en/lifestyle-properties/water', src: '/img/ev-property.jpg', alt: 'Example properties page for Engel & Völkers Americas' },
     ],
   },
 ];
 ---
 
 <section id="work" class="section-work section">
-  <header class="section-header-wrapper">
-    <h2 class="section-hdr">Selected Work</h2>
-    <p class="section-intro sr-only">Here is a curated selection of my work</p>
-  </header>
+  <h2 class="section-hdr"><span>Selected Work</span></h2>
 
   {workItems.map((item) => <WorkItem {...item} />)}
 
   <DisplayAdsSection />
 </section>
+
+
+<style lang="scss">
+.work-hdr {
+  margin-bottom: var(--space-lg);
+}
+
+.header-links, 
+.header-links:visited {
+  text-decoration: none;
+  color: var(--black);
+}
+.header-links:hover {
+  text-decoration: underline;
+  color: var(--blue);
+}
+
+article {
+  margin-bottom: 5rem;
+}
+</style>

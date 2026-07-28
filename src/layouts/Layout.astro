@@ -6,17 +6,18 @@ import '../styles/main.scss';
 
 interface Props {
   title: string;
-  pageId: 'home' | 'colophon';
+  pageId: 'developer' | 'designer' | 'deejay' | 'colophon';
   bodyId?: string;
   bodyClass?: string;
 }
 
 const { title, pageId, bodyId, bodyClass } = Astro.props;
-const themeColor = pageId === 'home' ? '#fac800' : '#00a0c8';
+const themeColor = pageId === 'colophon' ? '#00a0c8' : '#fac800';
+const showColophonLink = pageId !== 'colophon';
 ---
 
 <!doctype html>
-<html class="no-js" lang="en" data-page={pageId}>
+<html lang="en" data-page={pageId}>
 
 <head>
   <meta charset="utf-8">
@@ -32,7 +33,9 @@ const themeColor = pageId === 'home' ? '#fac800' : '#00a0c8';
   <meta name="msapplication-TileColor" content="#fac90f">
   <meta name="theme-color" content="#fac90f">
 
-  <link rel="stylesheet" href="https://use.typekit.net/zbs8day.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
 
   <slot name="head" />
 
@@ -53,11 +56,9 @@ const themeColor = pageId === 'home' ? '#fac800' : '#00a0c8';
 
   <slot />
 
-  <Footer showColophonLink={pageId === 'home'} />
+  <Footer showColophonLink={showColophonLink} />
 
-  <Sidebar />
-
-  <script is:inline src="/js/vendor/modernizr-3.11.2.min.js"></script>
+  <!-- <Sidebar /> -->
 
 </body>
 

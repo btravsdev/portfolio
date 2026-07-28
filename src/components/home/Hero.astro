@@ -1,11 +1,64 @@
+---
+import { roles, roleList, type RoleId } from '../../data/roles';
+
+interface Props {
+  role?: RoleId;
+}
+
+const { role = 'developer' } = Astro.props;
+const current = roles[role];
+---
+
 <header class="site-header section">
   <div class="title-wrapper">
-    <h1 id="title__home" class="title title__home">
-      <span id="hello__home" class="hello hello__home">Howdy, I'm</span>
-      <span id="name__home" class="name name__home">Brian Travers</span>
+    <h1 class="title title__home">
+      <span class="hello hello__home">Howdy, I'm</span>
+      <span class="name name__home">Brian Travers</span>
     </h1>
   </div>
-  <div id="intro__home" class="intro intro__home">
-    <p class="">a Chicago-based full-stack developer, former graphic designer, and agency veteran with 10+ years of experience building websites and all things digital.</p>
+  <div class="intro intro__home">
+    <p>
+      a Chicago-based
+      <label class="role-picker">
+        <span class="sr-only">Choose a role</span>
+        <select class="role-picker__select" name="role" data-role-picker>
+          {roleList.map((option) => (
+            <option value={option.path} selected={option.id === role}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </label>,{' '}
+      {current.blurb}
+    </p>
   </div>
 </header>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+
+  function bindRolePicker() {
+    const picker = document.querySelector('[data-role-picker]');
+    if (!(picker instanceof HTMLSelectElement)) return;
+
+    picker.onchange = () => {
+      const next = picker.value;
+      if (next && next !== window.location.pathname) {
+        navigate(next);
+      }
+    };
+  }
+
+  document.addEventListener('astro:page-load', bindRolePicker);
+</script>
+
+
+<style>
+  .site-header {
+    padding-top: var(--space-2x);
+    padding-bottom: var(--space-3x);
+  }
+  .intro {
+    max-width: var(--max-width-text);
+  }
+</style>
