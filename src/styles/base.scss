@@ -10,13 +10,15 @@
   --offwhite: #f0f0dc;
   --red: #d24040;
   --blue: #00a0c8;
+  --dkblue: #1F2E6C;
   --green: #10c840;
   --yellow: #fac800;
   --brown: #a0694b;
   --brown2: #736464;
   --background-color: var(--yellow);
   --text-color: var(--black);
-  --link-color: var(--blue);
+  --link-color: var(--brown2);
+  --link-color-hover: var(--green);
   --font-stack-heading: 'Inter', sans-serif;
   --font-stack-text: 'Inter', sans-serif;
   --font-size-h1: 5.653rem;
@@ -50,7 +52,7 @@
 html[data-theme='light'] {
   --background-color: var(--yellow);
   --text-color: var(--black);
-  --link-color: var(--blue);
+  --link-color: var(--dkblue);
 }
 
 html[data-theme='dark'] {
@@ -68,9 +70,12 @@ html[data-page='developer'] {
 }
 html[data-page='designer'] {
   --background-color: var(--brown);
+  --link-color: var(--yellow);
 }
 html[data-page='deejay'] {
   --background-color: var(--green);
+  --link-color: var(--dkblue);
+  --link-color-hover: var(--white);
 }
 
 .page-backdrop {
@@ -109,7 +114,7 @@ a {
   color: var(--link-color);
 
   &:hover {
-    color: var(--green);
+    color: var(--link-color-hover);
   }
 }
 

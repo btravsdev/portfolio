@@ -1,83 +1,43 @@
 ---
+import WorkItem from './WorkItem.astro';
+
 const examples = [
   {
     id: 'cyc-logo',
     title: 'Continental Youth Championships',
     description:
-      'Logo and collateral created for an annual nationwide youth Gaelic football and hurling tournament held in Chicago in&nbsp;2022.',
-    poster: '/video/cyc2022.jpg',
-    src: '/video/cyc2022.mp4',
+      '<strong>Description:</strong> Logo and collateral created for an annual nationwide youth Gaelic football and hurling tournament held in Chicago in&nbsp;2022.',
+    video: {
+      src: '/video/cyc2022.mp4',
+      poster: '/video/cyc2022.jpg',
+      alt: 'Video of Continental Youth Championships logo and collateral',
+    },
   },
   {
     id: 'havemercy-logo',
     title: 'Mercy Home',
-    description: 'Logo for annual Mercy Home for Boys and Girls benefit.',
-    poster: '/video/havemercy.jpg',
-    src: '/video/havemercy.mp4',
+    description: '<strong>Description:</strong> Logo for annual Mercy Home for Boys and Girls benefit.',
+    video: {
+      src: '/video/havemercy.mp4',
+      poster: '/video/havemercy.jpg',
+      alt: 'Video of Mercy Home logo',
+    },
   },
   {
     id: 'tread365-logo',
     title: 'Tread 365',
-    description: 'Identity for Chicago-based swim and water polo apparel company.',
-    poster: '/video/tread365.jpg',
-    src: '/video/tread365.mp4',
+    description: '<strong>Description:</strong> Identity for Chicago-based swim and water polo apparel company.',
+    video: {
+      src: '/video/tread365.mp4',
+      poster: '/video/tread365.jpg',
+      alt: 'Video of Tread 365 identity',
+    },
   },
 ];
 ---
 
 <section id="branding" class="section-work section">
-  <header class="section-header-wrapper">
-    <h2 class="section-hdr">Branding</h2>
-    <p class="section-intro sr-only">Here is a curated selection of my branding work</p>
-  </header>
+  <h2 class="section-hdr"><span>Branding</span></h2>
 
-  {examples.map(({ id, title, description, poster, src }) => (
-    <article id={id} class="work-item gridder">
-      <div>
-        <h3 class="work-hdr">{title}</h3>
-        <p><strong>Description:</strong> <Fragment set:html={description} /></p>
-      </div>
-      <div class="work-imgs">
-        <div class="work-video-wrapper">
-          <video
-            class="work-video"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            poster={poster}
-            data-hover-play
-          >
-            <source src={src} type="video/mp4" />
-          </video>
-        </div>
-      </div>
-    </article>
-  ))}
+  {examples.map((item) => <WorkItem {...item} />)}
 </section>
-
-<script>
-  function bindHoverVideos() {
-    document.querySelectorAll('video[data-hover-play]:not([data-hover-bound])').forEach((video) => {
-      if (!(video instanceof HTMLVideoElement)) return;
-
-      video.setAttribute('data-hover-bound', '');
-      video.setAttribute('tabindex', '0');
-
-      const play = () => {
-        video.play().catch(() => {});
-      };
-      const pause = () => {
-        video.pause();
-        video.currentTime = 0;
-      };
-
-      video.addEventListener('mouseenter', play);
-      video.addEventListener('mouseleave', pause);
-      video.addEventListener('focus', play);
-      video.addEventListener('blur', pause);
-    });
-  }
-
-  document.addEventListener('astro:page-load', bindHoverVideos);
-</script>
