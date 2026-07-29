@@ -18,13 +18,13 @@ interface Props {
   tags?: string[];
   link?: { href: string; label: string };
   video: WorkVideo;
-  images: WorkImage[];
+  images?: WorkImage[];
 }
 
-const { id, title, description, tags = [], link, images, video } = Astro.props;
+const { id, title, description, tags = [], link, images = [], video } = Astro.props;
 ---
 
-<article id={id} class="work-item gridder">
+<article id={id} class="work-item">
   <div class="work-video-wrapper">
     <video
       class="work-video"
@@ -68,11 +68,13 @@ const { id, title, description, tags = [], link, images, video } = Astro.props;
       <p><strong>Link:</strong> <a href={link.href} class="work-link">{link.label}</a></p>
     )}
   </div>
-  <div class="work-imgs">
-    {images.map((image) => (
-      <a class="work-img--link" href={image.href}><img class="work-img" src={image.src} alt={image.alt} /></a>
-    ))}
-  </div>
+  {images.length > 0 && (
+    <div class="work-imgs">
+      {images.map((image) => (
+        <a class="work-img--link" href={image.href}><img class="work-img" src={image.src} alt={image.alt} /></a>
+      ))}
+    </div>
+  )}
 </article>
 
 <script>
@@ -117,7 +119,7 @@ const { id, title, description, tags = [], link, images, video } = Astro.props;
   document.addEventListener('astro:page-load', bindAutoplayVideos);
 </script>
 
-<style lang="scss">
+<style lang="scss" is:global>
 @use '../../styles/breakpoints' as *;
 
 .work-item {

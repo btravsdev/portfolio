@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" xml:space="preserve">
-  <path id="XMLID_49_" fill="#00A0C8" d="M60.009,120V96.731c24.629,0,43.748-24.425,34.291-50.347
+  <path fill="currentcolor" d="M60.009,120V96.731c24.629,0,43.748-24.425,34.291-50.347
     c-3.47-9.525-11.158-17.213-20.751-20.683c-25.922-9.389-50.347,9.661-50.347,34.291l0,0H0C0,20.734,37.965-9.882,79.127,2.977
     c17.962,5.647,32.318,19.935,37.897,37.897C129.882,82.035,99.266,120,60.009,120z"/>
-  <polygon id="XMLID_47_" fill-rule="evenodd" clip-rule="evenodd" fill="#00A0C8" points="60.077,96.867 36.876,96.867
+  <polygon fill="currentcolor" points="60.077,96.867 36.876,96.867
     36.876,73.667 36.876,73.667 60.077,73.667 60.077,73.667 	"/>
-  <polygon id="XMLID_46_" fill-rule="evenodd" clip-rule="evenodd" fill="#00A0C8" points="36.876,114.625 19.118,114.625
+  <polygon fill="currentcolor" points="36.876,114.625 19.118,114.625
     19.118,114.625 19.118,96.867 36.876,96.867 	"/>
-  <path id="XMLID_45_" fill-rule="evenodd" clip-rule="evenodd" fill="#00A0C8" d="M19.118,96.867h-14.9l0,0v-14.9l0,0h14.9l0,0
+  <path fill="currentcolor" d="M19.118,96.867h-14.9l0,0v-14.9l0,0h14.9l0,0
     V96.867z"/>
 </svg>
