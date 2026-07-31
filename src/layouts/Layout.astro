@@ -70,6 +70,14 @@ const showColophonLink = pageId !== 'colophon';
 
   <!-- <Sidebar /> -->
 
+  <script>
+    import { initScrollReveal } from '../scripts/scrollReveal';
+
+    document.addEventListener('astro:page-load', () => {
+      initScrollReveal();
+    });
+  </script>
+
 </body>
 
 </html>

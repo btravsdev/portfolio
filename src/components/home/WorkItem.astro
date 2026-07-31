@@ -150,6 +150,10 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
     top: 0;
     height: fit-content;
   }
+
+  @include at-least(lg) {
+    padding-left: var(--space-lg);
+  }
 }
 
 .work-imgs {
