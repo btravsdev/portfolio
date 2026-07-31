@@ -1,0 +1,302 @@
+---
+import Icon from './Icon.astro';
+import { profileLinks } from '../data/profileLinks';
+---
+
+<nav class="sticky-nav" aria-label="Profile links">
+  <ul class="sticky-nav__list list-reset">
+    <li class="sticky-nav__item--home">
+      <a class="top-nav__link" href="/">
+        <span class="top-nav__icon-wrapper">
+          <svg version="1.1" id="bt-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 12" xml:space="preserve">
+            <rect fill="transparent" width="100%" height="100%"></rect>
+            <g id="icon-whole">
+              <g id="b">
+                <g id="b-inner">
+                  <rect id="cross2" class="fill-currcolor" y="5" width="4" height="5"/>
+                  <rect id="cross1" class="fill-currcolor" y="2" width="4" height="5"/>
+                </g>
+                <rect id="b-bar" class="fill-currcolor" width="6" height="12"/>
+                <polygon id="b-loop" class="fill-currcolor" points="10,6 10,5 9,5 9,4 5,4 5,6 8,6 8,9 5,9 5,12 8,12 8,11 9,11 9,10 10,10 10,9 11,9 11,6 "/>
+              </g>
+              <g id="t">
+                <rect id="cross4" class="fill-currcolor" x="12" y="5" width="4" height="5"/>
+                <rect id="cross3" class="fill-currcolor" x="12" y="2" width="4" height="5"/>
+                <polygon id="b-loop-invert" class="fill-currcolor" points="13,0 7,0 7,3 9,3 9,4 10,4 10,5 11,5 11,6 12,6 12,9 11,9 11,10 10,10 10,11 9,11 9,12 13,12"/>
+                <rect id="t1" class="fill-currcolor" x="9" y="3" width="4" height="1"/>
+                <rect id="t2" class="fill-currcolor" x="10" y="4" width="3" height="1"/>
+                <rect id="t3" class="fill-currcolor" x="11" y="5" width="2" height="1"/>
+                <rect id="t4" class="fill-currcolor" x="12" y="6" width="1" height="3"/>
+                <rect id="t5" class="fill-currcolor" x="11" y="9" width="2" height="1"/>
+                <rect id="t6" class="fill-currcolor" x="10" y="10" width="3" height="1"/>
+                <rect id="t7" class="fill-currcolor" x="9" y="11" width="4" height="1"/>
+              </g>
+            </g>
+          </svg>
+        </span>
+        <span class="top-nav__label sr-only">Home</span>
+      </a>
+    </li>
+    <li class="sticky-nav__item--theme-switcher">
+      <button
+        type="button"
+        id="theme-switcher"
+        class="site-sidebar__btn lightdark-mode"
+        aria-label="Toggle dark mode"
+        aria-pressed="false"
+      >
+        <svg class="sidebar-button__svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
+          <title>Dark and Light Mode icons</title>
+          <defs>
+            <symbol id="ray">
+              <line id="ray-line" class="ray-line stroke-default stroke-currcolor" x1="60" y1="5" x2="60" y2="15"/>
+            </symbol>
+          </defs>
+          <path id="moon-icon" style="opacity: 0" d="M105,63.95c-2.287,24.747-24.203,42.955-48.95,40.668c-24.747-2.287-42.955-24.203-40.668-48.95
+            C17.376,34.088,34.47,16.994,56.05,15c-11.49,15.544-8.203,37.46,7.341,48.95C75.756,73.089,92.636,73.089,105,63.95z"/>
+          <path id="sun-icon" class="stroke-default stroke-currcolor" d="M85,60c0,13.807-11.193,25-25,25S35,73.807,35,60s11.193-25,25-25S85,46.193,85,60z"/>
+          <g id="rays">
+            <use class="ray-use" href="#ray" />
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(45)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(90)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(135)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(180)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(225)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(270)"/>
+            <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(315)"/>
+          </g>
+        </svg>
+      </button>
+    </li>
+    {profileLinks.map((link) => (
+      <li>
+        <a class="sticky-nav__link" href={link.href}>
+          <span class="sticky-nav__icon-wrapper">
+            <Icon name={link.icon} title={link.iconTitle} class="sticky-nav__icon" />
+          </span>
+          <span class="sticky-nav__label">{link.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style lang="scss">
+@use '../styles/breakpoints' as *;
+
+.sticky-nav {
+  display: flex;
+  margin-left: auto;
+  margin-right: var(--gap);
+  margin-bottom: var(--space-lg);
+}
+
+.sticky-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-left: var(--gap);
+  padding-right: var(--gap);
+
+  @include at-least(md) {
+    width: fit-content;
+  }
+}
+
+.sticky-nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--link-color-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+  }
+}
+
+.site-sidebar__btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  color: var(--link-color);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--link-color-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+  }
+}
+
+.sticky-nav__icon-wrapper, .site-sidebar__btn {
+  width: var(--space-md);
+  height: var(--space-md);
+  flex-shrink: 0;
+
+  @include at-least(md) {
+    width: var(--space-lg);
+    height: var(--space-lg);
+  }
+}
+
+.sticky-nav__icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sticky-nav__label {
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@include at-least(md) {
+  .sticky-nav__label {
+    position: absolute;
+    right: calc(100% + var(--space-sm));
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.2rem 0.45rem;
+    border: 1px solid var(--black);
+    background: var(--offwhite);
+    color: var(--black);
+    font-size: var(--font-size-tiny);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .sticky-nav__link:hover .sticky-nav__label,
+  .sticky-nav__link:focus-visible .sticky-nav__label {
+    opacity: 1;
+  }
+}
+
+.fill-currcolor { fill: currentcolor; }
+.stroke-currcolor { fill: none; stroke: currentcolor; }
+
+.sidebar-button__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.stroke-default {
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ray-line {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 0;
+}
+
+.sticky-nav__item--theme-switcher,
+.sticky-nav__item--home {
+  @include below(md) {
+    display: none;
+  }
+}
+
+.sticky-nav__item--theme-switcher {
+  margin-bottom: var(--space-xl);
+}
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  let darkModeAnimate: gsap.core.Timeline | null = null;
+
+  function setTheme(theme: 'light' | 'dark', animate: boolean) {
+    const isDark = theme === 'dark';
+    document.body.classList.toggle('dark-theme', isDark);
+    document.documentElement.setAttribute('data-theme', theme);
+
+    const toggle = document.getElementById('theme-switcher');
+    if (toggle instanceof HTMLButtonElement) {
+      toggle.setAttribute('aria-pressed', String(isDark));
+    }
+
+    if (!darkModeAnimate) return;
+
+    if (!animate) {
+      darkModeAnimate.progress(isDark ? 1 : 0);
+      return;
+    }
+
+    if (isDark) {
+      darkModeAnimate.play();
+    } else {
+      darkModeAnimate.reverse();
+    }
+  }
+
+  function initThemeSwitcher() {
+    const toggleDark = document.getElementById('theme-switcher');
+    if (!(toggleDark instanceof HTMLButtonElement)) return;
+    if (toggleDark.dataset.bound === 'true') return;
+    toggleDark.dataset.bound = 'true';
+
+    const sun = document.getElementById('sun-icon');
+    const moon = document.getElementById('moon-icon');
+    const ray = document.getElementById('ray-line');
+    if (!sun || !moon || !ray) return;
+
+    darkModeAnimate?.kill();
+    gsap.set(ray, { strokeDasharray: 10, strokeDashoffset: 0 });
+
+    darkModeAnimate = gsap.timeline({
+      defaults: { ease: 'power1.inOut' },
+      paused: true,
+    });
+    darkModeAnimate
+      .to(ray, { strokeDashoffset: 10, duration: 0.2 }, 'start')
+      .to(sun, { morphSVG: moon, duration: 0.3 }, 'start+=0.1');
+
+    const stored = localStorage.getItem('theme');
+    const prefersDark = stored === 'dark' || document.body.classList.contains('dark-theme');
+    setTheme(prefersDark ? 'dark' : 'light', false);
+
+    toggleDark.addEventListener('click', () => {
+      const nextTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+      setTheme(nextTheme, true);
+      localStorage.setItem('theme', nextTheme);
+    });
+  }
+
+  document.addEventListener('astro:before-swap', (event) => {
+    const nextDocument = (event as Event & { newDocument?: Document }).newDocument;
+    if (!nextDocument) return;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      nextDocument.body.classList.add('dark-theme');
+      nextDocument.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      nextDocument.documentElement.setAttribute('data-theme', 'light');
+    }
+  });
+
+  document.addEventListener('astro:page-load', initThemeSwitcher);
+</script>

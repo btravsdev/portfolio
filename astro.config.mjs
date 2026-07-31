@@ -7,7 +7,7 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['gsap', 'gsap/DrawSVGPlugin'],
+      include: ['gsap', 'gsap/DrawSVGPlugin', 'gsap/MorphSVGPlugin'],
     },
   },
 });

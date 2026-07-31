@@ -51,6 +51,16 @@ const showColophonLink = pageId !== 'colophon';
 </head>
 
 <body id={bodyId} class={bodyClass}>
+  <script is:inline>
+    try {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (_) {}
+  </script>
 
   <div class="page-backdrop" transition:persist="page-backdrop"></div>
 

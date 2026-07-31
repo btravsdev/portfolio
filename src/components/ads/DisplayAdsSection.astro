@@ -13,7 +13,7 @@ import '../../styles/displayads.css';
     <CefcuAd />
     <OrthoAd />
   </div>
-  <div class="work-displayads-content">
+  <div class="work-displayads-content work-item__content">
     <h3 class="work-hdr">Display Ads</h3>
     <p>I like to think of display ads as quick static websites with subtle yet eye-catching animations with libraries like Greensock, SVGs and CSS. After years of building with Adobe Flash and others, I now hand-code each&nbsp;ad. Banners need to be seen by everyone, so extra attention needs to be spent on browser support (even&nbsp;IE11!).</p>
   </div>
@@ -32,7 +32,7 @@ import '../../styles/displayads.css';
   gap: var(--gap);
   @include at-least(md) {
     display: grid;
-    grid-template-columns: 600px 1fr;
+    grid-template-columns: var(--max-width-focus) 1fr;
     gap: var(--gap);
   }
 }

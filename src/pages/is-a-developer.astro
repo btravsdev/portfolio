@@ -1,21 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
+import StickyNav from '../components/StickyNav.astro';
 import SkillsSection from '../components/home/SkillsSection.astro';
 import WorkSection from '../components/home/WorkSection.astro';
 import VideoSection from '../components/home/VideoSection.astro';
-import ContactSection from '../components/home/ContactSection.astro';
 import { roles } from '../data/roles';
 
 const role = roles.developer;
 ---
 
-<Layout title={role.title} pageId="developer" bodyId="home" bodyClass="front-page">
+<Layout title={role.title} pageId="developer" bodyId="home" bodyClass="front-page is-a__page">
   <Hero role="developer" />
+  <StickyNav />
   <main class="site-main site-main__home">
     <WorkSection />
     <SkillsSection />
     <VideoSection />
-    <ContactSection />
   </main>
 </Layout>

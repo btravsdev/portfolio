@@ -15,10 +15,17 @@
   --yellow: #fac800;
   --brown: #a0694b;
   --brown2: #736464;
-  --background-color: var(--yellow);
+  --grey: #5c5c5c;
   --text-color: var(--black);
-  --link-color: var(--brown2);
-  --link-color-hover: var(--green);
+  --link-color: var(--black);
+  --link-color-hover: var(--grey);
+  /* SDR fallback; wide-gamut override set per page */
+  --page-bg: linear-gradient(to bottom right, #fff700 0%, #ff6500 100%);
+  --page-bg-wide: linear-gradient(
+    to bottom right in oklab,
+    oklch(95% .5 110) 0%,
+    oklch(72% .5 90) 100%
+  );
   --font-stack-heading: 'Inter', sans-serif;
   --font-stack-text: 'Inter', sans-serif;
   --font-size-h1: 5.653rem;
@@ -28,8 +35,8 @@
   --font-size-h5: 1.414rem;
   --font-size-small: 0.707rem;
   --font-size-tiny: 0.75rem;
-  --weight-normal: 400;
-  --weight-bold: 700;
+  --weight-normal: 300;
+  --weight-bold: 800;
   --space-xs: .25rem;
   --space-sm: .5rem;
   --space-md: 1rem;
@@ -47,46 +54,69 @@
   --block: var(--space-4x);
   --gap: var(--space-md);
   --max-width-text: 600px;
+  --max-width-focus: 300px;
+
+  @include at-least(lg) {
+    --max-width-focus: 600px;
+  }
 }
 
 html[data-theme='light'] {
-  --background-color: var(--yellow);
   --text-color: var(--black);
-  --link-color: var(--dkblue);
+  --link-color: var(--black);
+  --link-color-hover: var(--grey);
 }
 
-html[data-theme='dark'] {
-  --background-color: var(--black);
-  --text-color: var(--yellow);
-  --link-color: var(--blue);
+html[data-theme='dark'],
+body.dark-theme {
+  --text-color: var(--offwhite);
+  --link-color: var(--offwhite);
+  background-color: var(--black);
+  
+  .page-backdrop {
+    display: none;
+  }
 }
 
 /* ==========================================================================
-   Per-page background (crossfaded via View Transitions, see .page-backdrop)
+   Per-page background (see .page-backdrop)
+   --page-bg: sRGB fallback; --page-bg-wide: wide-gamut (oklch / oklab)
+   source: https://gradient.style/ 
    ========================================================================== */
 
 html[data-page='developer'] {
-  --background-color: var(--yellow);
+  --page-bg: linear-gradient(to bottom right, #fff700 0%, #ff6500 100%);
+  --page-bg-wide: linear-gradient(
+    to bottom right in oklab,
+    oklch(95% .5 110) 0%,
+    oklch(72% .5 90) 100%
+  );
 }
+
 html[data-page='designer'] {
-  --background-color: var(--brown);
-  --link-color: var(--yellow);
+  --page-bg: linear-gradient(to bottom left, #ff0094 0%, #ffda00 100%);
+  --page-bg-wide: linear-gradient(
+    to bottom left in oklab,
+    oklch(55% .45 350) 0%,
+    oklch(95% .4 95) 100%
+  );
 }
+
 html[data-page='deejay'] {
-  --background-color: var(--green);
-  --link-color: var(--dkblue);
-  --link-color-hover: var(--white);
+  --page-bg: conic-gradient(at top left, #00f600 0%, #0003ff 100%);
+  --page-bg-wide: conic-gradient(
+    at top left in oklch,
+    oklch(75% 0.5 156) 0%,
+    oklch(70% 0.5 261) 100%
+  );
 }
 
 .page-backdrop {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-color: var(--background-color);
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 0.6s ease;
-  }
+  background: var(--page-bg);
+  background: var(--page-bg-wide);
 }
 
 /* ==========================================================================
@@ -116,10 +146,6 @@ a {
   &:hover {
     color: var(--link-color-hover);
   }
-}
-
-body {
-  position: relative;
 }
 
 .list-reset {
@@ -261,7 +287,8 @@ small, .text_small {
     font-size: var(--font-size-h5);
     flex: 0 0 auto;
   }
-   &:after {
+
+  &:after {
     content: '';
     flex: 1;
     display: block;
@@ -269,7 +296,48 @@ small, .text_small {
     height: 0.9rem;
     background-color: var(--black);
     margin-top: var(--space-xs);
-   }
+  }
+}
+
+body.dark-theme .section-hdr:after {
+  background-color: var(--text-color);
+}
+
+.is-a__page {
+  @include at-least(md) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "header sticky-nav"
+      "main sticky-nav"
+      "footer footer";
+    gap: var(--gap);
+
+    .page-backdrop {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+    }
+
+    .site-header {
+      grid-area: header;
+    }
+
+    .site-main {
+      grid-area: main;
+    }
+
+    .footer {
+      grid-area: footer;
+    }
+
+    .sticky-nav {
+      grid-area: sticky-nav;
+      position: sticky;
+      top: var(--space-md);
+      align-self: start;
+      z-index: 20;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -311,7 +379,7 @@ small, .text_small {
 
   &:hover,
   &:focus-visible {
-    color: var(--link-color);
+    color: var(--link-color-hover);
     outline: none;
   }
 }
@@ -343,40 +411,6 @@ small, .text_small {
    Footer
    ========================================================================== */
 
-.contact-info {
-  display: flex;
-  align-items: flex-end;
-}
-
-// .contact-items {
-//   margin-bottom: 0.25rem;
-
-//   li {
-//     display: flex;
-//     align-items: center;
-//     height: var(--block);
-//     margin-bottom: calc(var(--block) / 4);
-//   }
-
-//   @media screen and (min-width: 675px) {
-//     position: relative;
-  
-//     li {
-//       display: inline-block;
-//     }
-  
-//     a {
-//       position: absolute;
-//       top: 0; left: 0;
-//     }
-//   }
-// }
-
-.contact-icons {
-  display: flex;
-  align-items: center;
-  margin-right: calc(var(--block) / 2);
-}
 .additional-link {
   display: flex;
   align-items: center;
@@ -386,15 +420,6 @@ small, .text_small {
   width: var(--space-lg);
   height: var(--space-lg);
   margin-right: var(--space-xs);
-}
-
-.footer {
-  background-color: var(--black);
-  padding: 3rem 0;
-  text-align: center;
-  p {
-  color: var(--offwhite);
-  }
 }
 
 /* ==========================================================================
