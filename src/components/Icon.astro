@@ -1,11 +1,14 @@
 ---
 interface Props {
   name: string;
-  title: string;
+  /** Accessible name when the icon is meaningful on its own */
+  title?: string;
+  /** When true, hide from assistive tech (use when adjacent text already names it) */
+  decorative?: boolean;
   class?: string;
 }
 
-const { name, title, class: className = 'skill-svg' } = Astro.props;
+const { name, title = '', decorative = false, class: className = 'skill-svg' } = Astro.props;
 
 const icons = import.meta.glob('../icons/*.svg', {
   query: '?raw',
@@ -22,10 +25,22 @@ const escapeAttr = (value: string) =>
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;');
 
+const inner = decorative
+  ? ''
+  : title
+    ? `<title>${escapeAttr(title)}</title>`
+    : '';
+
+const a11yAttrs = decorative
+  ? ' aria-hidden="true" focusable="false"'
+  : title
+    ? ` role="img"`
+    : ' aria-hidden="true" focusable="false"';
+
 const markup = raw
   ? raw.replace(
       /<svg\b([^>]*)>/,
-      `<svg$1 class="${escapeAttr(className)}"><title>${escapeAttr(title)}</title>`,
+      `<svg$1 class="${escapeAttr(className)}"${a11yAttrs}>${inner}`,
     )
   : null;
 ---

@@ -1,11 +1,11 @@
 export const profileLinks = [
   {
     id: 'resume',
-    href: '/btravs-resume-2026-Jun30.pdf',
+    href: '/btravs-resume-2026-Aug2.pdf',
     icon: 'pdf',
     iconTitle: 'PDF icon',
     label: 'Resume',
-    detail: 'btravs-resume-2026-Jun30.pdf',
+    detail: 'btravs-resume-2026-Aug2.pdf',
   },
   {
     id: 'github',

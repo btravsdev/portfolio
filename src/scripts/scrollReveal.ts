@@ -9,6 +9,9 @@ function prefersReducedMotion() {
 }
 
 function revealSection(section: HTMLElement) {
+  section.removeAttribute('inert');
+  section.removeAttribute('data-reveal-pending');
+
   gsap.to(section, {
     opacity: 1,
     filter: 'blur(0px)',
@@ -26,11 +29,20 @@ export function initScrollReveal() {
   if (!sections.length) return;
 
   if (prefersReducedMotion()) {
+    sections.forEach((section) => {
+      section.removeAttribute('inert');
+      section.removeAttribute('data-reveal-pending');
+    });
     gsap.set(sections, { clearProps: 'opacity,filter' });
     return;
   }
 
-  gsap.set(sections, { opacity: 0, filter: 'blur(10px)' });
+  sections.forEach((section) => {
+    gsap.set(section, { opacity: 0, filter: 'blur(10px)' });
+    // Prevent keyboard focus into content that isn't visible yet
+    section.setAttribute('inert', '');
+    section.setAttribute('data-reveal-pending', '');
+  });
 
   observer = new IntersectionObserver(
     (entries) => {
@@ -43,7 +55,6 @@ export function initScrollReveal() {
     },
     {
       root: null,
-      // Enter when the section reaches the lower portion of the viewport
       rootMargin: '0px 0px -15% 0px',
       threshold: 0,
     },

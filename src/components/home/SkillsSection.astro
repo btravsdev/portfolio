@@ -89,7 +89,7 @@ const skillSets: SkillSet[] = [
             <div class="skill-icons-wrapper">
               {set.icons && set.icons.length > 0 && set.icons.map((icon) => (
                 <div class="skill-icon">
-                  <Icon name={icon.name} title={icon.title} />
+                  <Icon name={icon.name} title={icon.title} decorative />
                 </div>
               ))}
             </div>
@@ -174,7 +174,7 @@ const skillSets: SkillSet[] = [
     display: block;
     width: 100%;
     height: 0.9rem;
-    background-color: var(--black);
+    background-color: var(--text-color);
     margin-top: var(--space-xs);
   }
 }
