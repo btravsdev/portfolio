@@ -16,38 +16,32 @@ const skillSets: SkillSet[] = [
   {
     title: 'Core',
     icons: [
-      { name: 'html5', title: 'HTML5 icon' }, 
-      { name: 'sass', title: 'SASS icon' }, 
-      { name: 'javascript', title: 'JavaScript icon' }, 
-      { name: 'svg', title: 'SVG icon' }],
-    skills: ['HTML','CSS','SCSS','JavaScript','SVG'],
+      { name: 'html5', title: 'HTML5 icon' },
+      { name: 'sass', title: 'SASS icon' },
+      { name: 'javascript', title: 'JavaScript icon' },
+      { name: 'svg', title: 'SVG icon' },
+    ],
+    skills: ['HTML', 'CSS/SCSS', 'JavaScript', 'TypeScript', 'SVG'],
   },
   {
     title: 'Frameworks',
     icons: [
+      { name: 'react', title: 'React icon' },
+      { name: 'nextjs', title: 'Next.js icon' },
       { name: 'vue', title: 'Vue icon' },
-      { name: 'react', title: 'React icon' }, 
-      { name: 'nextjs', title: 'Next.js icon' }, 
-      { name: 'astro', title: 'Astro icon' }],
-    skills: ['Vue/Nuxt','React','Next.js','Astro'],
-  },
-  {
-    title: 'Animation & Motion',
-    icons: [
-      { name: 'gsap', title: 'GSAP icon' },
-      { name: 'css', title: 'CSS animation icon' },
-      { name: 'ae', title: 'After Effects icon' }],
-    skills: ['GSAP','CSS animation','After Effects'],
+      { name: 'astro', title: 'Astro icon' },
+    ],
+    skills: ['React', 'Next.js', 'Vue', 'Nuxt', 'Astro'],
   },
   {
     title: 'CMS',
     icons: [
       { name: 'wordpress', title: 'WordPress logo' },
-      { name: 'squarespace', title: 'Squarespace logo' },
       { name: 'php', title: 'PHP logo' },
       { name: 'laravel', title: 'Laravel icon' },
+      { name: 'squarespace', title: 'Squarespace logo' },
     ],
-    skills: ['WordPress','PHP (Laravel)', 'Squarespace', 'Big Commerce'],
+    skills: ['Sanity', 'Contentful', 'WordPress', 'PHP / Laravel', 'Squarespace'],
   },
   {
     title: 'Tools',
@@ -55,17 +49,25 @@ const skillSets: SkillSet[] = [
       { name: 'figma', title: 'Figma icon' },
       { name: 'cursor', title: 'Cursor AI icon' },
       { name: 'claude', title: 'Claude Code icon' },
-      { name: 'adobe', title: 'Adobe Creative Suite icon' },
+      { name: 'github', title: 'GitHub icon' },
     ],
-    skills: ['Git','Figma','Cursor AI','Claude Code','Adobe Creative Suite'],
+    skills: ['Git', 'Figma', 'Cursor', 'Claude Code'],
   },
   {
-    title: 'Back-end',
+    title: 'Additional',
     icons: [
-      { name: 'cloudflare', title: 'Cloudflare icon' },
-      { name: 'netlify', title: 'Netlify icon' },
+      { name: 'gsap', title: 'GSAP icon' },
+      { name: 'ae', title: 'After Effects icon' },
+      { name: 'adobe', title: 'Adobe Creative Suite icon' },
+      { name: 'css', title: 'CSS animation icon' },
     ],
-    skills: ['REST APIs','API Integration','Cloudflare','Netlify'],
+    skills: [
+      'HTML Email Development',
+      'Display Advertising',
+      'Motion Graphics',
+      'After Effects',
+      'Adobe Illustrator',
+    ],
   },
 ];
 ---
@@ -74,10 +76,12 @@ const skillSets: SkillSet[] = [
   <h2 id="skills-hdr" class="section-hdr"><span>Skills</span></h2>
 
   <ul class="skill-content-list">
-    <li>I build big websites and small landing pages alike with a purposeful mix of hand-written and AI-generated code.</li>
-    <li>Paramount to my process is creating accessible, well-documented and maintainable code.</li>
-    <li>I have a historical knowledge and updated expertise in programming HTML email and display ad development.</li>
-    <li>My most valuable skill is my curiosity and passion for problem solving, adding value beyond the ‘dev team’.  Over the past few years, I’ve worked on data visualization, dashboards, 360-degree virtual tours, Snapchat games, Facebook video ads, broadcast commercials, in-stadium jumbotron video, custom MIDI audio tracks, website analytics reports among many others. <br />The foundation of my skills are below:</li>
+    <li>
+      I build modern web applications with a thoughtful combination of hand-written and AI-assisted code, focusing on scalable architecture, reusable components, and maintainable front-end systems.
+    </li>
+    <li>
+      I enjoy owning products beyond launch—evolving CMS platforms, integrating APIs, improving publishing workflows, and partnering with designers, marketers, and stakeholders to continually improve the user experience.
+    </li>
   </ul>
 
   <div id="skill-sets" class="skill-sets">
@@ -114,6 +118,7 @@ const skillSets: SkillSet[] = [
   margin-bottom: var(--space-md);
   list-style: square;
   padding-left: var(--space-md);
+  max-width: var(--max-width-text);
 }
 .skill-sets {
   padding-left: var(--space-md);

@@ -53,7 +53,7 @@
   --space-10x: 40rem;
   --block: var(--space-4x);
   --gap: var(--space-md);
-  --max-width-text: 600px;
+  --max-width-text: 800px;
   --max-width-focus: 300px;
 
   @include at-least(lg) {

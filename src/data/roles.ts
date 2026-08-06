@@ -2,10 +2,11 @@ export const roles = {
   developer: {
     id: 'developer',
     path: '/is-a-developer',
-    label: 'full-stack developer',
-    title: 'Brian Travers is a full-stack developer',
+    label: 'front-end engineer',
+    title: 'Brian Travers is a front-end engineer',
     blurb:
-      ', former graphic designer and agency veteran with 10+ years of experience shaping brands, type, and visual systems.',
+      ' with a background in graphic design and 10+ years of agency experience building modern, CMS-driven web applications.',
+    note: undefined,
   },
   designer: {
     id: 'designer',
@@ -13,7 +14,8 @@ export const roles = {
     label: 'designer',
     title: 'Brian Travers is a designer',
     blurb:
-      '. Graphic design is an important element to my career as a front-end developer, so occasionally I like to take on work specifically doing design to keep those skills sharp.  Below are some examples of that work.',
+      '. Graphic design is an important element to my career as a front-end engineer, so occasionally I like to take on work specifically doing design to keep those skills sharp. Below are some examples of that work.',
+    note: undefined,
   },
   deejay: {
     id: 'deejay',
@@ -22,6 +24,7 @@ export const roles = {
     title: 'Brian Travers is a deejay',
     blurb:
       ", with over 20 years experience doing a variety of events, including bars, weddings, block parties, grade school dances, high school proms, ring dances, office holiday parties, birthday parties, christenings, communions, St. Patrick's day parades, back-yard parties.",
+    note: undefined,
   },
 } as const;
 

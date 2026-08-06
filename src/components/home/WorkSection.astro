@@ -6,7 +6,8 @@ const workItems = [
   {
     id: 'notorious111',
     title: 'Notorious111',
-    description: 'Built the agency’s website using Vue, Nuxt, and GSAP, including its animation and interactive experiences.',
+    description:
+      'Rather than treating the agency website as a marketing piece, I saw it as an opportunity to showcase modern front-end techniques. Built with Vue, Nuxt, and GSAP, the site combines thoughtful animation, performance, and responsive interactions while reflecting the agency’s creative identity.',
     tags: ['Vue', 'Nuxt', 'GSAP', 'Animation'],
     link: { href: 'https://notorious111.com/', label: 'notorious111.com' },
     video: { src: '/video/notorious111.mp4', alt: 'Notorious 111 website', poster: '/video/notorious111.jpg' },
@@ -18,8 +19,9 @@ const workItems = [
   {
     id: 'ev-website',
     title: 'Engel & Völkers Americas',
-    description: 'Handled much of the front-end development for this large Next.js project as part of a multidisciplinary team, with some back-end contributions.',
-    tags: ['Next.js', 'React', 'TypeScript', 'API', 'Storybook'],
+    description:
+      'Contributed significant front-end development to this large-scale Next.js application, collaborating with designers, developers, and back-end engineers to integrate complex API data with a Contentful CMS. Owned several key components and helped maintain the platform through ongoing enhancements and production support.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Contentful', 'API'],
     link: { href: 'https://www.evrealestate.com/', label: 'evrealestate.com' },
     video: { src: '/video/ev-home.mp4', alt: 'Engel & Völkers Americas website', poster: '/video/ev-home.jpg' },
     images: [
@@ -29,9 +31,10 @@ const workItems = [
   },
   {
     id: 'kmc-website',
-    title: 'Kawasaki Engines',
-    description: 'Helped bring this Next.js website to launch as part of the development team. I’ve since served as its primary developer for maintenance and upgrades.',
-    tags: ['Next.js', 'React', 'TypeScript', 'Sanity CMS', 'Storybook', 'Styled Components'],
+    title: 'Kawasaki Engines USA',
+    description:
+      'Helped build and launch the Next.js and Sanity CMS platform before transitioning into the role of technical lead. Since launch, I’ve overseen the site’s continued evolution through feature development, CMS enhancements, API integrations, A/B testing, bug fixes, and long-term maintenance. It’s been especially rewarding to own and improve the platform over multiple years rather than simply launching it.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Sanity CMS', 'API'],
     link: { href: 'https://kawasakienginesusa.com/', label: 'kawasakienginesusa.com' },
     video: { src: '/video/kmc-web.mp4', alt: 'Kawasaki Engines website', poster: '/video/kmc-web.jpg' },
     images: [
@@ -44,10 +47,17 @@ const workItems = [
 
 <section id="work" class="section-work section">
   <h2 class="section-hdr"><span>Selected Work</span></h2>
+  <p class="section-intro">
+    Some notable clients I’ve worked with include Volkswagen, Endeavor Health (NorthShore HealthSystem), Kawasaki Engines USA, Baltimore Orioles, and A to Z Wineworks. Below are a few projects that highlight my approach to front-end engineering, CMS architecture, and interactive development.
+  </p>
 
   {workItems.map((item) => <WorkItem {...item} />)}
 
   <DisplayAdsSection />
+
+  <p class="work-tinkering">
+    See my pinned repos on <a href="https://github.com/btravsdev">GitHub</a> or <a href="https://codepen.io/btravs">CodePen</a> for recent tinkering.
+  </p>
 </section>
 
 
@@ -56,7 +66,17 @@ const workItems = [
   margin-bottom: var(--space-sm);
 }
 
-.header-links, 
+.section-work .section-intro {
+  max-width: var(--max-width-text);
+  margin-bottom: var(--space-xl);
+}
+
+.work-tinkering {
+  margin-top: var(--space-lg);
+  max-width: var(--max-width-text);
+}
+
+.header-links,
 .header-links:visited {
   text-decoration: none;
   color: var(--black);
