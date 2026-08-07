@@ -1,0 +1,92 @@
+---
+const jobs = [
+  {
+    id: 'notorious111',
+    title: 'Developer',
+    company: 'Notorious111',
+    dates: 'August 2022–July 2026',
+    description:
+      'Built and maintained CMS-driven web applications for enterprise and consumer brands using modern front-end frameworks. Collaborated across strategy, design, and development teams while owning complex features, API integrations, and long-term platform improvements.',
+  },
+  {
+    id: '88bp',
+    title: 'Web Developer, Senior Developer',
+    company: '88 Brand Partners',
+    dates: 'May 2014–August 2022',
+    description:
+      'Built responsive marketing websites, interactive experiences, and custom digital applications while helping establish front-end architecture and serving as the agency’s motion graphics lead.',
+  },
+  {
+    id: 'ppp',
+    title: 'Graphic Designer',
+    company: 'Promotional Product Partners',
+    dates: 'September 2005–May 2014',
+    description:
+      'Led the company’s graphics department while expanding its digital presence through website development and online marketing. This role sparked a transition from graphic design into front-end development and laid the foundation for a career focused on building digital products.',
+  },
+];
+---
+
+<section id="experience" class="section section-experience">
+  <h2 class="section-hdr"><span>Experience</span></h2>
+
+  <ol class="experience-list list-reset">
+    {jobs.map((job) => (
+      <li id={job.id} class="experience-item">
+        <h3 class="experience-item__header">
+          <span class="experience-item__company">{job.company}</span>
+          <span class="experience-item__dates">{job.dates}</span>
+        </h3>
+        <p class="experience-item__title">{job.title}</p>
+        <p class="experience-item__description">{job.description}</p>
+        {job.link && (
+          <p class="experience-item__link">
+            <a href={job.link.href}>{job.link.label}</a>
+          </p>
+        )}
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.experience-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 0 0 var(--space-xs);
+  line-height: 1;
+}
+
+.experience-item__company {
+  font-size: var(--font-size-h3);
+}
+
+.experience-item__dates {
+  font-size: var(--font-size-normal);
+  font-weight: var(--weight-normal);
+}
+
+.experience-item__title {
+  font-size: var(--font-size-h5);
+  font-weight: var(--weight-normal);
+}
+  
+
+.experience-item__description {
+  margin: 0;
+  max-width: var(--max-width-text);
+}
+
+.experience-item__link {
+  margin: var(--space-sm) 0 0;
+}
+</style>

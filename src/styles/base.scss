@@ -33,6 +33,7 @@
   --font-size-h3: 2.827rem;
   --font-size-h4: 1.999rem;
   --font-size-h5: 1.414rem;
+  --font-size-normal: 1.000rem;
   --font-size-small: 0.707rem;
   --font-size-tiny: 0.75rem;
   --weight-normal: 300;
@@ -108,6 +109,15 @@ html[data-page='deejay'] {
     at top left in oklch,
     oklch(75% 0.5 156) 0%,
     oklch(70% 0.5 261) 100%
+  );
+}
+
+html[data-page='motion'] {
+  --page-bg: linear-gradient(to bottom right, #fff700 0%, #ff6500 100%);
+  --page-bg-wide: linear-gradient(
+    to top in lch,
+    color(display-p3 25% 25% 100%) 0%,
+    color(display-p3 100% 85% 30%) 100%
   );
 }
 

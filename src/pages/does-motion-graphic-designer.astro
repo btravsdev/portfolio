@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StickyNav from '../components/StickyNav.astro';
+import Hero from '../components/home/Hero.astro';
+import VideoSection from '../components/home/VideoSection.astro';
+---
+
+<Layout
+  title="Brian Travers — Motion Graphics"
+  pageId="motion"
+  bodyId="motion-graphics"
+  bodyClass="front-page is-a__page"
+>
+  <Hero role="motion" />
+  <StickyNav />
+  <main id="main-content" class="site-main site-main__home" tabindex="-1">
+    <VideoSection />
+  </main>
+</Layout>
+
+<style>
+  .site-header {
+    padding-top: var(--space-2x);
+    padding-bottom: var(--space-3x);
+  }
+  .intro {
+    max-width: var(--max-width-text);
+  }
+</style>

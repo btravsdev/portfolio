@@ -17,6 +17,15 @@ export const roles = {
       '. Graphic design is an important element to my career as a front-end engineer, so occasionally I like to take on work specifically doing design to keep those skills sharp. Below are some examples of that work.',
     note: undefined,
   },
+  motion: {
+    id: 'motion',
+    path: '/does-motion-graphic-designer',
+    label: 'motion graphic designer',
+    title: 'Brian Travers also does motion graphics',
+    blurb:
+      'with a with enough knowledge of Adobe Premiere and After Effects to be dangerous.',
+    note: undefined,
+  },
   deejay: {
     id: 'deejay',
     path: '/is-a-deejay',
