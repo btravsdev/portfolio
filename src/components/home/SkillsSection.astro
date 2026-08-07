@@ -80,7 +80,7 @@ const skillSets: SkillSet[] = [
       I build modern web applications with a thoughtful combination of hand-written and AI-assisted code, focusing on scalable architecture, reusable components, and maintainable front-end systems.
     </li>
     <li>
-      I enjoy owning products beyond launch—evolving CMS platforms, integrating APIs, improving publishing workflows, and partnering with designers, marketers, and stakeholders to continually improve the user experience.
+      I enjoy owning products beyond launch—evolving CMS platforms (like Sanity and Contentful), integrating APIs, improving publishing workflows, and partnering with designers, marketers, and stakeholders to continually improve the user experience.
     </li>
   </ul>
 
@@ -115,10 +115,14 @@ const skillSets: SkillSet[] = [
 @use '../../styles/breakpoints.scss' as *;
 
 .skill-content-list {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-xl);
   list-style: square;
   padding-left: var(--space-md);
   max-width: var(--max-width-text);
+
+  li {
+    margin-bottom: var(--space-md);
+  }
 }
 .skill-sets {
   padding-left: var(--space-md);

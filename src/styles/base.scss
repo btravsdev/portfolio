@@ -444,6 +444,7 @@ small, .text_small {
   display: flex;
   align-items: center;
   margin-bottom: var(--space-xs);
+  gap: var(--space-xs);
 }
 .additional-link__svg {
   width: var(--space-lg);
