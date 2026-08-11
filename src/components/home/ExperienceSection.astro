@@ -29,11 +29,11 @@ const jobs = [
 ---
 
 <section id="experience" class="section section-experience">
-  <h2 class="section-hdr"><span>Experience</span></h2>
+  <h2 class="section-hdr" data-reveal="hdr-line"><span>Experience</span></h2>
 
   <ol class="experience-list list-reset">
     {jobs.map((job) => (
-      <li id={job.id} class="experience-item">
+      <li id={job.id} class="experience-item" data-reveal="experience-item">
         <h3 class="experience-item__header">
           <span class="experience-item__company">{job.company}</span>
           <span class="experience-item__dates">{job.dates}</span>

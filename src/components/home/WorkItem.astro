@@ -24,8 +24,8 @@ interface Props {
 const { id, title, description, tags = [], link, images = [], video } = Astro.props;
 ---
 
-<article id={id} class="work-item">
-  <div class="work-video-wrapper">
+<article id={id} class="work-item" data-reveal="work-item">
+  <div class="work-video-wrapper" data-reveal="work-video">
     <video
       class="work-video"
       src={video.src}
@@ -55,7 +55,14 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
       </svg>
     </button>
   </div>
-  <div class="work-item__content">
+  {images.length > 0 && (
+    <div class="work-imgs" data-reveal="work-images">
+      {images.map((image) => (
+        <a class="work-img--link" href={image.href} data-reveal="work-image"><img class="work-img" src={image.src} alt={image.alt} /></a>
+      ))}
+    </div>
+  )}
+  <div class="work-item__content" data-reveal="work-content">
     <h3 class="work-hdr">{title}</h3>
     <p><Fragment set:html={description} /></p>
     {tags.length > 0 && (
@@ -69,13 +76,6 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
       <p><strong>Link:</strong> <a href={link.href} class="work-link">{link.label}</a></p>
     )}
   </div>
-  {images.length > 0 && (
-    <div class="work-imgs">
-      {images.map((image) => (
-        <a class="work-img--link" href={image.href}><img class="work-img" src={image.src} alt={image.alt} /></a>
-      ))}
-    </div>
-  )}
 </article>
 
 <script>

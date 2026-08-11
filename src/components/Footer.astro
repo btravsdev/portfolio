@@ -29,12 +29,12 @@ const contactLinks = [
   <div class="footer__columns">
 
     <div class="footer__col">
-      <h2 class="footer__heading">I'm also a...</h2>
+      <h2 class="footer__heading">I'm also a</h2>
       <ul class="list-reset footer__list footer__roles">
         {roleList.map((role) => (
           <li>
             <a class="additional-link footer__link" href={role.path}>
-              {role.label}
+              ...{role.label}.
             </a>
           </li>
         ))}
@@ -72,7 +72,7 @@ const contactLinks = [
   <p class="footer__copy"><small>&copy; Copyright 2026, Brian Travers</small></p>
 </footer>
 
-<style lang="scss">
+<style lang="scss" is:global>
 @use '../styles/breakpoints' as *;
 
 .footer {
@@ -95,7 +95,7 @@ const contactLinks = [
 
 .footer__heading {
   margin: 0 0 var(--space-md);
-  font-size: var(--font-size-h5);
+  font-size: var(--font-size-normal);
   color: var(--offwhite);
 }
 
@@ -107,6 +107,7 @@ const contactLinks = [
 
 .footer__link {
   color: var(--offwhite);
+  font-size: var(--font-size-smaller);
 
   &:hover,
   &:focus-visible {
@@ -127,5 +128,16 @@ const contactLinks = [
   gap: var(--space-sm);
   list-style: square;
   padding-left: var(--space-md);
+}
+.additional-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+  gap: var(--space-xs);
+}
+.additional-link__svg {
+  width: var(--space-md);
+  height: var(--space-md);
+  margin-right: var(--space-xs);
 }
 </style>

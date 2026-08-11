@@ -73,7 +73,7 @@ const skillSets: SkillSet[] = [
 ---
 
 <section id="skills" class="section section-skills gridder">
-  <h2 id="skills-hdr" class="section-hdr"><span>Approach</span></h2>
+  <h2 id="skills-hdr" class="section-hdr" data-reveal="hdr-line"><span>Approach</span></h2>
 
   <ul class="skill-content-list">
     <li>
@@ -84,9 +84,9 @@ const skillSets: SkillSet[] = [
     </li>
   </ul>
 
-  <div id="skill-sets" class="skill-sets">
+  <div id="skill-sets" class="skill-sets" data-reveal="skill-sets">
     {skillSets.map((set) => (
-      <div class="skill-set">
+      <div class="skill-set" data-reveal="skill-set">
         <h3 class="skill-set-hdr"><span>{set.title}</span></h3>
         <div class="skills-wrapper">
           <div class="skill-icons">

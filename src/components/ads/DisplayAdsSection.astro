@@ -6,14 +6,14 @@ import OrthoAd from './OrthoAd.astro';
 import '../../styles/displayads.css';
 ---
 
-<article id="display-ads" class="work-item work-item--displayads">
-  <div class="work-displayads">
+<article id="display-ads" class="work-item work-item--displayads" data-reveal="work-item">
+  <div class="work-displayads" data-reveal="work-video">
     <NsAd />
     <GcfdAd />
     <CefcuAd />
     <OrthoAd />
   </div>
-  <div class="work-displayads-content work-item__content">
+  <div class="work-displayads-content work-item__content" data-reveal="work-content">
     <h3 class="work-hdr">Display Ads</h3>
     <p>Display advertising taught me to appreciate the details of front-end engineering long before modern frameworks. Every animation, transition, and kilobyte matters when you're working within strict file-size and browser compatibility constraints. That experience continues to influence how I approach performance, accessibility, and polished user interactions today.</p>
   </div>

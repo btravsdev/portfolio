@@ -34,6 +34,7 @@
   --font-size-h4: 1.999rem;
   --font-size-h5: 1.414rem;
   --font-size-normal: 1.000rem;
+  --font-size-smaller: 0.875rem;
   --font-size-small: 0.707rem;
   --font-size-tiny: 0.75rem;
   --weight-normal: 300;
@@ -319,6 +320,7 @@ small, .text_small {
 }
 
 .section-hdr {
+  --section-line: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,6 +340,8 @@ small, .text_small {
     height: 0.9rem;
     background-color: var(--text-color);
     margin-top: var(--space-xs);
+    transform: scaleX(var(--section-line));
+    transform-origin: left center;
   }
 }
 
@@ -443,23 +447,6 @@ small, .text_small {
 .img-fluid, video {
   width: 100%;
   height: auto;
-}
-
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-
-.additional-link {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--space-xs);
-  gap: var(--space-xs);
-}
-.additional-link__svg {
-  width: var(--space-lg);
-  height: var(--space-lg);
-  margin-right: var(--space-xs);
 }
 
 /* ==========================================================================

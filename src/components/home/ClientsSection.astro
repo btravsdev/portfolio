@@ -13,11 +13,11 @@ const clients = [
 ---
 
 <section id="clients" class="section section-clients">
-  <h2 class="section-hdr"><span>Selected Clients</span></h2>
+  <h2 class="section-hdr" data-reveal="hdr-line"><span>Selected Clients</span></h2>
 
-  <ul class="clients-grid list-reset" aria-label="Selected clients">
+  <ul class="clients-grid list-reset" aria-label="Selected clients" data-reveal="clients">
     {clients.map((client) => (
-      <li class:list={['clients-grid__item', `clients-grid__item--${client.name}`]}>
+      <li class:list={['clients-grid__item', `clients-grid__item--${client.name}`]} data-reveal="client">
         <Icon
           name={client.name}
           title={client.title}
