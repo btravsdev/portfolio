@@ -132,12 +132,14 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
   display: flex;
   flex-direction: column;
   gap: var(--gap);
-  padding-bottom: var(--gap);
+  padding-bottom: var(--space-2x);
   border-bottom: 1px solid var(--text-color);
-  margin-bottom: calc(var(--gap) + 2px);
+  margin-bottom: calc(var(--space-2x) + 2px);
 
   &:last-of-type {
     border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 
   @include at-least(md) {

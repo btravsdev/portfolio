@@ -2,18 +2,37 @@
 import { ClientRouter } from 'astro:transitions';
 import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
+import Seo from '../components/Seo.astro';
+import { pageSeo, type PageSeo } from '../data/site';
+import { workItemListSchema } from '../data/structuredData';
 import '../styles/main.scss';
 
 interface Props {
-  title: string;
+  title?: string;
+  description?: string;
   pageId: 'developer' | 'designer' | 'deejay' | 'motion' | 'colophon';
   bodyId?: string;
   bodyClass?: string;
 }
 
-const { title, pageId, bodyId, bodyClass } = Astro.props;
+const { title, description, pageId, bodyId, bodyClass } = Astro.props;
 const themeColor = pageId === 'colophon' ? '#00a0c8' : '#fac800';
 const showColophonLink = pageId !== 'colophon';
+
+const defaults = pageId !== 'colophon' ? pageSeo[pageId] : null;
+
+const seo: PageSeo = {
+  title: title ?? defaults?.title ?? 'Brian Travers',
+  description:
+    description ??
+    defaults?.description ??
+    'The personal website of Brian Travers, a Chicago-based front-end engineer, designer, and deejay.',
+  path: defaults?.path ?? Astro.url.pathname,
+  ogType: defaults?.ogType ?? 'website',
+  image: defaults?.image,
+  imageAlt: defaults?.imageAlt,
+  jsonLd: pageId === 'developer' ? [workItemListSchema()] : [],
+};
 ---
 
 <!doctype html>
@@ -21,9 +40,13 @@ const showColophonLink = pageId !== 'colophon';
 
 <head>
   <meta charset="utf-8">
-  <title>{title}</title>
-  <meta name="description" content="The personal website of Brian Travers, a Chicago-based front-end engineer, designer, and sometimes deejay.">
+  <title>{seo.title}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <Seo seo={seo} />
+
+  <link rel="author" href="/humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM-friendly site summary" href="/llms.txt" />
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -31,7 +54,7 @@ const showColophonLink = pageId !== 'colophon';
   <link rel="manifest" href="/site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fac90f">
   <meta name="msapplication-TileColor" content="#fac90f">
-  <meta name="theme-color" content="#fac90f">
+  <meta name="theme-color" content={themeColor}>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,8 +69,6 @@ const showColophonLink = pageId !== 'colophon';
       window.scrollTo(0, 0);
     }
   </script>
-
-  <meta name="theme-color" content={themeColor}>
 </head>
 
 <body id={bodyId} class={bodyClass}>

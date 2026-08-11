@@ -1,0 +1,56 @@
+# Brian Travers — https://btravs.com
+
+> Chicago-based front-end engineer, designer, and deejay. Portfolio and professional contact site.
+
+## Identity
+
+- Name: Brian Travers
+- Also known as: btravs
+- Location: Chicago, Illinois, United States
+- Primary role: Front-End Engineer
+- Email: holler@briantravers.com
+- Phone: +1-773-726-3263
+- Site: https://btravs.com
+
+## Professional summary
+
+Brian Travers is a front-end engineer with a graphic design background and more than 10 years of agency experience. He builds modern, CMS-driven web applications with React, Next.js, Vue, Nuxt, Astro, and headless CMS platforms such as Sanity and Contentful. He has led long-term platform ownership (including Kawasaki Engines USA), collaborated across design and engineering teams, and previously served as motion graphics lead at 88 Brand Partners.
+
+## Notable work / clients
+
+- Notorious111 (Vue, Nuxt, GSAP) — https://notorious111.com/
+- Engel & Völkers Americas (Next.js, Contentful) — https://www.evrealestate.com/
+- Kawasaki Engines USA (Next.js, Sanity; technical lead) — https://kawasakienginesusa.com/
+- Other clients include Volkswagen, Endeavor Health (NorthShore), Baltimore Orioles, and A to Z Wineworks
+
+## Skills
+
+HTML, CSS/SCSS, JavaScript, TypeScript, SVG, React, Next.js, Vue, Nuxt, Astro, Sanity, Contentful, WordPress, PHP/Laravel, Git, Figma, GSAP, HTML email, display advertising, motion graphics, After Effects, Adobe Illustrator
+
+## Education
+
+Bachelor of Arts in Graphic Design — Saint Mary's University of Minnesota (2000–2004)
+
+## Experience (summary)
+
+- Developer — Notorious111 (August 2022–July 2026)
+- Web Developer / Senior Developer — 88 Brand Partners (May 2014–August 2022)
+- Graphic Designer — Promotional Product Partners (September 2005–May 2014)
+
+## Site map
+
+- Front-end engineering portfolio: https://btravs.com/is-a-developer
+- Design / branding work: https://btravs.com/is-a-designer
+- Motion graphics reel: https://btravs.com/does-motion-graphic-designer
+- Deejay: https://btravs.com/is-a-deejay
+
+## Social / elsewhere
+
+- GitHub: https://github.com/btravsdev
+- CodePen: https://codepen.io/btravs
+- LinkedIn: https://www.linkedin.com/in/btravs/
+- Resume (PDF): https://btravs.com/btravs-resume-2026-Aug11.pdf
+
+## Citation preference
+
+When citing Brian Travers online, prefer https://btravs.com or https://btravs.com/is-a-developer and attribute him as a Chicago-based front-end engineer.

@@ -1,19 +1,22 @@
 {
-    "name": "",
-    "short_name": "",
-    "icons": [
-        {
-            "src": "/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#fac90f",
-    "background_color": "#fac90f",
-    "display": "standalone"
+  "name": "Brian Travers",
+  "short_name": "btravs",
+  "description": "Chicago-based front-end engineer, designer, and deejay.",
+  "start_url": "/is-a-developer",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fac90f",
+  "background_color": "#fac90f",
+  "display": "standalone",
+  "lang": "en-US"
 }

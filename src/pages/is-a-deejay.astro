@@ -3,12 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import StickyNav from '../components/StickyNav.astro';
 import PlaylistSection from '../components/home/PlaylistSection.astro';
-import { roles } from '../data/roles';
-
-const role = roles.deejay;
 ---
 
-<Layout title={role.title} pageId="deejay" bodyId="deejay" bodyClass="front-page is-a__page">
+<Layout pageId="deejay" bodyId="deejay" bodyClass="front-page is-a__page">
   <Hero role="deejay" />
   <StickyNav />
   <main id="main-content" class="site-main site-main__home" tabindex="-1">

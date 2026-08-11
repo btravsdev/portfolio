@@ -7,6 +7,7 @@ const jobs = [
     dates: 'August 2022–July 2026',
     description:
       'Built and maintained CMS-driven web applications for enterprise and consumer brands using modern front-end frameworks. Collaborated across strategy, design, and development teams while owning complex features, API integrations, and long-term platform improvements.',
+    extra: 'Technical Lead for Kawasaki Engines USA, overseeing the platform launch and ongoing technical evolution. Managed feature development, API integrations, CMS enhancements, and a high-impact A/B testing program that drove seven-figure incremental revenue and delivered conversion rates significantly above industry benchmarks.'
   },
   {
     id: '88bp',
@@ -39,10 +40,8 @@ const jobs = [
         </h3>
         <p class="experience-item__title">{job.title}</p>
         <p class="experience-item__description">{job.description}</p>
-        {job.link && (
-          <p class="experience-item__link">
-            <a href={job.link.href}>{job.link.label}</a>
-          </p>
+        {job.extra && (
+          <p class="experience-item__extra"><strong>HIGHLIGHT:</strong> {job.extra}</p>
         )}
       </li>
     ))}
@@ -86,7 +85,8 @@ const jobs = [
   max-width: var(--max-width-text);
 }
 
-.experience-item__link {
-  margin: var(--space-sm) 0 0;
+.experience-item__extra {
+  margin: var(--space-lg) 0 0;
+  max-width: var(--max-width-text);
 }
 </style>

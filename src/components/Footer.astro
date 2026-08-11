@@ -59,7 +59,7 @@ const contactLinks = [
       <ul class="list-reset footer__list">
         {profileLinks.map((link) => (
           <li>
-            <a class="additional-link footer__link" href={link.href}>
+            <a class="additional-link footer__link" href={link.href} rel={'rel' in link ? link.rel : undefined}>
               <Icon name={link.icon} title={link.iconTitle} class="additional-link__svg" decorative />
               <span class="additional-link__text">{link.detail}</span>
             </a>

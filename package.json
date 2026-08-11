@@ -12,6 +12,7 @@
     "deploy": "npx wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.0.0",
     "gsap": "^3.15.0"
   },

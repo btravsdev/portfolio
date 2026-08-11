@@ -5,12 +5,9 @@ import StickyNav from '../components/StickyNav.astro';
 import SkillsSection from '../components/home/SkillsSection.astro';
 import WorkSection from '../components/home/WorkSection.astro';
 import ExperienceSection from '../components/home/ExperienceSection.astro';
-import { roles } from '../data/roles';
-
-const role = roles.developer;
 ---
 
-<Layout title={role.title} pageId="developer" bodyId="home" bodyClass="front-page is-a__page">
+<Layout pageId="developer" bodyId="home" bodyClass="front-page is-a__page">
   <Hero role="developer" />
   <StickyNav />
   <main id="main-content" class="site-main site-main__home" tabindex="-1">

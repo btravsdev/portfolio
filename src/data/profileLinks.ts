@@ -1,11 +1,11 @@
 export const profileLinks = [
   {
     id: 'resume',
-    href: '/btravs-resume-2026-Aug6.pdf',
+    href: '/btravs-resume-2026-Aug11.pdf',
     icon: 'pdf',
     iconTitle: 'PDF icon',
     label: 'Resume',
-    detail: 'btravs-resume-2026-Aug6.pdf',
+    detail: 'btravs-resume-2026-Aug11.pdf',
   },
   {
     id: 'github',
@@ -14,6 +14,7 @@ export const profileLinks = [
     iconTitle: 'Github icon',
     label: 'GitHub',
     detail: 'github.com/btravsdev',
+    rel: 'me',
   },
   {
     id: 'codepen',
@@ -22,6 +23,7 @@ export const profileLinks = [
     iconTitle: 'Codepen icon',
     label: 'CodePen',
     detail: 'codepen.io/btravs',
+    rel: 'me',
   },
   {
     id: 'linkedin',
@@ -30,5 +32,6 @@ export const profileLinks = [
     iconTitle: 'Linkedin icon',
     label: 'LinkedIn',
     detail: 'linkedin.com/in/btravs',
+    rel: 'me',
   },
 ] as const;

@@ -1,0 +1,51 @@
+---
+import { siteConfig, absoluteUrl, type PageSeo } from '../data/site';
+import { buildJsonLdGraph } from '../data/structuredData';
+
+interface Props {
+  seo: PageSeo;
+}
+
+const { seo } = Astro.props;
+
+const canonical = absoluteUrl(seo.path);
+const image = absoluteUrl(seo.image ?? siteConfig.defaultImage);
+const imageAlt = seo.imageAlt ?? siteConfig.defaultImageAlt;
+const ogType = seo.ogType ?? 'website';
+const jsonLd = buildJsonLdGraph(seo, seo.jsonLd ?? []);
+---
+
+<meta name="description" content={seo.description} />
+<meta name="author" content={siteConfig.name} />
+<meta name="creator" content={siteConfig.name} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={siteConfig.siteName} />
+<meta property="og:locale" content={siteConfig.locale} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={seo.title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+{ogType === 'profile' && (
+  <>
+    <meta property="profile:first_name" content="Brian" />
+    <meta property="profile:last_name" content="Travers" />
+  </>
+)}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={seo.title} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<meta name="geo.region" content="US-IL" />
+<meta name="geo.placename" content="Chicago" />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

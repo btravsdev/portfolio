@@ -3,13 +3,17 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Brian Travers — Front-End Engineer / Designer — Chicago
+    Site: https://btravs.com
+    Contact: holler@briantravers.com
 
 # THANKS
 
-    <name>
+    Clients, collaborators, and open-source maintainers who make modern web work possible.
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    Astro, Sass, GSAP
+    Structured data (JSON-LD / schema.org)
+    Hosted on Netlify
+    Fonts: Inter (Google Fonts)
