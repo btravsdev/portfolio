@@ -58,15 +58,28 @@ const current = roles[role];
 </script>
 
 
-<style>
-  .site-header {
-    padding-top: var(--space-2x);
-    padding-bottom: var(--space-3x);
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.site-header {
+  padding-top: var(--space-2x);
+  padding-bottom: var(--space-3x);
+}
+.intro {
+  max-width: var(--max-width-text);
+}
+.intro__note {
+  margin-top: var(--space-md);
+}
+.name__home { 
+  @include at-least(md) {
+    font-size: 6.5rem;
   }
-  .intro {
-    max-width: var(--max-width-text);
+  @include at-least(lg) {
+    font-size: 8.5rem;
   }
-  .intro__note {
-    margin-top: var(--space-md);
+  @include at-least(xl) {
+    font-size: 11rem;
   }
+}
 </style>

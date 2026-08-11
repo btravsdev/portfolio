@@ -1,0 +1,92 @@
+---
+import Icon from '../Icon.astro';
+
+const clients = [
+  { name: 'vw', title: 'Volkswagen', wide: false },
+  { name: 'orioles', title: 'Baltimore Orioles', wide: false },
+  { name: 'endeavor', title: 'Endeavor Health', wide: true },
+  { name: 'kmc', title: 'Kawasaki Engines USA', wide: false },
+  { name: 'monumental', title: 'Monumental Sports', wide: false },
+  { name: 'atoz', title: 'A to Z Wineworks', wide: false },
+  { name: 'gcfd', title: 'Greater Chicago Food Depository', wide: false },
+] as const;
+---
+
+<section id="clients" class="section section-clients">
+  <h2 class="section-hdr"><span>Selected Clients</span></h2>
+
+  <ul class="clients-grid list-reset" aria-label="Selected clients">
+    {clients.map((client) => (
+      <li class:list={['clients-grid__item', `clients-grid__item--${client.name}`]}>
+        <Icon
+          name={client.name}
+          title={client.title}
+          class="clients-grid__logo"
+        />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg) var(--space-md);
+  align-items: center;
+  justify-items: center;
+
+  @include at-least(md) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-md) var(--space-lg);
+  }
+}
+
+.clients-grid__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 14rem;
+}
+
+.clients-grid__item--endeavor {
+  grid-column: span 2;
+  max-width: 25rem;
+}
+
+.clients-grid__item--vw {
+  max-width: 10rem;
+}
+
+.clients-grid__item--atoz {
+  max-width: 10rem;
+}
+
+.clients-grid__item--monumental {
+  max-width: 10rem;
+}
+
+.clients-grid__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 2.75rem;
+  color: var(--text-color);
+  fill: currentColor;
+
+  @include at-least(md) {
+    max-height: 3.25rem;
+  }
+}
+
+.clients-grid__item--wide .clients-grid__logo {
+  max-height: 2rem;
+
+  @include at-least(md) {
+    max-height: 2.5rem;
+  }
+}
+</style>
