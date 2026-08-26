@@ -42,6 +42,10 @@ const clients = [
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-md) var(--space-lg);
   }
+
+  @include at-least(2x) {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
 }
 
 .clients-grid__item {

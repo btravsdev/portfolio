@@ -82,7 +82,7 @@ function revealExperienceItem(item: HTMLElement) {
   item.removeAttribute('inert');
 
   const parts = item.querySelectorAll<HTMLElement>(
-    '.experience-item__header, .experience-item__title, .experience-item__description, .experience-item__extra',
+    '.experience-item__header, .experience-item__title, .experience-item__description',
   );
 
   if (parts.length) {

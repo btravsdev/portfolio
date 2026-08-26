@@ -1,31 +1,5 @@
 ---
-const jobs = [
-  {
-    id: 'notorious111',
-    title: 'Developer',
-    company: 'Notorious111',
-    dates: 'August 2022–July 2026',
-    description:
-      'Built and maintained CMS-driven web applications for enterprise and consumer brands using modern front-end frameworks. Collaborated across strategy, design, and development teams while owning complex features, API integrations, and long-term platform improvements.',
-    extra: 'Technical Lead for Kawasaki Engines USA, overseeing the platform launch and ongoing technical evolution. Managed feature development, API integrations, CMS enhancements, and a high-impact A/B testing program that drove seven-figure incremental revenue and delivered conversion rates significantly above industry benchmarks.'
-  },
-  {
-    id: '88bp',
-    title: 'Web Developer, Senior Developer',
-    company: '88 Brand Partners',
-    dates: 'May 2014–August 2022',
-    description:
-      'Built responsive marketing websites, interactive experiences, and custom digital applications while helping establish front-end architecture and serving as the agency’s motion graphics lead.',
-  },
-  {
-    id: 'ppp',
-    title: 'Graphic Designer',
-    company: 'Promotional Product Partners',
-    dates: 'September 2005–May 2014',
-    description:
-      'Led the company’s graphics department while expanding its digital presence through website development and online marketing. This role sparked a transition from graphic design into front-end development and laid the foundation for a career focused on building digital products.',
-  },
-];
+import { jobs } from '../../data/jobs';
 ---
 
 <section id="experience" class="section section-experience">
@@ -40,9 +14,6 @@ const jobs = [
         </h3>
         <p class="experience-item__title">{job.title}</p>
         <p class="experience-item__description">{job.description}</p>
-        {job.extra && (
-          <p class="experience-item__extra"><strong>HIGHLIGHT:</strong> {job.extra}</p>
-        )}
       </li>
     ))}
   </ol>
@@ -82,11 +53,6 @@ const jobs = [
 
 .experience-item__description {
   margin: 0;
-  max-width: var(--max-width-text);
-}
-
-.experience-item__extra {
-  margin: var(--space-lg) 0 0;
   max-width: var(--max-width-text);
 }
 </style>

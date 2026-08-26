@@ -1,8 +1,12 @@
 ---
+import Icon from '../Icon.astro';
+
 interface WorkVideo {
   src: string;
   alt: string;
   poster: string;
+  captionsSrc?: string;
+  caption?: string;
 }
 
 interface WorkImage {
@@ -17,15 +21,17 @@ interface Props {
   description: string;
   tags?: string[];
   link?: { href: string; label: string };
+  highlight?: string;
   video: WorkVideo;
   images?: WorkImage[];
 }
 
-const { id, title, description, tags = [], link, images = [], video } = Astro.props;
+const { id, title, description, tags = [], link, highlight, images = [], video } = Astro.props;
+const captionId = `${id}-video-caption`;
 ---
 
 <article id={id} class="work-item" data-reveal="work-item">
-  <div class="work-video-wrapper" data-reveal="work-video">
+  <figure class="work-video-wrapper" data-reveal="work-video">
     <video
       class="work-video"
       src={video.src}
@@ -36,8 +42,18 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
       playsinline
       preload="metadata"
       aria-label={video.alt}
+      aria-describedby={video.caption ? captionId : undefined}
       data-autoplay-video
-    ></video>
+    >
+      {video.captionsSrc && (
+        <track
+          kind="captions"
+          srclang="en"
+          label="English"
+          src={video.captionsSrc}
+        />
+      )}
+    </video>
     <button
       type="button"
       class="work-video-toggle"
@@ -54,7 +70,12 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
         <path d="M8 5v14l11-7L8 5z" fill="currentColor" />
       </svg>
     </button>
-  </div>
+    {video.caption && (
+      <figcaption id={captionId} class="work-video__caption sr-only">
+        {video.caption}
+      </figcaption>
+    )}
+  </figure>
   {images.length > 0 && (
     <div class="work-imgs" data-reveal="work-images">
       {images.map((image) => (
@@ -63,17 +84,31 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
     </div>
   )}
   <div class="work-item__content" data-reveal="work-content">
-    <h3 class="work-hdr">{title}</h3>
-    <p><Fragment set:html={description} /></p>
+    <h3 class="work-hdr">
+      <span class="work-hdr__title">{title}</span>
+      {link && (
+        <a
+          class="work-hdr__link"
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={link.href}
+          aria-label={`Visit ${link.label} (opens in a new tab)`}
+        >
+          <Icon name="external-link" decorative class="work-hdr__link-icon" />
+        </a>
+      )}
+    </h3>
+    <p class="work-item__description"><Fragment set:html={description} /></p>
+    {highlight && (
+      <p class="work-item__highlight"><strong>HIGHLIGHT:</strong> {highlight}</p>
+    )}
     {tags.length > 0 && (
       <ul class="work-tags list-reset" aria-label="Project tags">
         {tags.map((tag) => (
           <li class="work-tag">{tag}</li>
         ))}
       </ul>
-    )}
-    {link && (
-      <p><strong>Link:</strong> <a href={link.href} class="work-link">{link.label}</a></p>
     )}
   </div>
 </article>
@@ -90,6 +125,11 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
       if (!(toggle instanceof HTMLButtonElement)) return;
 
       node.setAttribute('data-video-bound', '');
+
+      // Keep caption tracks available but not shown as an on-video overlay by default
+      Array.from(node.textTracks).forEach((track) => {
+        track.mode = 'hidden';
+      });
 
       const videoName = toggle.dataset.videoLabel || 'video';
 
@@ -164,6 +204,39 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
   }
 }
 
+.work-hdr {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-bottom: var(--space-sm);
+}
+
+.work-item__description {
+  max-width: var(--max-width-text);
+}
+
+.work-hdr__link {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--link-color);
+  line-height: 0;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--link-color-hover);
+  }
+}
+
+.work-hdr__link-icon {
+  display: block;
+  width: 0.7em;
+  height: 0.7em;
+}
+
+.work-item__highlight {
+  margin: var(--space-lg) 0 0;
+}
+
 .work-imgs {
   display: grid;
 
@@ -205,6 +278,7 @@ const { id, title, description, tags = [], link, images = [], video } = Astro.pr
   grid-area: video;
   position: relative;
   width: 100%;
+  margin: 0;
 }
 
 .work-video {
