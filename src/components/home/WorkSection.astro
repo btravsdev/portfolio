@@ -1,21 +1,46 @@
 ---
 import WorkItem from './WorkItem.astro';
 import DisplayAdsSection from '../ads/DisplayAdsSection.astro';
+import Icon from '../Icon.astro';
 import { workItems } from '../../data/workItems';
 ---
 
 <section id="work" class="section-work section">
-  <h2 class="section-hdr" data-reveal="hdr-line"><span>Selected Work</span></h2>
-  <p class="section-intro">
-    Below are a few projects that highlight my approach to front-end engineering, CMS architecture, and interactive development.
-  </p>
+  <h2 class="section-hdr-hidden sr-only"><span>Selected Work</span></h2>
+  <h3 class="section-hdr" data-reveal="hdr-line"><span>Past launch</span></h3>
+  <WorkItem {...workItems[0]} />
 
-  {workItems.map((item) => <WorkItem {...item} />)}
+  <h3 class="section-hdr" data-reveal="hdr-line"><span>Scale & System</span></h3>
+  <WorkItem {...workItems[1]} />
 
+  <h3 class="section-hdr" data-reveal="hdr-line"><span>Motion & Craft</span></h3>
+  <WorkItem {...workItems[2]} />
+
+  <h3 class="section-hdr" data-reveal="hdr-line"><span>Every KB Matters</span></h3>
   <DisplayAdsSection />
 
   <p class="work-tinkering">
-    See my pinned repos on <a href="https://github.com/btravsdev">GitHub</a> or <a href="https://codepen.io/btravs">CodePen</a> for recent tinkering.
+    See my pinned repos on
+    <a
+      class="work-tinkering__link"
+      href="https://github.com/btravsdev"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GitHub
+      <Icon name="external-link" decorative class="work-tinkering__link-icon" />
+    </a>
+    or
+    <a
+      class="work-tinkering__link"
+      href="https://codepen.io/btravs"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      CodePen
+      <Icon name="external-link" decorative class="work-tinkering__link-icon" />
+    </a>
+    for recent tinkering.
   </p>
 </section>
 
@@ -31,14 +56,35 @@ import { workItems } from '../../data/workItems';
   max-width: var(--max-width-text);
 }
 
-.header-links,
-.header-links:visited {
+.work-tinkering__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0 0.1em;
+  padding: 0.2em 0.55em;
+  background-color: var(--black);
+  color: var(--yellow);
   text-decoration: none;
-  color: var(--black);
+  line-height: 1.3;
+  vertical-align: baseline;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--yellow);
+    background-color: var(--black);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+  }
 }
-.header-links:hover {
-  text-decoration: underline;
-  color: var(--blue);
+
+.work-tinkering__link-icon {
+  display: block;
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
 }
 
 article {

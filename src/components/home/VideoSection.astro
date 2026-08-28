@@ -1,6 +1,12 @@
-<section id="video" class="section-video section gridder">
-  <h2 class="section-hdr" data-reveal="hdr-line"><span>Reel</span></h2>
-  <p class="section-intro">While front-end development is my primary focus, motion graphics has remained a valuable complementary skill throughout my career. This includes:</p>
+---
+import WorkItem from './WorkItem.astro';
+
+const examples = [
+  {
+    id: 'motion-graphics-reel',
+    title: '',
+    description:
+      `<p class="section-intro">While front-end development is my primary focus, motion graphics has remained a valuable complementary skill throughout my career. This includes:</p>
   <ul class="list-video-examples">
     <li>broadcast commercials</li>
     <li>in-stadium jumbotron content</li>
@@ -9,20 +15,24 @@
     <li>and countless video adaptations for different media placements and technical requirements</li>
   </ul>
   <p class="section-intro">That experience has sharpened my eye for timing, storytelling, and visual polish—skills that continue to influence the interactive experiences I build on the web.</p>
-  <p class="section-intro">Here is a video sizzle-reel that was previously built for 88 Brand Partners.</p>
-  <div class="video-wrapper">
-    <video
-      controls
-      poster="/video/poster1.jpg"
-      aria-label="Motion graphics sizzle reel for 88 Brand Partners"
-    >
-      <source src="/video/88AgencyReel_21-2-2022.mp4" type="video/mp4">
-    </video>
-    <p><small>*All motion graphics are mine with exception to television commercial work and live-action video.</small></p>
-  </div>
+  <p class="section-intro">Here is a video sizzle-reel that was previously built for 88 Brand Partners.</p>`,
+    video: {
+      src: '/video/88AgencyReel_21-2-2022.mp4',
+      poster: '/video/poster1.jpg',
+      alt: 'Motion graphics sizzle reel for 88 Brand Partners',
+    },
+  },
+];
+---
+
+<section id="video" class="section-video section gridder">
+  <h2 class="section-hdr" data-reveal="hdr-line"><span>Reel</span></h2>
+  
+  {examples.map((item) => <WorkItem {...item} />)}
+
 </section>
 
-<style>
+<style lang="scss" is:global>
   .list-video-examples {
     list-style: square;
     padding-left: var(--space-md);

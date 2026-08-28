@@ -4,41 +4,41 @@ import { profileLinks } from '../data/profileLinks';
 ---
 
 <nav class="sticky-nav" aria-label="Profile links">
-  <ul class="sticky-nav__list list-reset">
+  <button type="button" class="top-nav__btn" aria-expanded="false" aria-controls="sticky-nav-panel">
+    <span id="bt-logo-wrapper" class="top-nav__icon-wrapper">
+      <svg version="1.1" id="bt-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 12" xml:space="preserve">
+        <rect fill="transparent" width="100%" height="100%"></rect>
+        <g id="whole">
+          <g id="b">
+            <g id="b-inner">
+              <rect id="cross2" class="fill-currcolor" y="5" width="4" height="5"/>
+              <rect id="cross1" class="fill-currcolor" y="2" width="4" height="5"/>
+            </g>
+            <rect id="b-bar" class="fill-currcolor" width="6" height="12"/>
+            <polygon id="b-loop" class="fill-currcolor" points="10,6 10,5 9,5 9,4 5,4 5,6 8,6 8,9 5,9 5,12 8,12 8,11 9,11 9,10 10,10 10,9 11,9 11,6 "/>
+          </g>
+          <g id="t">
+            <rect id="cross4" class="fill-currcolor" x="12" y="5" width="4" height="5"/>
+            <rect id="cross3" class="fill-currcolor" x="12" y="2" width="4" height="5"/>
+            <polygon id="b-loop-invert" class="fill-currcolor" points="13,0 7,0 7,3 9,3 9,4 10,4 10,5 11,5 11,6 12,6 12,9 11,9 11,10 10,10 10,11 9,11 9,12 13,12"/>
+            <rect id="t1" class="fill-currcolor" x="9" y="3" width="4" height="1"/>
+            <rect id="t2" class="fill-currcolor" x="10" y="4" width="3" height="1"/>
+            <rect id="t3" class="fill-currcolor" x="11" y="5" width="2" height="1"/>
+            <rect id="t4" class="fill-currcolor" x="12" y="6" width="1" height="3"/>
+            <rect id="t5" class="fill-currcolor" x="11" y="9" width="2" height="1"/>
+            <rect id="t6" class="fill-currcolor" x="10" y="10" width="3" height="1"/>
+            <rect id="t7" class="fill-currcolor" x="9" y="11" width="4" height="1"/>
+          </g>
+        </g>
+      </svg>
+    </span>
+    <span class="top-nav__label sr-only">Profile links menu</span>
+  </button>
+
+  <div id="sticky-nav-panel" class="sticky-nav__panel">
+    <ul class="sticky-nav__list list-reset">
     <li class="sticky-nav__item--home-and-theme-switcher">
       <ul class="sticky-nav__list-inner list-reset">
-        <li class="sticky-nav__item--home">
-          <a class="top-nav__link" href="/">
-            <span class="top-nav__icon-wrapper">
-              <svg version="1.1" id="bt-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 12" xml:space="preserve">
-                <rect fill="transparent" width="100%" height="100%"></rect>
-                <g id="icon-whole">
-                  <g id="b">
-                    <g id="b-inner">
-                      <rect id="cross2" class="fill-currcolor" y="5" width="4" height="5"/>
-                      <rect id="cross1" class="fill-currcolor" y="2" width="4" height="5"/>
-                    </g>
-                    <rect id="b-bar" class="fill-currcolor" width="6" height="12"/>
-                    <polygon id="b-loop" class="fill-currcolor" points="10,6 10,5 9,5 9,4 5,4 5,6 8,6 8,9 5,9 5,12 8,12 8,11 9,11 9,10 10,10 10,9 11,9 11,6 "/>
-                  </g>
-                  <g id="t">
-                    <rect id="cross4" class="fill-currcolor" x="12" y="5" width="4" height="5"/>
-                    <rect id="cross3" class="fill-currcolor" x="12" y="2" width="4" height="5"/>
-                    <polygon id="b-loop-invert" class="fill-currcolor" points="13,0 7,0 7,3 9,3 9,4 10,4 10,5 11,5 11,6 12,6 12,9 11,9 11,10 10,10 10,11 9,11 9,12 13,12"/>
-                    <rect id="t1" class="fill-currcolor" x="9" y="3" width="4" height="1"/>
-                    <rect id="t2" class="fill-currcolor" x="10" y="4" width="3" height="1"/>
-                    <rect id="t3" class="fill-currcolor" x="11" y="5" width="2" height="1"/>
-                    <rect id="t4" class="fill-currcolor" x="12" y="6" width="1" height="3"/>
-                    <rect id="t5" class="fill-currcolor" x="11" y="9" width="2" height="1"/>
-                    <rect id="t6" class="fill-currcolor" x="10" y="10" width="3" height="1"/>
-                    <rect id="t7" class="fill-currcolor" x="9" y="11" width="4" height="1"/>
-                  </g>
-                </g>
-              </svg>
-            </span>
-            <span class="top-nav__label sr-only">Home</span>
-          </a>
-        </li>
         <li class="sticky-nav__item--theme-switcher">
           <button
             type="button"
@@ -86,7 +86,8 @@ import { profileLinks } from '../data/profileLinks';
         ))}
       </ul>
     </li>
-  </ul>
+    </ul>
+  </div>
 </nav>
 
 <style lang="scss">
@@ -94,9 +95,114 @@ import { profileLinks } from '../data/profileLinks';
 
 .sticky-nav {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   margin-left: auto;
   margin-right: var(--gap);
   margin-bottom: var(--space-lg);
+
+  @include below(md) {
+    position: static;
+    display: block;
+    width: fit-content;
+    margin: 0;
+    padding: 0 var(--gap) var(--space-lg);
+  }
+}
+
+.top-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-lg);
+  height: var(--space-lg);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--link-color);
+  cursor: pointer;
+
+  @include below(md) {
+    position: fixed;
+    top: var(--space-md);
+    right: var(--gap);
+    z-index: 30;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--link-color-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+  }
+
+  @include at-least(md) {
+    width: var(--space-xl);
+    height: var(--space-xl);
+  }
+}
+
+.top-nav__icon-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+.sticky-nav__panel {
+  width: 100%;
+
+  @include below(md) {
+    display: block;
+  }
+
+  @include at-least(md) {
+    display: grid;
+    grid-template-rows: 0fr;
+    justify-items: center;
+    transition: grid-template-rows 0.35s ease 0.5s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}
+
+@include at-least(md) {
+  .sticky-nav:hover .sticky-nav__panel,
+  .sticky-nav:focus-within .sticky-nav__panel,
+  .sticky-nav.is-open .sticky-nav__panel {
+    grid-template-rows: 1fr;
+  }
+}
+
+.sticky-nav__list {
+  @include below(md) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+    overflow: visible;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  @include at-least(md) {
+    overflow: hidden;
+    min-height: 0;
+    padding-top: var(--space-sm);
+  }
 }
 
 .sticky-nav__list-inner {
@@ -105,8 +211,9 @@ import { profileLinks } from '../data/profileLinks';
   gap: var(--space-sm);
 
   @include below(md) {
-    padding-left: var(--gap);
-    padding-right: var(--gap);
+    flex-wrap: wrap;
+    padding: 0;
+    gap: var(--space-md);
   }
 
   @include at-least(md) {
@@ -157,8 +264,8 @@ import { profileLinks } from '../data/profileLinks';
 }
 
 .sticky-nav__icon-wrapper, .site-sidebar__btn {
-  width: var(--space-md);
-  height: var(--space-md);
+  width: var(--space-lg);
+  height: var(--space-lg);
   flex-shrink: 0;
 
   @include at-least(md) {
@@ -223,22 +330,11 @@ import { profileLinks } from '../data/profileLinks';
 
 .sticky-nav__item--home-and-theme-switcher {
   @include below(md) {
-    // Fixed + z-index: sections use z-index: 1 and were swallowing taps
-    position: fixed;
-    top: var(--space-md);
-    right: var(--gap);
-    z-index: 30;
+    display: none;
   }
 
   @include at-least(md) {
-    margin-bottom: var(--space-xl);
-  }
-
-  .sticky-nav__item--theme-switcher .site-sidebar__btn {
-    @include below(md) {
-      width: var(--space-lg);
-      height: var(--space-lg);
-    }
+    margin-bottom: var(--space-lg);
   }
 }
 </style>
@@ -250,9 +346,82 @@ import { profileLinks } from '../data/profileLinks';
   gsap.registerPlugin(MorphSVGPlugin);
 
   let darkModeAnimate: gsap.core.Timeline | null = null;
+  let btLogoAnimate: gsap.core.Timeline | null = null;
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function initBtLogoAnimation(trigger: HTMLButtonElement) {
+    const svg = trigger.querySelector('svg');
+    if (!svg) return;
+
+    const whole = svg.querySelector('#whole');
+    const b = svg.querySelector('#b');
+    const bInner = svg.querySelector('#b-inner');
+    const bLoop = svg.querySelector('#b-loop');
+    const t = svg.querySelector('#t');
+    const tBars = svg.querySelectorAll('#t1,#t2,#t3,#t4,#t5,#t6,#t7');
+    const cross1 = svg.querySelector('#cross1');
+    const cross2 = svg.querySelector('#cross2');
+    const cross3 = svg.querySelector('#cross3');
+    const cross4 = svg.querySelector('#cross4');
+
+    if (!whole || !b || !bInner || !bLoop || !t || !cross1 || !cross2 || !cross3 || !cross4) {
+      return;
+    }
+
+    btLogoAnimate?.kill();
+    gsap.set([whole, b, bInner, bLoop, t, ...Array.from(tBars), cross1, cross2, cross3, cross4], {
+      clearProps: 'all',
+    });
+
+    btLogoAnimate = gsap.timeline({
+      defaults: { duration: 0.15, ease: 'power1.inOut' },
+      paused: true,
+    });
+
+    const t1 = svg.querySelector('#t1');
+    const t2 = svg.querySelector('#t2');
+    const t3 = svg.querySelector('#t3');
+    const t4 = svg.querySelector('#t4');
+    const t5 = svg.querySelector('#t5');
+    const t6 = svg.querySelector('#t6');
+    const t7 = svg.querySelector('#t7');
+
+    btLogoAnimate
+      .set(tBars, { svgOrigin: '13 3' }, 'set')
+      .set(whole, { svgOrigin: '8 6' }, 'set')
+      .to([t1, t7], { scaleX: 1.5 }, 'icon')
+      .to([t2, t6], { scaleX: 2 }, 'icon')
+      .to([t3, t5], { scaleX: 3 }, 'icon')
+      .to(t4, { scaleX: 6 }, 'icon')
+      .to(bLoop, { x: -5 }, 'icon')
+      .to(bInner, { duration: 0.5, x: -3 }, 'icon+=0.02')
+      .to(b, { duration: 0.5, x: 5 }, 'icon+=0.02')
+      .to(t, { duration: 0.5, x: -2 }, 'icon+=0.02')
+      .to(cross1, { y: 1 }, 'icon+=0.1')
+      .to(cross2, { y: -1 }, 'icon+=0.1')
+      .to(cross3, { y: 1 }, 'icon+=0.1')
+      .to(cross4, { y: -1 }, 'icon+=0.1')
+      .addLabel('plus')
+      .to(whole, { scale: 0.8, rotate: 45 }, 'x+=0.1')
+      .addLabel('xend');
+  }
+
+  function playBtLogoHover() {
+    if (!btLogoAnimate || prefersReducedMotion()) return;
+    btLogoAnimate.tweenTo('plus');
+  }
+
+  function playBtLogoOut() {
+    if (!btLogoAnimate || prefersReducedMotion()) return;
+    btLogoAnimate.reverse();
+  }
+
+  function playBtLogoOpen() {
+    if (!btLogoAnimate || prefersReducedMotion()) return;
+    btLogoAnimate.tweenTo('xend');
   }
 
   function syncIconToTheme(animate: boolean) {
@@ -356,5 +525,81 @@ import { profileLinks } from '../data/profileLinks';
     }
   });
 
-  document.addEventListener('astro:page-load', initThemeSwitcher);
+  document.addEventListener('astro:page-load', () => {
+    initThemeSwitcher();
+    initStickyNavMenu();
+  });
+
+  function initStickyNavMenu() {
+    const nav = document.querySelector('.sticky-nav');
+    const trigger = nav?.querySelector('.top-nav__btn');
+    if (!(nav instanceof HTMLElement) || !(trigger instanceof HTMLButtonElement)) return;
+    if (trigger.dataset.menuBound === 'true') return;
+    trigger.dataset.menuBound = 'true';
+
+    initBtLogoAnimation(trigger);
+
+    const isDesktopNav = window.matchMedia('(min-width: 768px)');
+
+    if (!isDesktopNav.matches) {
+      trigger.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    const updateAria = () => {
+      const open =
+        nav.classList.contains('is-open') ||
+        nav.matches(':hover') ||
+        nav.contains(document.activeElement);
+      trigger.setAttribute('aria-expanded', String(open));
+    };
+
+    nav.addEventListener('mouseenter', () => {
+      updateAria();
+      playBtLogoHover();
+    });
+
+    nav.addEventListener('mouseleave', () => {
+      nav.classList.remove('is-open');
+      updateAria();
+      playBtLogoOut();
+    });
+
+    nav.addEventListener('focusin', () => {
+      updateAria();
+      playBtLogoHover();
+    });
+
+    nav.addEventListener('focusout', (event) => {
+      updateAria();
+      if (!nav.contains(event.relatedTarget as Node)) {
+        playBtLogoOut();
+      }
+    });
+
+    if (!canHover) {
+      trigger.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = !nav.classList.contains('is-open');
+        nav.classList.toggle('is-open');
+        updateAria();
+
+        if (willOpen) {
+          playBtLogoOpen();
+        } else {
+          playBtLogoOut();
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!nav.contains(event.target as Node)) {
+          nav.classList.remove('is-open');
+          updateAria();
+          playBtLogoOut();
+        }
+      });
+    }
+  }
 </script>

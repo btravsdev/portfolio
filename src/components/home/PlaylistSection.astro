@@ -9,9 +9,9 @@ const embedSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_sour
 
 <section id="playlist" class="section-playlist section">
   <h2 id="playlist-hdr" class="section-hdr" data-reveal="hdr-line"><span>Playlist</span></h2>
-  <p class="section-intro">There is no typical or standard playlist; whether you want to hear the newest pop tracks, classic Motown or just want to do the chicken dance, I can help make the perfect soundtrack for your event. But here is a sample playlist of some of my current favorites.</p>
-  <div class="section-content playlist-wrapper">
-    <iframe
+  <article id="playlist" class="work-item" data-reveal="work-item">
+    <figure class="work-video-wrapper" data-reveal="work-video">
+      <iframe
       style="border-radius:12px"
       src={embedSrc}
       width="100%"
@@ -21,5 +21,93 @@ const embedSrc = `https://open.spotify.com/embed/playlist/${playlistId}?utm_sour
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
       title="Spotify playlist"></iframe>
-  </div>
+    </figure>
+    <div class="work-item__content work-item__description" data-reveal="work-content">
+      <p class="section-intro">There is no typical or standard playlist; whether you want to hear the newest pop tracks, classic Motown or just want to do the chicken dance, I can help make the perfect soundtrack for your event. But here is a sample playlist of some of my current favorites.</p>
+    </div>
+  </article>
+
 </section>
+
+<style lang="scss" is:global>
+  @use '../../styles/breakpoints' as *;
+  
+  .work-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding-bottom: var(--space-2x);
+    border-bottom: 1px solid var(--text-color);
+    margin-bottom: calc(var(--space-2x) + 2px);
+  
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  
+    @include at-least(md) {
+      display: grid;
+      grid-template-columns: var(--max-width-focus) 1fr;
+      grid-template-areas: 'video content'
+      'imgs content';
+      gap: var(--gap);
+    }
+  }
+  
+  .work-item__content {
+    @include at-least(md) {
+      grid-area: content;
+      position: sticky;
+      top: 0;
+      height: fit-content;
+    }
+  
+    @include at-least(lg) {
+      padding-left: var(--space-lg);
+    }
+  }
+  
+  .work-item__description {
+    max-width: var(--max-width-text);
+  }
+  
+  .work-hdr__link {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--link-color);
+    line-height: 0;
+  
+    &:hover,
+    &:focus-visible {
+      color: var(--link-color-hover);
+    }
+  }
+  
+  .work-hdr__link-icon {
+    display: block;
+    width: 0.7em;
+    height: 0.7em;
+  }
+  
+  .work-item__highlight {
+    margin: var(--space-lg) 0 0;
+  }
+  
+  .work-imgs {
+    display: grid;
+  
+    @include at-least(md) {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      grid-area: imgs;
+    }
+  }
+  
+  .work-video-wrapper {
+    grid-area: video;
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+  </style>

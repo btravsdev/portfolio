@@ -1,5 +1,5 @@
 ---
-import { roles, roleList, type RoleId } from '../../data/roles';
+import { roles, roleList, heroIntrosByPath, type RoleId } from '../../data/roles';
 
 interface Props {
   role?: RoleId;
@@ -10,79 +10,146 @@ const current = roles[role];
 ---
 
 <header class="site-header section">
-  <div class="title-wrapper">
-    <h1 class="title title__home">
-      <span class="hello hello__home">Howdy, I'm</span>
-      <span class="name name__home">Brian Travers</span>
-    </h1>
-  </div>
-  <div class="intro intro__home">
-    <p>
-      a Chicago-based
-      <label class="role-picker">
-        <span class="sr-only">Choose a role</span>
-        <select class="role-picker__select" name="role" data-role-picker>
-          {roleList.map((option) => (
-            <option value={option.path} selected={option.id === role}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      {current.blurb}
+  <h1 class="hero-copy hero-copy__title">Howdy, I'm Brian Travers.</h1>
+  <p class="hero-copy hero-copy__intro" data-role-intros={JSON.stringify(heroIntrosByPath)}>
+    A Chicago-based
+    <label class="role-picker">
+      <span class="sr-only">Choose a role</span>
+      <span class="role-picker__sizer" aria-hidden="true" data-role-picker-sizer>
+        {current.label}
+      </span>
+      <select class="role-picker__select" name="role" data-role-picker>
+        {roleList.map((option) => (
+          <option value={option.path} selected={option.id === role}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </label>
+    <span data-role-intro-tail> {current.heroIntro}</span>
+  </p>
+  {current.note && (
+    <p class="hero-copy__note">
+      <Fragment set:html={current.note} />
     </p>
-    {current.note && (
-      <p class="intro__note">
-        <Fragment set:html={current.note} />
-      </p>
-    )}
-  </div>
+  )}
 </header>
 
 <script>
   import { navigate } from 'astro:transitions/client';
 
+  function normalizePath(path: string) {
+    const trimmed = path.replace(/\/$/, '');
+    return trimmed || '/';
+  }
+
+  function getRoleIntros(): Record<string, string> {
+    const el = document.querySelector('[data-role-intros]');
+    if (!(el instanceof HTMLElement) || !el.dataset.roleIntros) return {};
+
+    try {
+      return JSON.parse(el.dataset.roleIntros) as Record<string, string>;
+    } catch {
+      return {};
+    }
+  }
+
+  function updateRoleIntro(path: string) {
+    const tail = document.querySelector('[data-role-intro-tail]');
+    const intros = getRoleIntros();
+    const intro = intros[path] ?? intros[normalizePath(path)];
+    if (tail && intro) {
+      tail.textContent = ` ${intro}`;
+    }
+  }
+
+  function syncRolePickerWidth(picker: HTMLSelectElement) {
+    const sizer = picker
+      .closest('.role-picker')
+      ?.querySelector<HTMLElement>('[data-role-picker-sizer]');
+    if (!sizer) return;
+
+    const selectedText = picker.options[picker.selectedIndex]?.text ?? '';
+    sizer.textContent = selectedText;
+
+    const styles = getComputedStyle(picker);
+    sizer.style.font = styles.font;
+    sizer.style.letterSpacing = styles.letterSpacing;
+    sizer.style.textTransform = styles.textTransform;
+
+    const width = sizer.offsetWidth;
+    const wrapper = picker.closest('.role-picker');
+    if (wrapper instanceof HTMLElement) {
+      wrapper.style.width = `${width}px`;
+    }
+  }
+
   function bindRolePicker() {
     const picker = document.querySelector('[data-role-picker]');
     if (!(picker instanceof HTMLSelectElement)) return;
 
-    picker.onchange = () => {
-      const next = picker.value;
-      if (next && next !== window.location.pathname) {
-        navigate(next);
-      }
-    };
+    const sync = () => syncRolePickerWidth(picker);
+
+    sync();
+    document.fonts?.ready.then(sync).catch(() => {});
+
+    if (!picker.dataset.rolePickerBound) {
+      picker.dataset.rolePickerBound = 'true';
+
+      const resizeObserver = new ResizeObserver(sync);
+      resizeObserver.observe(picker);
+
+      picker.addEventListener('change', () => {
+        const next = picker.value;
+        sync();
+        updateRoleIntro(next);
+
+        if (next && normalizePath(next) !== normalizePath(window.location.pathname)) {
+          navigate(next);
+        }
+      });
+    }
   }
 
   document.addEventListener('astro:page-load', bindRolePicker);
 </script>
 
-
 <style lang="scss">
 @use '../../styles/breakpoints' as *;
 
 .site-header {
-  padding-top: var(--space-2x);
-  padding-bottom: var(--space-3x);
-}
-.intro {
-  max-width: var(--max-width-text);
-}
-.intro__note {
-  margin-top: var(--space-md);
-}
-.name__home { 
+  padding-top: var(--space-3x);
+  padding-bottom: var(--space-lg);
+
   @include at-least(md) {
-    font-size: 6.5rem;
+    padding-bottom: var(--space-3x);
   }
+}
+
+.hero-copy {
+  max-width: 1600px;
+  margin: 0;
+  padding-top: 0;
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-normal);
+  line-height: 1.25;
+  font-size: clamp(1.5rem, 3.5vw + 0.75rem, 2.75rem);
+
+  @include at-least(md) {
+    line-height: 1.3;
+    font-size: clamp(1.75rem, 2.8vw + 0.5rem, 3.25rem);
+  }
+
   @include at-least(lg) {
-    font-size: 8.5rem;
+    font-size: clamp(2rem, 2.2vw + 0.75rem, 3.5rem);
   }
-  @include at-least(xl) {
-    font-size: 11rem;
-  }
-  @include at-least(2x) {
-    font-size: 15rem;
-  }
+}
+
+.hero-copy__note {
+  max-width: var(--max-width-text);
+  margin: var(--space-md) 0 0;
+  font-size: var(--font-size-normal);
+  font-weight: var(--weight-normal);
+  line-height: 1.5;
 }
 </style>

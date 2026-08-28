@@ -4,8 +4,8 @@ export const roles = {
     path: '/is-a-developer',
     label: 'front-end engineer',
     title: 'Brian Travers is a front-end engineer',
-    blurb:
-      ' with a background in graphic design and 10+ years of agency experience building modern, CMS-driven web applications.',
+    heroIntro:
+      'with 12+ years of agency experience and a graphic-design background, I build accessible, responsive, maintainable digital applications.',
     note: undefined,
   },
   designer: {
@@ -13,17 +13,17 @@ export const roles = {
     path: '/is-a-designer',
     label: 'designer',
     title: 'Brian Travers is a designer',
-    blurb:
-      '. Graphic design is an important element to my career as a front-end engineer, so occasionally I like to take on work specifically doing design to keep those skills sharp. Below are some examples of that work.',
+    heroIntro:
+      'with a career rooted in graphic design and front-end engineering, I take on selective design work to keep those skills sharp and bring a strong visual point of view to digital products.',
     note: undefined,
   },
   motion: {
     id: 'motion',
-    path: '/does-motion-graphic-designer',
+    path: '/does-motion-graphics',
     label: 'motion graphic designer',
     title: 'Brian Travers also does motion graphics',
-    blurb:
-      'with a with enough knowledge of Adobe Premiere and After Effects to be dangerous.',
+    heroIntro:
+      "with enough knowledge of Adobe Premiere and After Effects to be dangerous.",
     note: undefined,
   },
   deejay: {
@@ -31,8 +31,8 @@ export const roles = {
     path: '/is-a-deejay',
     label: 'deejay',
     title: 'Brian Travers is a deejay',
-    blurb:
-      ", with over 20 years experience doing a variety of events, including bars, weddings, block parties, grade school dances, high school proms, ring dances, office holiday parties, birthday parties, christenings, communions, St. Patrick's day parades, back-yard parties.",
+    heroIntro:
+      "with 20+ years of experience across weddings, bars, block parties, school dances, office parties, and everything in between, I help craft the soundtrack for your event.",
     note: undefined,
   },
 } as const;
@@ -40,3 +40,7 @@ export const roles = {
 export type RoleId = keyof typeof roles;
 
 export const roleList = Object.values(roles);
+
+export const heroIntrosByPath = Object.fromEntries(
+  roleList.map((role) => [role.path, role.heroIntro]),
+) as Record<string, string>;

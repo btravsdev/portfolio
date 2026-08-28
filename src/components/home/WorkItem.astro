@@ -172,15 +172,7 @@ const captionId = `${id}-video-caption`;
   display: flex;
   flex-direction: column;
   gap: var(--gap);
-  padding-bottom: var(--space-2x);
-  border-bottom: 1px solid var(--text-color);
-  margin-bottom: calc(var(--space-2x) + 2px);
-
-  &:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
+  padding-bottom: var(--space-lg);
 
   @include at-least(md) {
     display: grid;

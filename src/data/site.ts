@@ -94,7 +94,7 @@ export const pageSeo = {
     title: 'Brian Travers — Motion Graphics',
     description:
       'Motion graphics reel by Brian Travers, former motion graphics lead at 88 Brand Partners. After Effects and animation work for brand and agency clients.',
-    path: '/does-motion-graphic-designer',
+    path: '/does-motion-graphics',
     ogType: 'profile' as const,
     image: '/img/og-motion.jpg',
     imageAlt: 'Brian Travers — Motion Graphics',
