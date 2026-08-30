@@ -28,10 +28,10 @@ export const profileLinks = [
   },
   {
     id: 'resume',
-    href: '/btravs-resume-2026-Aug11.pdf',
+    href: '/btravs-resume-2026-Aug28.pdf',
     icon: 'pdf',
     iconTitle: 'PDF icon',
     label: 'Resume',
-    detail: 'btravs-resume-2026-Aug11.pdf',
+    detail: 'btravs-resume-2026-Aug28.pdf',
   },
 ] as const;

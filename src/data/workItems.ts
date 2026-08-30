@@ -59,7 +59,7 @@ export const workItems: WorkItem[] = [
     id: 'ev-website',
     title: 'Engel & Völkers Americas',
     description:
-      'Contributed significant front-end development to this large-scale Next.js application, collaborating with designers, developers, and back-end engineers to integrate complex API data with a Contentful CMS. Owned several key components and helped maintain the platform through ongoing enhancements and production support.',
+      'Front-end on this large-scale Next.js application, working with design, engineering, and back-end to integrate complex API data with a Contentful CMS. In addition to the scale, there were significant challenges to maintain privacy, accessibility and language compliance across different US states and international markets. Owned several key components and stayed on through enhancements and production support.',
     tags: ['Next.js', 'React', 'TypeScript', 'Contentful', 'API'],
     link: { href: 'https://www.evrealestate.com/', label: 'evrealestate.com' },
     video: {
