@@ -179,8 +179,6 @@ import { profileLinks } from '../data/profileLinks';
 }
 
 @include at-least(md) {
-  .sticky-nav:hover .sticky-nav__panel,
-  .sticky-nav:focus-within .sticky-nav__panel,
   .sticky-nav.is-open .sticky-nav__panel {
     grid-template-rows: 1fr;
   }
@@ -409,19 +407,19 @@ import { profileLinks } from '../data/profileLinks';
       .addLabel('xend');
   }
 
-  function playBtLogoHover() {
+  function playBtLogoPlus() {
     if (!btLogoAnimate || prefersReducedMotion()) return;
     btLogoAnimate.tweenTo('plus');
   }
 
-  function playBtLogoOut() {
-    if (!btLogoAnimate || prefersReducedMotion()) return;
-    btLogoAnimate.reverse();
-  }
-
-  function playBtLogoOpen() {
+  function playBtLogoX() {
     if (!btLogoAnimate || prefersReducedMotion()) return;
     btLogoAnimate.tweenTo('xend');
+  }
+
+  function playBtLogoReset() {
+    if (!btLogoAnimate || prefersReducedMotion()) return;
+    btLogoAnimate.reverse();
   }
 
   function syncIconToTheme(animate: boolean) {
@@ -548,58 +546,73 @@ import { profileLinks } from '../data/profileLinks';
 
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    const updateAria = () => {
-      const open =
-        nav.classList.contains('is-open') ||
-        nav.matches(':hover') ||
-        nav.contains(document.activeElement);
+    const isOpen = () => nav.classList.contains('is-open');
+
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle('is-open', open);
       trigger.setAttribute('aria-expanded', String(open));
     };
 
-    nav.addEventListener('mouseenter', () => {
-      updateAria();
-      playBtLogoHover();
-    });
-
-    nav.addEventListener('mouseleave', () => {
-      nav.classList.remove('is-open');
-      updateAria();
-      playBtLogoOut();
-    });
-
-    nav.addEventListener('focusin', () => {
-      updateAria();
-      playBtLogoHover();
-    });
-
-    nav.addEventListener('focusout', (event) => {
-      updateAria();
-      if (!nav.contains(event.relatedTarget as Node)) {
-        playBtLogoOut();
-      }
-    });
-
-    if (!canHover) {
-      trigger.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const willOpen = !nav.classList.contains('is-open');
-        nav.classList.toggle('is-open');
-        updateAria();
-
-        if (willOpen) {
-          playBtLogoOpen();
+    // Closed: hover → plus. Open: hover → X. Leave → plus if open, logo if closed.
+    if (canHover) {
+      trigger.addEventListener('mouseenter', () => {
+        if (isOpen()) {
+          playBtLogoX();
         } else {
-          playBtLogoOut();
+          playBtLogoPlus();
         }
       });
 
-      document.addEventListener('click', (event) => {
-        if (!nav.contains(event.target as Node)) {
-          nav.classList.remove('is-open');
-          updateAria();
-          playBtLogoOut();
+      trigger.addEventListener('mouseleave', () => {
+        if (isOpen()) {
+          playBtLogoPlus();
+        } else {
+          playBtLogoReset();
+        }
+      });
+
+      trigger.addEventListener('focus', () => {
+        if (!trigger.matches(':focus-visible')) return;
+        if (isOpen()) {
+          playBtLogoX();
+        } else {
+          playBtLogoPlus();
+        }
+      });
+
+      trigger.addEventListener('blur', () => {
+        if (isOpen()) {
+          playBtLogoPlus();
+        } else {
+          playBtLogoReset();
         }
       });
     }
+
+    trigger.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const willOpen = !isOpen();
+      setOpen(willOpen);
+
+      if (willOpen) {
+        playBtLogoPlus();
+      } else {
+        playBtLogoReset();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!isOpen()) return;
+      if (nav.contains(event.target as Node)) return;
+      setOpen(false);
+      playBtLogoReset();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !isOpen()) return;
+      setOpen(false);
+      playBtLogoReset();
+      trigger.focus();
+    });
   }
 </script>

@@ -14,6 +14,15 @@ import { jobs } from '../../data/jobs';
         </h3>
         <p class="experience-item__title">{job.title}</p>
         <p class="experience-item__description">{job.description}</p>
+        {job.bulletPoints && job.bulletPoints.length > 0 && (
+          <ul class="experience-item__bullets list-reset">
+            {job.bulletPoints.map((point) => (
+              <li>
+                <Fragment set:html={point} />
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     ))}
   </ol>
@@ -49,10 +58,35 @@ import { jobs } from '../../data/jobs';
   font-size: var(--font-size-h5);
   font-weight: var(--weight-normal);
 }
-  
 
 .experience-item__description {
   margin: 0;
   max-width: var(--max-width-text);
+}
+
+.experience-item__bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0 0;
+  max-width: var(--max-width-text);
+}
+
+.experience-item__bullets li {
+  position: relative;
+  padding-left: 1.75rem;
+  line-height: 1.45;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.2em;
+    left: 0;
+    width: 1.1rem;
+    height: 0.825rem;
+    background-color: currentColor;
+    mask: url('/img/bt-logo.svg') center / contain no-repeat;
+    -webkit-mask: url('/img/bt-logo.svg') center / contain no-repeat;
+  }
 }
 </style>
