@@ -159,6 +159,31 @@ import { profileLinks } from '../data/profileLinks';
   }
 }
 
+/* Plus → X via CSS so it runs as soon as is-open is set while still hovering */
+#bt-logo {
+  transform-origin: center center;
+  transition: transform 0.15s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.top-nav__btn:active #bt-logo {
+  transform: scale(0.9);
+  transition-duration: 0.08s;
+}
+
+.sticky-nav.is-open .top-nav__btn:hover #bt-logo,
+.sticky-nav.is-open .top-nav__btn:focus-visible #bt-logo {
+  transform: rotate(45deg);
+}
+
+.sticky-nav.is-open .top-nav__btn:active #bt-logo {
+  transform: rotate(45deg) scale(0.9);
+  transition-duration: 0.08s;
+}
+
 .sticky-nav__panel {
   width: 100%;
 
@@ -181,6 +206,10 @@ import { profileLinks } from '../data/profileLinks';
 @include at-least(md) {
   .sticky-nav.is-open .sticky-nav__panel {
     grid-template-rows: 1fr;
+  }
+
+  .sticky-nav.is-open .sticky-nav__list {
+    overflow: visible;
   }
 }
 
@@ -288,7 +317,8 @@ import { profileLinks } from '../data/profileLinks';
     position: absolute;
     right: calc(100% + var(--space-sm));
     top: 50%;
-    transform: translateY(-50%);
+    z-index: 2;
+    transform: translate(0.35rem, -50%);
     padding: 0.2rem 0.45rem;
     border: 1px solid var(--black);
     background: var(--offwhite);
@@ -296,12 +326,27 @@ import { profileLinks } from '../data/profileLinks';
     font-size: var(--font-size-tiny);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.15s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+
+    html[data-theme='dark'] &,
+    :global(body.dark-theme) & {
+      border-color: var(--offwhite);
+      background: var(--black);
+      color: var(--offwhite);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: opacity 0.15s ease;
+      transform: translateY(-50%);
+    }
   }
 
   .sticky-nav__link:hover .sticky-nav__label,
   .sticky-nav__link:focus-visible .sticky-nav__label {
     opacity: 1;
+    transform: translate(0, -50%);
   }
 }
 
@@ -345,9 +390,31 @@ import { profileLinks } from '../data/profileLinks';
 
   let darkModeAnimate: gsap.core.Timeline | null = null;
   let btLogoAnimate: gsap.core.Timeline | null = null;
+  let btLogoRoot: Element | null = null;
+  let themeIconRoot: Element | null = null;
+  let stickyNavAbort: AbortController | null = null;
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function killStickyNavAnimations() {
+    btLogoAnimate?.kill();
+    btLogoAnimate = null;
+    btLogoRoot = null;
+    darkModeAnimate?.kill();
+    darkModeAnimate = null;
+    themeIconRoot = null;
+    stickyNavAbort?.abort();
+    stickyNavAbort = null;
+  }
+
+  function btLogoIsLive() {
+    return Boolean(btLogoAnimate && btLogoRoot?.isConnected);
+  }
+
+  function themeIconIsLive() {
+    return Boolean(darkModeAnimate && themeIconRoot?.isConnected);
   }
 
   function initBtLogoAnimation(trigger: HTMLButtonElement) {
@@ -359,26 +426,6 @@ import { profileLinks } from '../data/profileLinks';
     const bInner = svg.querySelector('#b-inner');
     const bLoop = svg.querySelector('#b-loop');
     const t = svg.querySelector('#t');
-    const tBars = svg.querySelectorAll('#t1,#t2,#t3,#t4,#t5,#t6,#t7');
-    const cross1 = svg.querySelector('#cross1');
-    const cross2 = svg.querySelector('#cross2');
-    const cross3 = svg.querySelector('#cross3');
-    const cross4 = svg.querySelector('#cross4');
-
-    if (!whole || !b || !bInner || !bLoop || !t || !cross1 || !cross2 || !cross3 || !cross4) {
-      return;
-    }
-
-    btLogoAnimate?.kill();
-    gsap.set([whole, b, bInner, bLoop, t, ...Array.from(tBars), cross1, cross2, cross3, cross4], {
-      clearProps: 'all',
-    });
-
-    btLogoAnimate = gsap.timeline({
-      defaults: { duration: 0.15, ease: 'power1.inOut' },
-      paused: true,
-    });
-
     const t1 = svg.querySelector('#t1');
     const t2 = svg.querySelector('#t2');
     const t3 = svg.querySelector('#t3');
@@ -386,10 +433,25 @@ import { profileLinks } from '../data/profileLinks';
     const t5 = svg.querySelector('#t5');
     const t6 = svg.querySelector('#t6');
     const t7 = svg.querySelector('#t7');
+    const cross1 = svg.querySelector('#cross1');
+    const cross2 = svg.querySelector('#cross2');
+    const cross3 = svg.querySelector('#cross3');
+    const cross4 = svg.querySelector('#cross4');
+
+    const parts = [whole, b, bInner, bLoop, t, t1, t2, t3, t4, t5, t6, t7, cross1, cross2, cross3, cross4];
+    if (parts.some((part) => !part)) return;
+
+    btLogoAnimate?.kill();
+    btLogoRoot = svg;
+    gsap.set(parts, { clearProps: 'all' });
+
+    btLogoAnimate = gsap.timeline({
+      defaults: { duration: 0.15, ease: 'power1.inOut' },
+      paused: true,
+    });
 
     btLogoAnimate
-      .set(tBars, { svgOrigin: '13 3' }, 'set')
-      .set(whole, { svgOrigin: '8 6' }, 'set')
+      .set([t1, t2, t3, t4, t5, t6, t7], { svgOrigin: '13 3' }, 'set')
       .to([t1, t7], { scaleX: 1.5 }, 'icon')
       .to([t2, t6], { scaleX: 2 }, 'icon')
       .to([t3, t5], { scaleX: 3 }, 'icon')
@@ -402,41 +464,34 @@ import { profileLinks } from '../data/profileLinks';
       .to(cross2, { y: -1 }, 'icon+=0.1')
       .to(cross3, { y: 1 }, 'icon+=0.1')
       .to(cross4, { y: -1 }, 'icon+=0.1')
-      .addLabel('plus')
-      .to(whole, { scale: 0.8, rotate: 45 }, 'x+=0.1')
-      .addLabel('xend');
+      .addLabel('plus');
   }
 
   function playBtLogoPlus() {
-    if (!btLogoAnimate || prefersReducedMotion()) return;
-    btLogoAnimate.tweenTo('plus');
-  }
-
-  function playBtLogoX() {
-    if (!btLogoAnimate || prefersReducedMotion()) return;
-    btLogoAnimate.tweenTo('xend');
+    if (!btLogoIsLive() || prefersReducedMotion()) return;
+    btLogoAnimate!.tweenTo('plus');
   }
 
   function playBtLogoReset() {
-    if (!btLogoAnimate || prefersReducedMotion()) return;
-    btLogoAnimate.reverse();
+    if (!btLogoIsLive() || prefersReducedMotion()) return;
+    btLogoAnimate!.reverse();
   }
 
   function syncIconToTheme(animate: boolean) {
-    if (!darkModeAnimate) return;
+    if (!themeIconIsLive()) return;
 
     const isDark = document.body.classList.contains('dark-theme');
     const shouldAnimate = animate && !prefersReducedMotion();
 
     if (!shouldAnimate) {
-      darkModeAnimate.progress(isDark ? 1 : 0);
+      darkModeAnimate!.progress(isDark ? 1 : 0);
       return;
     }
 
     if (isDark) {
-      darkModeAnimate.play();
+      darkModeAnimate!.play();
     } else {
-      darkModeAnimate.reverse();
+      darkModeAnimate!.reverse();
     }
   }
 
@@ -458,20 +513,18 @@ import { profileLinks } from '../data/profileLinks';
   }
 
   function previewOppositeTheme() {
-    if (!darkModeAnimate || prefersReducedMotion()) return;
+    if (!themeIconIsLive() || prefersReducedMotion()) return;
 
     if (document.body.classList.contains('dark-theme')) {
-      darkModeAnimate.reverse();
+      darkModeAnimate!.reverse();
     } else {
-      darkModeAnimate.play();
+      darkModeAnimate!.play();
     }
   }
 
-  function initThemeSwitcher() {
+  function initThemeSwitcher(signal: AbortSignal) {
     const toggleDark = document.getElementById('theme-switcher');
     if (!(toggleDark instanceof HTMLButtonElement)) return;
-    if (toggleDark.dataset.bound === 'true') return;
-    toggleDark.dataset.bound = 'true';
 
     const sun = document.getElementById('sun-icon');
     const moon = document.getElementById('moon-icon');
@@ -479,6 +532,7 @@ import { profileLinks } from '../data/profileLinks';
     if (!sun || !moon || !ray) return;
 
     darkModeAnimate?.kill();
+    themeIconRoot = sun;
     gsap.set(ray, { strokeDasharray: 10, strokeDashoffset: 0 });
 
     darkModeAnimate = gsap.timeline({
@@ -493,47 +547,35 @@ import { profileLinks } from '../data/profileLinks';
     const prefersDark = stored === 'dark' || document.body.classList.contains('dark-theme');
     setTheme(prefersDark ? 'dark' : 'light', false);
 
-    toggleDark.addEventListener('click', () => {
-      const nextTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
-      setTheme(nextTheme, true);
-      localStorage.setItem('theme', nextTheme);
-    });
+    toggleDark.addEventListener(
+      'click',
+      () => {
+        const nextTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+        setTheme(nextTheme, true);
+        localStorage.setItem('theme', nextTheme);
+      },
+      { signal },
+    );
 
-    // Hover preview only on devices that actually hover (not sticky touch "hover")
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (canHover) {
-      toggleDark.addEventListener('mouseenter', previewOppositeTheme);
-      toggleDark.addEventListener('mouseleave', () => syncIconToTheme(true));
-      toggleDark.addEventListener('focus', () => {
-        if (toggleDark.matches(':focus-visible')) previewOppositeTheme();
-      });
-      toggleDark.addEventListener('blur', () => syncIconToTheme(true));
+      toggleDark.addEventListener('mouseenter', previewOppositeTheme, { signal });
+      toggleDark.addEventListener('mouseleave', () => syncIconToTheme(true), { signal });
+      toggleDark.addEventListener(
+        'focus',
+        () => {
+          if (toggleDark.matches(':focus-visible')) previewOppositeTheme();
+        },
+        { signal },
+      );
+      toggleDark.addEventListener('blur', () => syncIconToTheme(true), { signal });
     }
   }
 
-  document.addEventListener('astro:before-swap', (event) => {
-    const nextDocument = (event as Event & { newDocument?: Document }).newDocument;
-    if (!nextDocument) return;
-
-    if (localStorage.getItem('theme') === 'dark') {
-      nextDocument.body.classList.add('dark-theme');
-      nextDocument.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      nextDocument.documentElement.setAttribute('data-theme', 'light');
-    }
-  });
-
-  document.addEventListener('astro:page-load', () => {
-    initThemeSwitcher();
-    initStickyNavMenu();
-  });
-
-  function initStickyNavMenu() {
+  function initStickyNavMenu(signal: AbortSignal) {
     const nav = document.querySelector('.sticky-nav');
     const trigger = nav?.querySelector('.top-nav__btn');
     if (!(nav instanceof HTMLElement) || !(trigger instanceof HTMLButtonElement)) return;
-    if (trigger.dataset.menuBound === 'true') return;
-    trigger.dataset.menuBound = 'true';
 
     initBtLogoAnimation(trigger);
 
@@ -553,66 +595,88 @@ import { profileLinks } from '../data/profileLinks';
       trigger.setAttribute('aria-expanded', String(open));
     };
 
-    // Closed: hover → plus. Open: hover → X. Leave → plus if open, logo if closed.
     if (canHover) {
-      trigger.addEventListener('mouseenter', () => {
-        if (isOpen()) {
-          playBtLogoX();
-        } else {
-          playBtLogoPlus();
-        }
-      });
-
-      trigger.addEventListener('mouseleave', () => {
-        if (isOpen()) {
-          playBtLogoPlus();
-        } else {
-          playBtLogoReset();
-        }
-      });
-
-      trigger.addEventListener('focus', () => {
-        if (!trigger.matches(':focus-visible')) return;
-        if (isOpen()) {
-          playBtLogoX();
-        } else {
-          playBtLogoPlus();
-        }
-      });
-
-      trigger.addEventListener('blur', () => {
-        if (isOpen()) {
-          playBtLogoPlus();
-        } else {
-          playBtLogoReset();
-        }
-      });
+      // BT ↔ plus stays in JS; plus → X is CSS on .is-open:hover / :focus-visible
+      trigger.addEventListener('mouseenter', playBtLogoPlus, { signal });
+      trigger.addEventListener(
+        'mouseleave',
+        () => {
+          if (!isOpen()) playBtLogoReset();
+        },
+        { signal },
+      );
+      trigger.addEventListener(
+        'focus',
+        () => {
+          if (trigger.matches(':focus-visible')) playBtLogoPlus();
+        },
+        { signal },
+      );
+      trigger.addEventListener(
+        'blur',
+        () => {
+          if (!isOpen()) playBtLogoReset();
+        },
+        { signal },
+      );
     }
 
-    trigger.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const willOpen = !isOpen();
-      setOpen(willOpen);
+    trigger.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        const willOpen = !isOpen();
+        setOpen(willOpen);
 
-      if (willOpen) {
-        playBtLogoPlus();
-      } else {
+        if (willOpen) playBtLogoPlus();
+        else playBtLogoReset();
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!isOpen()) return;
+        if (nav.contains(event.target as Node)) return;
+        setOpen(false);
         playBtLogoReset();
-      }
-    });
+      },
+      { signal },
+    );
 
-    document.addEventListener('click', (event) => {
-      if (!isOpen()) return;
-      if (nav.contains(event.target as Node)) return;
-      setOpen(false);
-      playBtLogoReset();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape' || !isOpen()) return;
-      setOpen(false);
-      playBtLogoReset();
-      trigger.focus();
-    });
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Escape' || !isOpen()) return;
+        setOpen(false);
+        playBtLogoReset();
+        trigger.focus();
+      },
+      { signal },
+    );
   }
+
+  document.addEventListener('astro:before-swap', (event) => {
+    killStickyNavAnimations();
+
+    const nextDocument = (event as Event & { newDocument?: Document }).newDocument;
+    if (!nextDocument) return;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      nextDocument.body.classList.add('dark-theme');
+      nextDocument.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      nextDocument.documentElement.setAttribute('data-theme', 'light');
+    }
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    killStickyNavAnimations();
+    stickyNavAbort = new AbortController();
+    const { signal } = stickyNavAbort;
+
+    initThemeSwitcher(signal);
+    initStickyNavMenu(signal);
+  });
 </script>

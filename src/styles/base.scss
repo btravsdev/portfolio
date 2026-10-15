@@ -418,61 +418,73 @@ small, .text_small {
 
 .site-header {
   padding-bottom: var(--space-4x);
+  mix-blend-mode: multiply;
+
+  html[data-theme='dark'] &,
+  body.dark-theme & {
+    mix-blend-mode: normal;
+  }
 }
 
-.role-picker {
-  display: inline-block;
+.role-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22em;
   vertical-align: baseline;
-  max-width: 100%;
-}
-
-.role-picker__sizer,
-.role-picker__select {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0.08em 1.35em 0.08em 0.3em;
+  margin: 0 0.05em;
+  padding: 0.08em 0.3em;
   border: 0;
-  font: inherit;
-  line-height: inherit;
-}
-
-.role-picker__sizer {
-  display: block;
-  height: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.role-picker__select {
-  appearance: none;
-  -webkit-appearance: none;
-  display: block;
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-  field-sizing: content;
-  border-radius: 0;
   background-color: var(--black);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--yellow) 50%),
-    linear-gradient(135deg, var(--yellow) 50%, transparent 50%);
-  background-position:
-    calc(100% - 0.55em) 0.55em,
-    calc(100% - 0.2em) 0.55em;
-  background-size: 0.35em 0.35em, 0.35em 0.35em;
-  background-repeat: no-repeat;
-  color: var(--yellow);
+  /* White text + header multiply knocks out to the page gradient */
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  line-height: 0.9;
   cursor: pointer;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
 
   &:hover,
+  &:focus-visible,
+  &:visited {
+    color: #fff;
+  }
+
   &:focus-visible {
-    color: var(--yellow);
-    background-color: var(--black);
-    outline: 2px solid var(--yellow);
+    outline: 2px solid var(--black);
     outline-offset: 2px;
   }
+
+  html[data-theme='dark'] &,
+  body.dark-theme & {
+    color: var(--yellow);
+
+    &:hover,
+    &:focus-visible,
+    &:visited {
+      color: var(--yellow);
+    }
+
+    &:focus-visible {
+      outline-color: var(--yellow);
+    }
+  }
+}
+
+.role-chip__icon {
+  display: block;
+  flex-shrink: 0;
+  width: 0.7em;
+  height: 0.7em;
+}
+
+.role-chip__text {
+  min-width: 0;
 }
 
 /* ==========================================================================

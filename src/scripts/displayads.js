@@ -420,12 +420,132 @@ function animate_ns() {
     return tl_ns;
 }
 
+function refreshDisplayAdElements() {
+  txt1_cefcu = document.getElementById('cefcu-txt1');
+  headline = document.getElementById('headline');
+  p1 = document.getElementById('p1');
+  p2 = document.getElementById('p2');
+  p3 = document.getElementById('p3');
+  legal = document.getElementById('legal');
+  logo_cefcu = document.getElementById('cefcu-logo');
+  cta_cefcu = document.getElementById('cefcu-cta');
+  ctaWrap_cefcu = document.getElementById('cefcu-cta-wrapper');
+  overlay = document.getElementById('pattern-overlay');
+  iceCream = document.getElementById('ice-cream-whole');
+  iceCreamDrawing = document.getElementById('ice-cream-drawing');
+  spr1 = document.getElementById('sprinkle1');
+  spr2 = document.getElementById('sprinkle2');
+  spr3 = document.getElementById('sprinkle3');
+  spr4 = document.getElementById('sprinkle4');
+  spr5 = document.getElementById('sprinkle5');
+  spr6 = document.getElementById('sprinkle6');
+  spr7 = document.getElementById('sprinkle7');
+  spr8 = document.getElementById('sprinkle8');
+  spr9 = document.getElementById('sprinkle9');
+  spr10 = document.getElementById('sprinkle10');
+  spr11 = document.getElementById('sprinkle11');
+  spr12 = document.getElementById('sprinkle12');
+  spr13 = document.getElementById('sprinkle13');
+  spr14 = document.getElementById('sprinkle14');
+  ic = document.getElementById('ice-cream-path');
+  icInner = document.getElementById('ice-cream-path-inner');
+  cherryWhole = document.getElementById('cherry-whole');
+  cherry = document.getElementById('cherry');
+  cherryStem = document.getElementById('cherry-stem');
+  cherryWrap = document.getElementById('cherry-wrapper');
+  ortho_txt1a = document.getElementById('ortho-txt1a');
+  ortho_txt1b = document.getElementById('ortho-txt1b');
+  ortho_txt2a = document.getElementById('ortho-txt2a');
+  ortho_txt3a = document.getElementById('ortho-txt3a');
+  ortho_txt3b = document.getElementById('ortho-txt3b');
+  ortho_txt3c = document.getElementById('ortho-txt3c');
+  ortho_txt3d = document.getElementById('ortho-txt3d');
+  ortho_cta = document.getElementById('ortho-cta');
+  name_hip = document.getElementById('name-hip');
+  name_spine = document.getElementById('name-spine');
+  name_elbow = document.getElementById('name-elbow');
+  name_shoulder = document.getElementById('name-shoulder');
+  name_wrist = document.getElementById('name-wrist');
+  name_ankle = document.getElementById('name-ankle');
+  name_hand = document.getElementById('name-hand');
+  name_knee = document.getElementById('name-knee');
+  skeleton = document.getElementById('skeleton-wrapper');
+  gcfd_txt1 = document.getElementById('gcfd-txt1');
+  gcfd_txt2 = document.getElementById('gcfd-txt2');
+  gcfd_txt3 = document.getElementById('gcfd-txt3');
+  gcfd_tag = document.getElementById('gcfd-tag');
+  gcfd_cta = document.getElementById('gcfd-cta');
+  greenBg = document.getElementById('green-bg');
+  gcfd_img = document.getElementById('gcfd-img-wrapper');
+  uncropped = document.getElementById('uncropped');
+  face = document.getElementById('face');
+  greater = document.getElementById('greater');
+  chicago = document.getElementById('chicago');
+  food = document.getElementById('food-wrapper');
+  depository = document.getElementById('depository-wrapper');
+  icon = document.getElementById('icon');
+  leavesInner = document.getElementById('leaves-inner');
+  leavesOuter = document.getElementById('leaves-outer');
+  leafInner1 = document.getElementById('leaf-inner-bottom');
+  leafInner2 = document.getElementById('leaf-inner-2');
+  leafInner3 = document.getElementById('leaf-inner-3');
+  leafInner4 = document.getElementById('leaf-inner-top');
+  leafInner5 = document.getElementById('leaf-inner-5');
+  leafInner6 = document.getElementById('leaf-inner-6');
+  leafOuter1 = document.getElementById('leaf-outer-bottom');
+  leafOuter2 = document.getElementById('leaf-outer-2');
+  leafOuter3 = document.getElementById('leaf-outer-3');
+  leafOuter4 = document.getElementById('leaf-outer-4');
+  leafOuter5 = document.getElementById('leaf-outer-top');
+  leafOuter6 = document.getElementById('leaf-outer-6');
+  leafOuter7 = document.getElementById('leaf-outer-7');
+  ns_txt1a = document.getElementById('ns-txt1a');
+  ns_txt1c = document.getElementById('ns-txt1c');
+  ns_txt1b_ABN = document.getElementById('ns-txt1b-abn');
+  ns_txt1b_ORMAL = document.getElementById('ns-txt1b-ormal');
+  ns_txt1b_HEA = document.getElementById('ns-txt1b-hea');
+  ns_txt1b_RT = document.getElementById('ns-txt1b-rt');
+  ns_txt1b_RHY = document.getElementById('ns-txt1b-rhy');
+  ns_txt1b_THMS = document.getElementById('ns-txt1b-thms');
+  ns_logo = document.getElementById('logo');
+  ns_txt3a = document.getElementById('ns-txt3a');
+  ns_proof1 = document.getElementById('ns-proof1');
+  ns_proof2 = document.getElementById('ns-proof2');
+  ns_proof3 = document.getElementById('ns-proof3');
+  ns_imageMain = document.getElementById('ns-image-main');
+  ns_imageMultiplied = document.getElementById('ns-image-multiplied');
+  ns_imageMultipliedClipping = document.getElementById('ns-multiply-clipping-path');
+  ns_line = document.getElementById('ns-line');
+  ns_frame1Wrap = document.getElementById('frame1-wrapper');
+  ekgLineLead = document.getElementById('ekg-dash-lead');
+  ekgLineFull = document.getElementById('ekg-dash-full');
+  ekgLineRed = document.getElementById('ekg-dash-red');
+  allLeaves = [
+    {object: leafInner1, scaleStart: 0.99, delay: 0.25, duration: 2},
+    {object: leafInner2, scaleStart: 0.96, delay: 0.25, duration: 2},
+    {object: leafInner3, scaleStart: 0.75, delay: 0.25, duration: 2},
+    {object: leafInner4, scaleStart: 0.99, delay: 0.25, duration: 2},
+    {object: leafInner5, scaleStart: 0.9, delay: 0.25, duration: 2},
+    {object: leafInner6, scaleStart: 0.75, delay: 0.75, duration: 2},
+    {object: leafOuter1, scaleStart: 0.77, delay: 0.5, duration: 2},
+    {object: leafOuter2, scaleStart: 0.85, delay: 0.5, duration: 2},
+    {object: leafOuter3, scaleStart: 0.98, delay: 0.5, duration: 2},
+    {object: leafOuter4, scaleStart: 0.8, delay: 1, duration: 1.25},
+    {object: leafOuter5, scaleStart: 0.85, delay: 0.5, duration: 2},
+    {object: leafOuter6, scaleStart: 0.92, delay: 0.5, duration: 2},
+    {object: leafOuter7, scaleStart: 0.82, delay: 0.5, duration: 2}
+  ];
+}
+
 let displayAdsTimeline;
 
 function animate_cycle() {
+  displayAdsTimeline?.kill();
+  displayAdsTimeline = null;
+
   if (!document.getElementById('display-ads')) return;
 
-  displayAdsTimeline?.kill();
+  refreshDisplayAdElements();
 
   displayAdsTimeline = gsap.timeline({repeat: -1});
   displayAdsTimeline
@@ -436,6 +556,11 @@ function animate_cycle() {
 
   return displayAdsTimeline;
 }
+
+document.addEventListener('astro:before-swap', () => {
+  displayAdsTimeline?.kill();
+  displayAdsTimeline = null;
+});
 
 document.addEventListener('astro:page-load', animate_cycle, false);
   

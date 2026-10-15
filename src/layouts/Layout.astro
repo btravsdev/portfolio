@@ -10,7 +10,7 @@ import '../styles/main.scss';
 interface Props {
   title?: string;
   description?: string;
-  pageId: 'developer' | 'designer' | 'deejay' | 'motion' | 'colophon';
+  pageId: 'home' | 'developer' | 'designer' | 'deejay' | 'motion' | 'colophon';
   bodyId?: string;
   bodyClass?: string;
 }
@@ -19,7 +19,10 @@ const { title, description, pageId, bodyId, bodyClass } = Astro.props;
 const themeColor = pageId === 'colophon' ? '#00a0c8' : '#fac800';
 const showColophonLink = pageId !== 'colophon';
 
-const defaults = pageId !== 'colophon' ? pageSeo[pageId] : null;
+const defaults =
+  pageId !== 'colophon' && pageId in pageSeo
+    ? pageSeo[pageId as keyof typeof pageSeo]
+    : null;
 
 const seo: PageSeo = {
   title: title ?? defaults?.title ?? 'Brian Travers',

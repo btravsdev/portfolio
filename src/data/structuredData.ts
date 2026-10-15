@@ -110,7 +110,7 @@ export function breadcrumbSchema(page: Pick<PageSeo, 'title' | 'path'>) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: absoluteUrl('/is-a-developer'),
+        item: absoluteUrl('/'),
       },
       {
         '@type': 'ListItem',

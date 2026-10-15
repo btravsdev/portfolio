@@ -1,5 +1,13 @@
 export const profileLinks = [
   {
+    id: 'home',
+    href: '/',
+    icon: 'home',
+    iconTitle: 'Home icon',
+    label: 'Home',
+    detail: 'btravs.com',
+  },
+  {
     id: 'linkedin',
     href: 'https://www.linkedin.com/in/btravs/',
     icon: 'linkedin',

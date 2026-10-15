@@ -23,6 +23,9 @@ const contactLinks = [
     label: 'holler@briantravers.com',
   },
 ] as const;
+
+//remove first item from profileLinks
+const profileLinksWithoutFirst = profileLinks.slice(1);
 ---
 
 <footer class="section footer">
@@ -38,6 +41,11 @@ const contactLinks = [
             </a>
           </li>
         ))}
+        <li>
+          <a class="additional-link footer__link" href="https://thebruceblog.com">
+            ...blogger.
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -57,7 +65,7 @@ const contactLinks = [
     <div class="footer__col">
       <h2 class="footer__heading">Links</h2>
       <ul class="list-reset footer__list">
-        {profileLinks.map((link) => (
+        {profileLinksWithoutFirst.map((link) => (
           <li>
             <a class="additional-link footer__link" href={link.href} rel={'rel' in link ? link.rel : undefined}>
               <Icon name={link.icon} title={link.iconTitle} class="additional-link__svg" decorative />

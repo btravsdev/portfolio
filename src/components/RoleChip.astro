@@ -1,0 +1,56 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href?: string;
+  /** Force variant; otherwise inferred from href / element type */
+  variant?: 'internal' | 'external' | 'dropdown';
+  class?: string;
+  /** Extra button attrs for dropdown */
+  'aria-expanded'?: string;
+  'aria-controls'?: string;
+  'data-role-switcher-toggle'?: boolean;
+}
+
+const {
+  href,
+  variant,
+  class: className = '',
+  'aria-expanded': ariaExpanded,
+  'aria-controls': ariaControls,
+  'data-role-switcher-toggle': dataToggle = false,
+} = Astro.props;
+
+const inferredExternal = Boolean(href && /^https?:\/\//i.test(href));
+const kind =
+  variant ??
+  (inferredExternal ? 'external' : href ? 'internal' : 'dropdown');
+
+const iconName =
+  kind === 'dropdown' ? 'caret' : kind === 'external' ? 'external-link' : 'link';
+
+const classes = ['role-chip', className].filter(Boolean).join(' ');
+---
+
+{kind === 'dropdown' ? (
+  <button
+    type="button"
+    class={classes}
+    aria-expanded={ariaExpanded}
+    aria-controls={ariaControls}
+    data-role-switcher-toggle={dataToggle || undefined}
+  >
+    <span class="role-chip__text"><slot /></span>
+    <Icon name={iconName} decorative class="role-chip__icon" />
+  </button>
+) : (
+  <a
+    class={classes}
+    href={href}
+    target={kind === 'external' ? '_blank' : undefined}
+    rel={kind === 'external' ? 'noopener noreferrer' : undefined}
+  >
+    <span class="role-chip__text"><slot /></span>
+    <Icon name={iconName} decorative class="role-chip__icon" />
+  </a>
+)}

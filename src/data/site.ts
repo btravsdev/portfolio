@@ -63,6 +63,15 @@ export type PageSeo = {
 };
 
 export const pageSeo = {
+  home: {
+    title: 'Brian Travers — Front-End Engineer, Designer & Deejay in Chicago',
+    description:
+      'Brian Travers is a Chicago-based front-end engineer, graphic designer, motion graphics creator, and deejay. Explore his professional work and creative projects.',
+    path: '/',
+    ogType: 'website' as const,
+    image: '/img/og-developer.jpg',
+    imageAlt: 'Brian Travers — Chicago-based front-end engineer, designer, and deejay',
+  },
   developer: {
     title: 'Brian Travers — Front-End Engineer in Chicago',
     description:

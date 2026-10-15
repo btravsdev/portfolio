@@ -1,5 +1,6 @@
 ---
-import { roles, roleList, heroIntrosByPath, type RoleId } from '../../data/roles';
+import RoleChip from '../RoleChip.astro';
+import { roles, roleList, type RoleId } from '../../data/roles';
 
 interface Props {
   role?: RoleId;
@@ -7,111 +8,143 @@ interface Props {
 
 const { role = 'developer' } = Astro.props;
 const current = roles[role];
+const otherRoles = roleList.filter((option) => option.id !== role);
 ---
 
 <header class="site-header section">
   <h1 class="hero-copy hero-copy__title">Howdy, I'm Brian Travers.</h1>
-  <p class="hero-copy hero-copy__intro" data-role-intros={JSON.stringify(heroIntrosByPath)}>
-    A Chicago-based
-    <label class="role-picker">
-      <span class="sr-only">Choose a role</span>
-      <span class="role-picker__sizer" aria-hidden="true" data-role-picker-sizer>
+  <div class="hero-copy hero-copy__intro-container">
+    <p class="hero-copy hero-copy__intro">
+      A Chicago-based
+    </p>
+    <div class="role-switcher">
+      <RoleChip
+        variant="dropdown"
+        class="role-switcher__toggle"
+        aria-expanded="false"
+        aria-controls="role-switcher-menu"
+        data-role-switcher-toggle
+      >
         {current.label}
-      </span>
-      <select class="role-picker__select" name="role" data-role-picker>
-        {roleList.map((option) => (
-          <option value={option.path} selected={option.id === role}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
-    <span data-role-intro-tail> {current.heroIntro}</span>
-  </p>
+      </RoleChip>
+      <n
+        id="role-switcher-menu"
+        class="role-switcher__menu"
+        data-role-switcher-menu
+        hidden
+        aria-label="Other roles"
+      >
+        <ul class="role-switcher__list list-reset">
+          {otherRoles.map((option) => (
+            <li class="role-switcher__item" data-role-switcher-item>
+              <RoleChip href={option.path} class="role-switcher__link">
+                {option.label}
+              </RoleChip>
+            </li>
+          ))}
+        </ul>
+      </n>
+    </div>
+    <p class="hero-copy hero-copy__intro"> {current.heroIntro}</p>
+  </div>
   {current.note && (
-    <p class="hero-copy__note">
+    <p class="hero-copy hero-copy__intro">
       <Fragment set:html={current.note} />
     </p>
   )}
 </header>
 
 <script>
-  import { navigate } from 'astro:transitions/client';
+  import { gsap } from 'gsap';
 
-  function normalizePath(path: string) {
-    const trimmed = path.replace(/\/$/, '');
-    return trimmed || '/';
+  let roleSwitcherAbort: AbortController | null = null;
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  function getRoleIntros(): Record<string, string> {
-    const el = document.querySelector('[data-role-intros]');
-    if (!(el instanceof HTMLElement) || !el.dataset.roleIntros) return {};
+  function bindRoleSwitcher() {
+    roleSwitcherAbort?.abort();
+    roleSwitcherAbort = new AbortController();
+    const { signal } = roleSwitcherAbort;
 
-    try {
-      return JSON.parse(el.dataset.roleIntros) as Record<string, string>;
-    } catch {
-      return {};
-    }
+    const toggle = document.querySelector('[data-role-switcher-toggle]');
+    const menu = document.querySelector('[data-role-switcher-menu]');
+    if (!(toggle instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+
+    const items = Array.from(
+      menu.querySelectorAll<HTMLElement>('[data-role-switcher-item]'),
+    ).filter((item) => item.isConnected);
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+
+      if (!items.length) return;
+
+      if (prefersReducedMotion()) {
+        gsap.set(items, { clearProps: 'all', opacity: open ? 1 : 0, y: 0 });
+        return;
+      }
+
+      if (open) {
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: -8 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.28,
+            stagger: 0.07,
+            ease: 'power2.out',
+            overwrite: true,
+          },
+        );
+      } else {
+        gsap.set(items, { opacity: 0, y: -8 });
+      }
+    };
+
+    setOpen(false);
+
+    toggle.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (toggle.getAttribute('aria-expanded') !== 'true') return;
+        const target = event.target as Node;
+        if (menu.contains(target) || toggle.contains(target)) return;
+        setOpen(false);
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Escape') return;
+        if (toggle.getAttribute('aria-expanded') !== 'true') return;
+        setOpen(false);
+        toggle.focus();
+      },
+      { signal },
+    );
   }
 
-  function updateRoleIntro(path: string) {
-    const tail = document.querySelector('[data-role-intro-tail]');
-    const intros = getRoleIntros();
-    const intro = intros[path] ?? intros[normalizePath(path)];
-    if (tail && intro) {
-      tail.textContent = ` ${intro}`;
-    }
-  }
+  document.addEventListener('astro:before-swap', () => {
+    roleSwitcherAbort?.abort();
+    roleSwitcherAbort = null;
+  });
 
-  function syncRolePickerWidth(picker: HTMLSelectElement) {
-    const sizer = picker
-      .closest('.role-picker')
-      ?.querySelector<HTMLElement>('[data-role-picker-sizer]');
-    if (!sizer) return;
-
-    const selectedText = picker.options[picker.selectedIndex]?.text ?? '';
-    sizer.textContent = selectedText;
-
-    const styles = getComputedStyle(picker);
-    sizer.style.font = styles.font;
-    sizer.style.letterSpacing = styles.letterSpacing;
-    sizer.style.textTransform = styles.textTransform;
-
-    const width = sizer.offsetWidth;
-    const wrapper = picker.closest('.role-picker');
-    if (wrapper instanceof HTMLElement) {
-      wrapper.style.width = `${width}px`;
-    }
-  }
-
-  function bindRolePicker() {
-    const picker = document.querySelector('[data-role-picker]');
-    if (!(picker instanceof HTMLSelectElement)) return;
-
-    const sync = () => syncRolePickerWidth(picker);
-
-    sync();
-    document.fonts?.ready.then(sync).catch(() => {});
-
-    if (!picker.dataset.rolePickerBound) {
-      picker.dataset.rolePickerBound = 'true';
-
-      const resizeObserver = new ResizeObserver(sync);
-      resizeObserver.observe(picker);
-
-      picker.addEventListener('change', () => {
-        const next = picker.value;
-        sync();
-        updateRoleIntro(next);
-
-        if (next && normalizePath(next) !== normalizePath(window.location.pathname)) {
-          navigate(next);
-        }
-      });
-    }
-  }
-
-  document.addEventListener('astro:page-load', bindRolePicker);
+  document.addEventListener('astro:page-load', bindRoleSwitcher);
 </script>
 
 <style lang="scss">
@@ -134,6 +167,7 @@ const current = roles[role];
   font-weight: var(--weight-normal);
   line-height: 1.25;
   font-size: clamp(1.5rem, 3.5vw + 0.75rem, 2.75rem);
+  display: inline;
 
   @include at-least(md) {
     line-height: 1.3;
@@ -145,11 +179,48 @@ const current = roles[role];
   }
 }
 
-.hero-copy__note {
-  max-width: var(--max-width-text);
-  margin: var(--space-md) 0 0;
-  font-size: var(--font-size-normal);
-  font-weight: var(--weight-normal);
-  line-height: 1.5;
+.role-switcher {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.role-switcher__toggle {
+  &[aria-expanded='true'] :global(.role-chip__icon) {
+    transform: rotate(180deg);
+  }
+
+  :global(.role-chip__icon) {
+    transition: transform 0.2s ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}
+
+.role-switcher__menu {
+  position: absolute;
+  top: calc(100% + 0.05em);
+  left: 0;
+  z-index: 25;
+  min-width: max-content;
+}
+
+.role-switcher__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05em;
+}
+
+.role-switcher__item {
+  opacity: 0;
+  font-size: 0.75em;
+}
+
+.role-switcher__link {
+  display: inline-block;
+  white-space: nowrap;
 }
 </style>

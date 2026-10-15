@@ -1,0 +1,58 @@
+---
+import RoleChip from '../RoleChip.astro';
+import { roles } from '../../data/roles';
+---
+
+<header class="site-header section">
+  <h1 class="hero-copy hero-copy__title">Howdy, I'm Brian Travers.</h1>
+  <p class="hero-copy hero-copy__intro hero-copy__intro-line">
+    Most of my time is spent as a <RoleChip href={roles.developer.path}>{roles.developer.label}</RoleChip>.
+  I also am a
+    <RoleChip href={roles.designer.path}>{roles.designer.label}</RoleChip>
+    and do some
+    <RoleChip href={roles.motion.path}>{roles.motion.label}</RoleChip>.
+   In spare time, I am a
+    <RoleChip href={roles.deejay.path}>{roles.deejay.label}</RoleChip>
+    and run a <RoleChip href="https://thebruceblog.com/">blog</RoleChip> among other things.
+  </p>
+</header>
+
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.site-header {
+  padding-top: var(--space-3x);
+  padding-bottom: var(--space-lg);
+  line-height: 1.25;
+  font-size: clamp(1.5rem, 3.5vw + 0.75rem, 2.75rem);
+
+  @include at-least(md) {
+    line-height: 1.1;
+    font-size: clamp(1.75rem, 2.8vw + 0.5rem, 3.25rem);
+    padding-bottom: var(--space-3x);
+  }
+
+  @include at-least(lg) {
+    font-size: clamp(2rem, 2.2vw + 0.75rem, 3.5rem);
+  }
+}
+
+.hero-copy {
+  max-width: 1600px;
+  margin: 0;
+  padding-top: 0;
+  font-family: var(--font-stack-heading);
+  font-weight: var(--weight-normal);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.hero-copy__intro {
+  margin-top: 0.35em;
+}
+
+.hero-copy__intro-line {
+  display: block;
+  margin-bottom: 4rem;
+}
+</style>
