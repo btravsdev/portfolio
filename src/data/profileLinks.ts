@@ -35,11 +35,19 @@ export const profileLinks = [
     rel: 'me',
   },
   {
-    id: 'resume',
+    id: 'resume-graphic',
     href: '/btravs-resume-2026-Sep14.pdf',
     icon: 'pdf',
     iconTitle: 'PDF icon',
-    label: 'Resume',
+    label: 'resume - graphic version',
     detail: 'btravs-resume-2026-Sep14.pdf',
+  },
+  {
+    id: 'resume-text',
+    href: 'https://docs.google.com/document/d/14fjA-WbYVyM8G1XAX12k2IjE-mKPXLKGb8LAZQq0oYk/edit?usp=sharing',
+    icon: 'google-docs',
+    iconTitle: 'Google Docs icon',
+    label: 'resume - text version',
+    detail: 'docs.google.com',
   },
 ] as const;

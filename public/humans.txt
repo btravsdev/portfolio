@@ -16,4 +16,4 @@
     Astro, Sass, GSAP
     Structured data (JSON-LD / schema.org)
     Hosted on Netlify
-    Fonts: Inter (Google Fonts)
+    Fonts: Fraunces and Geist Mono (Google Fonts, variable)

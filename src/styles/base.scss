@@ -26,8 +26,8 @@
     oklch(95% .5 110) 0%,
     oklch(72% .5 90) 100%
   );
-  --font-stack-heading: 'Inter', sans-serif;
-  --font-stack-text: 'Inter', sans-serif;
+  --font-stack-heading: 'Fraunces', serif;
+  --font-stack-text: 'Geist Mono', ui-monospace, monospace;
   --font-size-h1: 5.653rem;
   --font-size-h2: 3.998rem;
   --font-size-h3: 2.827rem;
@@ -260,6 +260,7 @@ strong {
 h1, h2, h3, h4, h5 {
   margin: 0;
   font-family: var(--font-stack-heading);
+  font-optical-sizing: auto;
   font-weight: var(--weight-bold);
   line-height: 1.05;
 }

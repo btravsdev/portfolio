@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clippath">
+      <path d="M50,0C22.43,0,0,22.43,0,50s22.43,50,50,50,50-22.429,50-50S77.571,0,50,0Z" fill="none"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <path id="bigger-compound-ellipse" d="M50-450c-275.696,0-500,224.304-500,500S-225.696,550,50,550s500-224.292,500-500S325.708-450,50-450ZM50,70c-11.028,0-20-8.972-20-20s8.972-20,20-20,20,8.972,20,20-8.972,20-20,20Z" fill="none"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <path id="compound-ellipse" d="M50,0C22.43,0,0,22.43,0,50s22.43,50,50,50,50-22.429,50-50S77.571,0,50,0ZM50,70c-11.028,0-20-8.972-20-20s8.972-20,20-20,20,8.972,20,20-8.972,20-20,20Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <path id="ellipse" d="M74.627,32.443c3.568,4.936,5.672,11.001,5.672,17.557,0,16.569-13.431,30-30,30s-30-13.431-30-30,13.431-30,30-30c10.012,0,18.879,4.905,24.328,12.443" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="20"/>
+  <g clip-path="url(#clippath)">
+    <g clip-path="url(#clippath-1)">
+      <g>
+        <line x1=".014" y1="50" x2="100.014" y2="50" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="20"/>
+        <line x1="50.014" y1="100" x2="50.014" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="20"/>
+      </g>
+    </g>
+    <g clip-path="url(#clippath-2)">
+      <g>
+        <line x1="14.658" y1="85.355" x2="85.369" y2="14.645" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="20"/>
+        <line x1="85.369" y1="85.355" x2="14.658" y2="14.645" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="20"/>
+      </g>
+    </g>
+  </g>
+</svg>

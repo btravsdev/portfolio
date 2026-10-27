@@ -37,56 +37,69 @@ import { profileLinks } from '../data/profileLinks';
 
   <div id="sticky-nav-panel" class="sticky-nav__panel">
     <ul class="sticky-nav__list list-reset">
-    <li class="sticky-nav__item--home-and-theme-switcher">
-      <ul class="sticky-nav__list-inner list-reset">
-        <li class="sticky-nav__item--theme-switcher">
-          <button
-            type="button"
-            id="theme-switcher"
-            class="site-sidebar__btn lightdark-mode"
-            aria-label="Toggle dark mode"
-            aria-pressed="false"
-          >
-            <svg class="sidebar-button__svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
-              <title>Dark and Light Mode icons</title>
-              <defs>
-                <symbol id="ray">
-                  <line id="ray-line" class="ray-line stroke-default stroke-currcolor" x1="60" y1="5" x2="60" y2="15"/>
-                </symbol>
-              </defs>
-              <path id="moon-icon" style="opacity: 0" d="M105,63.95c-2.287,24.747-24.203,42.955-48.95,40.668c-24.747-2.287-42.955-24.203-40.668-48.95
-                C17.376,34.088,34.47,16.994,56.05,15c-11.49,15.544-8.203,37.46,7.341,48.95C75.756,73.089,92.636,73.089,105,63.95z"/>
-              <path id="sun-icon" class="stroke-default stroke-currcolor" d="M85,60c0,13.807-11.193,25-25,25S35,73.807,35,60s11.193-25,25-25S85,46.193,85,60z"/>
-              <g id="rays">
-                <use class="ray-use" href="#ray" />
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(45)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(90)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(135)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(180)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(225)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(270)"/>
-                <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(315)"/>
-              </g>
-            </svg>
-          </button>
-        </li>
-      </ul>
-    </li>
-    <li class="sticky-nav__item--profile-links">
-      <ul class="sticky-nav__list-inner list-reset">
-        {profileLinks.map((link) => (
-          <li>
-            <a class="sticky-nav__link" href={link.href} rel={'rel' in link ? link.rel : undefined}>
-              <span class="sticky-nav__icon-wrapper">
-                <Icon name={link.icon} title={link.iconTitle} class="sticky-nav__icon" decorative />
-              </span>
-              <span class="sticky-nav__label">{link.label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </li>
+      <li class="sticky-nav__item--profile-links">
+        <ul class="sticky-nav__list-inner list-reset">
+          {profileLinks.map((link) => (
+            <li>
+              <a class="sticky-nav__link" href={link.href} rel={'rel' in link ? link.rel : undefined}>
+                <span class="sticky-nav__icon-wrapper">
+                  <Icon name={link.icon} title={link.iconTitle} class="sticky-nav__icon" decorative />
+                </span>
+                <span class="sticky-nav__label">{link.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </li>
     </ul>
+  </div>
+
+  <div class="sticky-nav__settings">
+    <div id="sticky-nav-settings-panel" class="sticky-nav__settings-panel">
+      <div class="sticky-nav__settings-inner">
+        <button
+          type="button"
+          id="theme-switcher"
+          class="site-sidebar__btn lightdark-mode"
+          aria-label="Toggle dark mode"
+          aria-pressed="false"
+        >
+          <svg class="sidebar-button__svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
+            <title>Dark and Light Mode icons</title>
+            <defs>
+              <symbol id="ray">
+                <line id="ray-line" class="ray-line stroke-default stroke-currcolor" x1="60" y1="5" x2="60" y2="15"/>
+              </symbol>
+            </defs>
+            <path id="moon-icon" style="opacity: 0" d="M105,63.95c-2.287,24.747-24.203,42.955-48.95,40.668c-24.747-2.287-42.955-24.203-40.668-48.95
+              C17.376,34.088,34.47,16.994,56.05,15c-11.49,15.544-8.203,37.46,7.341,48.95C75.756,73.089,92.636,73.089,105,63.95z"/>
+            <path id="sun-icon" class="stroke-default stroke-currcolor" d="M85,60c0,13.807-11.193,25-25,25S35,73.807,35,60s11.193-25,25-25S85,46.193,85,60z"/>
+            <g id="rays">
+              <use class="ray-use" href="#ray" />
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(45)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(90)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(135)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(180)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(225)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(270)"/>
+              <use class="ray-use" href="#ray" transform-origin="50% 50%" transform="rotate(315)"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="sticky-nav__gear site-sidebar__btn"
+      aria-expanded="false"
+      aria-controls="sticky-nav-settings-panel"
+      aria-label="Site settings"
+    >
+      <span class="sticky-nav__icon-wrapper">
+        <Icon name="gear" title="Settings icon" class="sticky-nav__icon sticky-nav__gear-icon" decorative />
+      </span>
+      <span class="sticky-nav__label">Settings</span>
+    </button>
   </div>
 </nav>
 
@@ -344,7 +357,9 @@ import { profileLinks } from '../data/profileLinks';
   }
 
   .sticky-nav__link:hover .sticky-nav__label,
-  .sticky-nav__link:focus-visible .sticky-nav__label {
+  .sticky-nav__link:focus-visible .sticky-nav__label,
+  .sticky-nav__gear:hover .sticky-nav__label,
+  .sticky-nav__gear:focus-visible .sticky-nav__label {
     opacity: 1;
     transform: translate(0, -50%);
   }
@@ -371,13 +386,109 @@ import { profileLinks } from '../data/profileLinks';
   stroke-dashoffset: 0;
 }
 
-.sticky-nav__item--home-and-theme-switcher {
-  @include below(md) {
-    display: none;
+.sticky-nav__settings {
+  position: fixed;
+  right: var(--gap);
+  bottom: var(--space-md);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: filter 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 
-  @include at-least(md) {
-    margin-bottom: var(--space-lg);
+  &.is-over-footer {
+    filter: invert(1);
+  }
+
+  html[data-theme='dark'] &.is-over-footer,
+  :global(body.dark-theme) &.is-over-footer {
+    filter: none;
+  }
+}
+
+.sticky-nav__settings-panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.sticky-nav__settings.is-open .sticky-nav__settings-panel {
+  max-height: calc(var(--space-lg) + var(--space-sm));
+}
+
+.sticky-nav__settings-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--space-sm);
+}
+
+.sticky-nav__gear {
+  position: relative;
+
+  :global(svg) {
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+  }
+
+  :global(#ellipse),
+  :global(#will-shrink) {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(svg),
+    :global(#ellipse),
+    :global(#will-shrink) {
+      transition: none;
+    }
+  }
+}
+
+@include below(md) {
+  .sticky-nav__gear .sticky-nav__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+.sticky-nav__settings.is-open .sticky-nav__gear {
+  :global(svg) {
+    transform: rotate(45deg);
+  }
+
+  :global(#ellipse) {
+    transform-origin: center center;
+    transform: scale(0.1);
+  }
+  :global(#bigger-compound-ellipse) {
+    transform-origin: center center;
+    transform: scale(0.1);
+  }
+  :global(#compound-ellipse) {
+    transform-origin: center center;
+    transform: scale(0.1);
+  }
+  :global(#ellipse-will-change) {
+    transform-origin: center center;
+    transform: scale(5);
   }
 }
 </style>
@@ -657,6 +768,84 @@ import { profileLinks } from '../data/profileLinks';
     );
   }
 
+  function initSettingsMenu(signal: AbortSignal) {
+    const settings = document.querySelector('.sticky-nav__settings');
+    const trigger = settings?.querySelector('.sticky-nav__gear');
+    const footer = document.querySelector('.footer');
+    if (!(settings instanceof HTMLElement) || !(trigger instanceof HTMLButtonElement)) return;
+
+    const isOpen = () => settings.classList.contains('is-open');
+
+    const setOpen = (open: boolean) => {
+      settings.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+    };
+
+    const syncFooterOverlap = () => {
+      if (!(footer instanceof HTMLElement)) {
+        settings.classList.remove('is-over-footer');
+        return;
+      }
+
+      const settingsBox = settings.getBoundingClientRect();
+      const footerBox = footer.getBoundingClientRect();
+      const overlaps =
+        settingsBox.bottom > footerBox.top && settingsBox.top < footerBox.bottom;
+
+      settings.classList.toggle('is-over-footer', overlaps);
+    };
+
+    let footerOverlapRaf = 0;
+    const scheduleFooterOverlapSync = () => {
+      if (footerOverlapRaf) return;
+      footerOverlapRaf = window.requestAnimationFrame(() => {
+        footerOverlapRaf = 0;
+        syncFooterOverlap();
+      });
+    };
+
+    trigger.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        setOpen(!isOpen());
+        scheduleFooterOverlapSync();
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!isOpen()) return;
+        if (settings.contains(event.target as Node)) return;
+        setOpen(false);
+        scheduleFooterOverlapSync();
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Escape' || !isOpen()) return;
+        setOpen(false);
+        trigger.focus();
+        scheduleFooterOverlapSync();
+      },
+      { signal },
+    );
+
+    window.addEventListener('scroll', scheduleFooterOverlapSync, { passive: true, signal });
+    window.addEventListener('resize', scheduleFooterOverlapSync, { passive: true, signal });
+    syncFooterOverlap();
+
+    signal.addEventListener('abort', () => {
+      if (footerOverlapRaf) window.cancelAnimationFrame(footerOverlapRaf);
+      settings.classList.remove('is-over-footer');
+    });
+  }
+
   document.addEventListener('astro:before-swap', (event) => {
     killStickyNavAnimations();
 
@@ -678,5 +867,6 @@ import { profileLinks } from '../data/profileLinks';
 
     initThemeSwitcher(signal);
     initStickyNavMenu(signal);
+    initSettingsMenu(signal);
   });
 </script>
