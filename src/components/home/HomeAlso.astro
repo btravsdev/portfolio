@@ -1,0 +1,25 @@
+---
+import RoleChip from '../RoleChip.astro';
+import { roles } from '../../data/roles';
+---
+
+<section class="site-section section site-section-also mix-blend-mode-multiply" data-home-also>
+  <p class="also-copy hero-copy">
+    I also am a
+    <RoleChip href={roles.designer.path}>{roles.designer.label}</RoleChip>
+    and do some
+    <RoleChip href={roles.motion.path}>{roles.motion.label}</RoleChip>.
+   In spare time, I am a
+    <RoleChip href={roles.deejay.path}>{roles.deejay.label}</RoleChip>
+    and run a <RoleChip href="https://thebruceblog.com/">blog</RoleChip> among other things.
+  </p>
+</section>
+
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.site-section-also {
+  padding-top: var(--space-3x);
+  padding-bottom: var(--space-3x);
+}
+</style>

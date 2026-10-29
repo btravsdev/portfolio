@@ -146,6 +146,12 @@ const captionId = `${id}-video-caption`;
         node.pause();
         setPausedState(true);
       } else {
+        if (
+          node.readyState < HTMLMediaElement.HAVE_FUTURE_DATA &&
+          node.networkState !== HTMLMediaElement.NETWORK_LOADING
+        ) {
+          node.load();
+        }
         node.play().catch(() => setPausedState(true));
         setPausedState(node.paused);
       }

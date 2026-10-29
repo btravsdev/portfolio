@@ -1,21 +1,68 @@
 ---
-import RoleChip from '../RoleChip.astro';
+import RoleChipRotates from '../RoleChipRotates.astro';
 import { roles } from '../../data/roles';
 ---
 
-<header class="site-header section">
-  <h1 class="hero-copy hero-copy__title">Howdy, I'm Brian Travers.</h1>
-  <p class="hero-copy hero-copy__intro hero-copy__intro-line">
-    Most of my time is spent as a <RoleChip href={roles.developer.path}>{roles.developer.label}</RoleChip>.
-  I also am a
-    <RoleChip href={roles.designer.path}>{roles.designer.label}</RoleChip>
-    and do some
-    <RoleChip href={roles.motion.path}>{roles.motion.label}</RoleChip>.
-   In spare time, I am a
-    <RoleChip href={roles.deejay.path}>{roles.deejay.label}</RoleChip>
-    and run a <RoleChip href="https://thebruceblog.com/">blog</RoleChip> among other things.
-  </p>
+<header class="site-header section" data-home-hero>
+  <h1 class="hero-copy hero-copy__title"><span>Howdy,</span> <span>I'm</span> <span>Brian</span> <span>Travers,<br>
+    <span>a</span> <span><RoleChipRotates href={roles.developer.path} /></span>
+  </h1>
 </header>
+
+<script>
+  import { gsap } from 'gsap';
+
+  let reveal: gsap.core.Timeline | null = null;
+  let run = 0;
+
+  function clearHeroReveal() {
+    run += 1;
+    reveal?.kill();
+    reveal = null;
+  }
+
+  async function revealHeroCopy() {
+    clearHeroReveal();
+    const id = run;
+
+    const root = document.querySelector('[data-home-hero]');
+    if (!(root instanceof HTMLElement)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    await document.fonts.ready;
+    if (id !== run || !root.isConnected) return;
+
+    const startOpacity = 0.25;
+    const endOpacity = 1;
+    const targets = [...root.querySelectorAll<HTMLElement>('.hero-copy > span')];
+    if (!targets.length) return;
+
+    reveal = gsap.timeline({
+      onComplete() {
+        root.querySelectorAll('.hero-copy').forEach((el) => {
+          el.classList.add('is-revealed');
+        });
+        gsap.set(targets, { clearProps: 'color' });
+      },
+    }).fromTo(
+      targets,
+      { opacity: startOpacity },
+      {
+        opacity: endOpacity,
+        duration: 0.25,
+        ease: 'power2.out',
+        stagger: 0.25,
+        delay: .25,
+      },
+    );
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    void revealHeroCopy();
+  });
+
+  document.addEventListener('astro:before-swap', clearHeroReveal);
+</script>
 
 <style lang="scss">
 @use '../../styles/breakpoints' as *;
@@ -38,21 +85,15 @@ import { roles } from '../../data/roles';
 }
 
 .hero-copy {
-  max-width: 1600px;
-  margin: 0;
-  padding-top: 0;
-  font-family: var(--font-stack-heading);
-  font-weight: var(--weight-normal);
   font-size: inherit;
   line-height: inherit;
-}
 
-.hero-copy__intro {
-  margin-top: 0.35em;
-}
+  &.is-revealed {
+    opacity: 1;
+  }
 
-.hero-copy__intro-line {
-  display: block;
-  margin-bottom: 4rem;
+  @media (prefers-reduced-motion: reduce) {
+    color: var(--text-color);
+  }
 }
 </style>

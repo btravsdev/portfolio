@@ -41,7 +41,7 @@ import { profileLinks } from '../data/profileLinks';
         <ul class="sticky-nav__list-inner list-reset">
           {profileLinks.map((link) => (
             <li>
-              <a class="sticky-nav__link" href={link.href} rel={'rel' in link ? link.rel : undefined}>
+              <a class="sticky-nav__link" href={link.href} rel={'rel' in link ? link.rel : undefined} target={link.openInNewTab ? '_blank' : undefined}>
                 <span class="sticky-nav__icon-wrapper">
                   <Icon name={link.icon} title={link.iconTitle} class="sticky-nav__icon" decorative />
                 </span>

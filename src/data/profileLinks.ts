@@ -6,6 +6,7 @@ export const profileLinks = [
     iconTitle: 'Home icon',
     label: 'Home',
     detail: 'btravs.com',
+    openInNewTab: false,
   },
   {
     id: 'linkedin',
@@ -15,6 +16,7 @@ export const profileLinks = [
     label: 'LinkedIn',
     detail: 'linkedin.com/in/btravs',
     rel: 'me',
+    openInNewTab: true,
   },
   {
     id: 'github',
@@ -24,6 +26,7 @@ export const profileLinks = [
     label: 'GitHub',
     detail: 'github.com/btravsdev',
     rel: 'me',
+    openInNewTab: true,
   },
   {
     id: 'codepen',
@@ -33,6 +36,7 @@ export const profileLinks = [
     label: 'CodePen',
     detail: 'codepen.io/btravs',
     rel: 'me',
+    openInNewTab: true,
   },
   {
     id: 'resume-graphic',
@@ -40,7 +44,8 @@ export const profileLinks = [
     icon: 'pdf',
     iconTitle: 'PDF icon',
     label: 'resume - graphic version',
-    detail: 'btravs-resume-2026-Sep14.pdf',
+    detail: 'resume - graphic version',
+    openInNewTab: true,
   },
   {
     id: 'resume-text',
@@ -48,6 +53,7 @@ export const profileLinks = [
     icon: 'google-docs',
     iconTitle: 'Google Docs icon',
     label: 'resume - text version',
-    detail: 'docs.google.com',
+    detail: 'resume - text version',
+    openInNewTab: true,
   },
 ] as const;

@@ -1,0 +1,223 @@
+---
+import VwAd from '../ads/VwAd.astro';
+import BafAd from '../ads/BafAd.astro';
+---
+
+<section class="site-section section site-section-gallery" data-home-gallery>
+  <div class="gallery-container">
+    <div class="gallery-item">
+      <img src="/video/kmc-ascii.svg" class="home-gallery-item__ascii-art" alt="Kawasaki Engines USA screenshot in ASCII art">
+      <video src="/video/kmc-web.mp4" class="home-gallery-item__video gallery-playable" poster="/video/kmc-web.jpg" preload="auto" loop muted playsinline></video>
+    </div>
+    <div class="gallery-item gallery-item-tall">
+      <img src="/video/88bp-ascii.svg" class="home-gallery-item__ascii-art" alt="88 Brand Partners screenshot in ASCII art">
+      <video src="/video/88bp.mp4" class="home-gallery-item__video gallery-playable" poster="/video/88bp.jpg" preload="auto" loop muted playsinline></video>
+    </div>
+    <div class="gallery-displayad1">
+      <img src="/video/vw-ascii.svg" class="home-gallery-item__ascii-art" alt="Volkswagen display ad screenshot in ASCII art">
+      <div class="gallery-playable">
+        <VwAd />
+      </div>
+    </div>
+    <div class="gallery-displayad2">
+      <img src="/video/baf-ascii.svg" class="home-gallery-item__ascii-art" alt="Big Ass Fans display ad screenshot in ASCII art">
+      <div class="gallery-playable">
+        <BafAd />
+      </div>
+    </div>
+    <div class="gallery-nav mix-blend-mode-multiply">
+      <a class="link-chip" href="/is-a-developer">See more</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initGallery() {
+    document.querySelectorAll('[data-home-gallery]').forEach((root) => {
+      if (!(root instanceof HTMLElement) || root.dataset.galleryBound) return;
+      root.dataset.galleryBound = 'true';
+
+      const videos = [...root.querySelectorAll('video')];
+      const ads = [...root.querySelectorAll('.gallery-playable:not(video)')];
+      let settled = 0;
+
+      const reveal = (el: HTMLElement) => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => el.classList.add('is-ready'));
+        });
+      };
+
+      const settle = () => {
+        settled += 1;
+        if (settled >= videos.length) ads.forEach((el) => reveal(el as HTMLElement));
+      };
+
+      if (videos.length === 0) {
+        ads.forEach((el) => reveal(el as HTMLElement));
+        return;
+      }
+
+      videos.forEach((video) => {
+        const start = () => {
+          if (video.dataset.started) return;
+          video.dataset.started = 'true';
+          video.play().catch(() => {});
+          reveal(video);
+          settle();
+        };
+
+        if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+          start();
+          return;
+        }
+
+        video.addEventListener('canplay', start, { once: true });
+        video.addEventListener('error', () => {
+          if (video.dataset.started) return;
+          video.dataset.started = 'true';
+          settle();
+        }, { once: true });
+
+        // A client-side swap inserts these videos from DOMParser. They stay
+        // unloaded and never fire canplay until load() runs in this document.
+        if (video.networkState !== HTMLMediaElement.NETWORK_LOADING) {
+          video.load();
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initGallery);
+  initGallery();
+</script>
+
+<style lang="scss">
+@use '../../styles/breakpoints' as *;
+
+.site-section-gallery {
+  overflow: hidden;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+
+  @include at-least(md) {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "web1 web1 web1 web1 web1"
+      "web2 web2 web2 displayad1 displayad1"
+      "web2 web2 web2 displayad2 displayad2"
+      "web2 web2 web2 nav nav";
+  }
+
+  @include at-least(lg) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "web1 web1 web1 web2 web2 displayad1"
+      "web1 web1 web1 web2 web2 displayad2"
+      "web1 web1 web1 web2 web2 nav";
+  }
+}
+
+.gallery-item {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+
+  &:first-child {
+    @include at-least(md) {
+      grid-area: web1;
+    }
+  }
+  &:nth-child(2) {
+    @include at-least(md) {
+      grid-area: web2;
+      aspect-ratio: unset;
+    }
+  }
+}
+
+.gallery-displayad1 {
+  @include at-least(md) {
+    grid-area: displayad1;
+  }
+  position: relative;
+  aspect-ratio: 300/250;
+}
+.gallery-displayad2 {
+  @include at-least(md) {
+    grid-area: displayad2;
+  }
+  position: relative;
+  aspect-ratio: 300/250;
+}
+
+.gallery-nav {
+  @include at-least(md) {
+    grid-area: nav;
+  }
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.gallery-item img,
+.home-gallery-item__ascii-art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-gallery-item__video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item-tall {
+  height: 100%;
+
+  .home-gallery-item__ascii-art,
+  .home-gallery-item__video {
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    object-position: top center;
+  }
+}
+
+.gallery-playable {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+
+  &.is-ready {
+    opacity: 1;
+  }
+}
+
+.gallery-displayad1 .gallery-playable,
+.gallery-displayad2 .gallery-playable {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-playable {
+    transition: none;
+  }
+}
+</style>

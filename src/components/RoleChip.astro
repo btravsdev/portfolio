@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 interface Props {
   href?: string;
   /** Force variant; otherwise inferred from href / element type */
-  variant?: 'internal' | 'external' | 'dropdown';
+  variant?: 'internal' | 'external' | 'dropdown' | 'jump';
   class?: string;
   /** Extra button attrs for dropdown */
   'aria-expanded'?: string;
@@ -22,12 +22,19 @@ const {
 } = Astro.props;
 
 const inferredExternal = Boolean(href && /^https?:\/\//i.test(href));
+const inferredJump = Boolean(href?.startsWith('#'));
 const kind =
   variant ??
-  (inferredExternal ? 'external' : href ? 'internal' : 'dropdown');
+  (inferredExternal ? 'external' : inferredJump ? 'jump' : href ? 'internal' : 'dropdown');
 
 const iconName =
-  kind === 'dropdown' ? 'caret' : kind === 'external' ? 'external-link' : 'link';
+  kind === 'dropdown'
+    ? 'caret'
+    : kind === 'jump'
+      ? 'arrow-down'
+      : kind === 'external'
+        ? 'external-link'
+        : 'link';
 
 const classes = ['role-chip', className].filter(Boolean).join(' ');
 ---

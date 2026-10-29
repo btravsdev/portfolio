@@ -1,0 +1,265 @@
+---
+import Icon from './Icon.astro';
+import { roles } from '../data/roles';
+
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const titles = [
+  roles.developer.label,
+  'full-stack developer',
+  'technologist',
+  'web developer',
+] as const;
+
+const { href = roles.developer.path, class: className = '' } = Astro.props;
+
+const classes = ['role-chip', 'role-chip--rotates', className].filter(Boolean).join(' ');
+---
+
+<a class={classes} href={href} aria-label={titles[0]} data-role-rotates>
+  <span class="role-chip__viewport" data-role-rotator aria-hidden="true">
+    <span class="role-chip__sizer">{titles[0]}</span>
+    {
+      titles.map((title, index) => (
+        <span
+          class:list={['role-chip__title', { 'is-current': index === 0 }]}
+          data-role-title
+        >
+          {title}
+        </span>
+      ))
+    }
+  </span>
+  <Icon name="link" decorative class="role-chip__icon" />
+</a>
+
+<script>
+  const HOLD_MS = 4000;
+  const SWAP_MS = 550;
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function setupRotator(root) {
+    const viewport = root.querySelector('[data-role-rotator]');
+    const titles = [...root.querySelectorAll('[data-role-title]')];
+    if (!(viewport instanceof HTMLElement) || titles.length < 2) return () => {};
+
+    let index = Math.max(
+      0,
+      titles.findIndex((title) => title.classList.contains('is-current')),
+    );
+    let timer = 0;
+    let swapTimer = 0;
+    let swapping = false;
+    let generation = 0;
+
+    const currentTitle = () => titles[index];
+
+    const applyWidthPx = (px, animate) => {
+      if (!animate) viewport.style.transition = 'none';
+      viewport.style.width = `${px}px`;
+      if (!animate) {
+        viewport.getBoundingClientRect();
+        viewport.style.transition = '';
+      }
+    };
+
+    const applyWidth = (title, animate) => {
+      applyWidthPx(Math.ceil(title.getBoundingClientRect().width), animate);
+    };
+
+    const finishSwap = (leaving) => {
+      leaving.classList.remove('is-leaving');
+      swapping = false;
+    };
+
+    const swap = () => {
+      if (swapping || prefersReducedMotion()) return;
+      const leaving = currentTitle();
+      const nextIndex = (index + 1) % titles.length;
+      const entering = titles[nextIndex];
+      const leaveW = Math.ceil(leaving.getBoundingClientRect().width);
+      const enterW = Math.ceil(entering.getBoundingClientRect().width);
+
+      // Stay wide enough for both titles while they travel, so neither is
+      // clipped sideways. Shrink to the new title only after it has landed.
+      applyWidthPx(Math.max(leaveW, enterW), enterW > leaveW);
+
+      leaving.classList.remove('is-current');
+      leaving.classList.add('is-leaving');
+      entering.classList.add('is-current');
+
+      swapping = true;
+      index = nextIndex;
+      window.clearTimeout(swapTimer);
+      swapTimer = window.setTimeout(() => {
+        finishSwap(leaving);
+        if (enterW < leaveW) {
+          swapping = true;
+          applyWidthPx(enterW, true);
+          window.setTimeout(() => {
+            swapping = false;
+          }, SWAP_MS);
+          return;
+        }
+        swapping = false;
+      }, SWAP_MS + 40);
+    };
+
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+    };
+
+    const start = () => {
+      stop();
+      const generationId = ++generation;
+      if (prefersReducedMotion()) return;
+
+      const arm = () => {
+        if (generationId !== generation || !root.isConnected) return;
+        root.classList.add('is-ready');
+        applyWidth(currentTitle(), false);
+        timer = window.setInterval(swap, HOLD_MS);
+      };
+
+      if (!document.fonts || document.fonts.status === 'loaded') arm();
+      else document.fonts.ready.then(arm);
+    };
+
+    const onResize = () => {
+      if (swapping || prefersReducedMotion()) return;
+      applyWidth(currentTitle(), false);
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onMotion = () => {
+      if (motion.matches) {
+        stop();
+        window.clearTimeout(swapTimer);
+        swapping = false;
+        root.classList.remove('is-ready');
+        titles.forEach((title, titleIndex) => {
+          title.classList.toggle('is-current', titleIndex === 0);
+          title.classList.remove('is-leaving');
+        });
+        index = 0;
+        viewport.style.width = '';
+        return;
+      }
+      start();
+    };
+
+    start();
+    window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', onVisibility);
+    motion.addEventListener('change', onMotion);
+
+    return () => {
+      stop();
+      window.clearTimeout(swapTimer);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
+      motion.removeEventListener('change', onMotion);
+    };
+  }
+
+  let cleanup = () => {};
+
+  function bindRotators() {
+    cleanup();
+    const cleanups = [];
+    document.querySelectorAll('[data-role-rotates]').forEach((root) => {
+      if (root instanceof HTMLElement) cleanups.push(setupRotator(root));
+    });
+    cleanup = () => {
+      cleanups.forEach((fn) => fn());
+    };
+  }
+
+  document.addEventListener('astro:before-swap', () => cleanup());
+  document.addEventListener('astro:page-load', bindRotators);
+</script>
+
+<style lang="scss">
+  .role-chip--rotates {
+    --role-swap-duration: 0.55s;
+    --role-swap-ease: cubic-bezier(0.65, 0, 0.35, 1);
+    overflow: clip;
+    /* Flatten before the header blend so sliding text is clipped to the chip. */
+    filter: opacity(1);
+    padding-block: 0;
+  }
+
+  .role-chip__viewport {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    min-width: 0;
+    overflow: clip;
+  }
+
+  .role-chip--rotates.is-ready .role-chip__viewport {
+    transition: width var(--role-swap-duration) var(--role-swap-ease);
+  }
+
+  .role-chip__sizer,
+  .role-chip__title {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding-block: 0.08em;
+    line-height: 0.9;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .role-chip__sizer {
+    visibility: hidden;
+  }
+
+  .role-chip__title {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 100%;
+    height: 100%;
+  }
+
+  .role-chip__title.is-current {
+    top: 0;
+  }
+
+  .role-chip__title.is-leaving {
+    top: -100%;
+  }
+
+  .role-chip--rotates.is-ready .role-chip__title.is-current,
+  .role-chip--rotates.is-ready .role-chip__title.is-leaving {
+    transition: top var(--role-swap-duration) var(--role-swap-ease);
+  }
+
+  .role-chip__title:not(.is-current) {
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .role-chip__title:not(.is-current) {
+      display: none;
+    }
+
+    .role-chip__viewport,
+    .role-chip__title {
+      transition: none;
+    }
+  }
+</style>

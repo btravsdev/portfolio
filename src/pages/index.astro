@@ -1,11 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomeHero from '../components/home/HomeHero.astro';
+import HomeGallery from '../components/home/HomeGallery.astro';
+import HomeAlso from '../components/home/HomeAlso.astro';
 import StickyNav from '../components/StickyNav.astro';
 ---
 
 <Layout pageId="home" bodyId="home" bodyClass="front-page is-a__page">
   <HomeHero />
   <StickyNav />
-  <main id="main-content" class="site-main site-main__home" tabindex="-1"></main>
+  <main id="main-content" class="site-main site-main__home" tabindex="-1">
+    <HomeGallery />
+    <HomeAlso />
+  </main>
 </Layout>

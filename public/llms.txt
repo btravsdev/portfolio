@@ -1,6 +1,6 @@
 # Brian Travers — https://btravs.com
 
-> Chicago-based front-end engineer, designer, and deejay. Portfolio and professional contact site.
+> Chicago-based front-end engineer, designer, and more. Portfolio and professional contact site.
 
 ## Identity
 
@@ -14,7 +14,7 @@
 
 ## Professional summary
 
-Brian Travers is a front-end engineer with a graphic design background and more than 10 years of agency experience. He builds modern, CMS-driven web applications with React, Next.js, Vue, Nuxt, Astro, and headless CMS platforms such as Sanity and Contentful. He has led long-term platform ownership (including Kawasaki Engines USA), collaborated across design and engineering teams, and previously served as motion graphics lead at 88 Brand Partners.
+Brian Travers is a front-end engineer with a graphic design background and more than 12 years of agency experience. He builds modern, CMS-driven web applications with React, Next.js, Vue, Nuxt, Astro, and headless CMS platforms such as Sanity and Contentful. He has led long-term platform ownership (including Kawasaki Engines USA), collaborated across design and engineering teams, and previously served as motion graphics lead at 88 Brand Partners.
 
 ## Notable work / clients
 

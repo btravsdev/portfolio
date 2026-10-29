@@ -1,0 +1,425 @@
+---
+const uid = `baf${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<script>
+  import { gsap } from 'gsap';
+
+  const cleanups = new Map();
+
+  function mount(root: HTMLElement) {
+    const select = gsap.utils.selector(root);
+    const q = (selector: string) => select(selector.replace(/#([\w-]+)/g, '[id="$1"]'));
+    const running = new Map();
+    const ac = new AbortController();
+
+    function track(key: string, tl: GSAPTimeline) {
+      running.get(key)?.kill();
+      running.set(key, tl);
+      return tl;
+    }
+
+    function imagePanning() {
+      return gsap.timeline({ defaults: { duration: 8, ease: 'none' } })
+        .set(q('#baf-img1-wrapper'), { transformOrigin: 'middle top' })
+        .to(q('#baf-img1-wrapper'), { scale: 1.4, y: 40, x: -10 }, 0);
+    }
+
+    function frame1() {
+      const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power1.out' } });
+      tl
+        .set(q('.fromTop'), { y: 40, opacity: 1 }, 0)
+        .set(q('#baf-txt1'), { y: 26 }, 0)
+        .set(q('#baf-ear-left'), { svgOrigin: '114 90' }, 0)
+        .set(q('#baf-ear-right'), { svgOrigin: '177 94' }, 0)
+        .to(q('#baf-txt1a'), { opacity: 1, duration: 0.05 }, 'txt1+=0.25')
+        .to(q('#baf-txt1b'), { opacity: 1, duration: 0.05 }, 'txt1+=0.35')
+        .to(q('#baf-ear-left'), { rotation: -5, duration: 0.2 }, 'txt1+=0.6')
+        .to(q('#baf-ear-right'), { rotation: 5, duration: 0.2 }, 'txt1+=0.6')
+        .to(q('#baf-ear-left'), { rotation: 5, duration: 0.2 }, 'txt1+=0.8')
+        .to(q('#baf-ear-right'), { rotation: -5, duration: 0.2 }, 'txt1+=0.8')
+        .to(q('#baf-ear-left, #baf-ear-right'), { rotation: 0, duration: 0.1 }, 'txt1+=1')
+        .to(q('#baf-img1'), { scale: 1.09, y: 10, duration: 1.5, ease: 'power1.inOut' }, 'txt1+=2.25')
+        .call(() => track('pan', imagePanning()), [], 'txt1+=2.25')
+        .to(q('#baf-ears'), { y: 65 }, 'txt1+=2.25')
+        .to(q('#baf-txt1'), { y: 0, ease: 'power1.inOut', duration: 0.75 }, 'txt1+=2.5')
+        .to(q('#baf-txt1ab-wrapper'), { scale: 0.66667, x: 51, y: 39, ease: 'power1.inOut', duration: 0.75 }, 'txt1+=2.5')
+        .to(q('#baf-txt1c'), { y: 0 }, 'txt1+=2.6')
+        .to(q('#baf-txt1d'), { y: 0 }, 'txt1+=2.7')
+        .to(q('#baf-txt1e'), { y: 0 }, 'txt1+=2.8')
+        .to(q('#baf-txt1f'), { y: 0 }, 'txt1+=2.9');
+      return tl;
+    }
+
+    function frame2() {
+      const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.out' } });
+      tl
+        .set(q('#baf-txt2'), { y: 25 })
+        .to(q('#baf-txt1a, #baf-txt1b, #baf-txt1c, #baf-txt1d, #baf-txt1e, #baf-txt1f'), { opacity: 0, stagger: 0.05 }, 'txt2')
+        .to(q('#baf-txt2a'), { opacity: 1, duration: 0.05 }, 'txt2+=1')
+        .to(q('#baf-txt2'), { y: 0, ease: 'power1.inOut', duration: 0.75 }, 'txt2+=1.5')
+        .to(q('#baf-txt2b'), { y: 0 }, 'txt2+=1.7')
+        .to(q('#baf-txt2c'), { y: 0 }, 'txt2+=1.8')
+        .to(q('#baf-txt2d'), { y: 0 }, 'txt2+=1.9')
+        .to(q('#baf-txt2e'), { y: 0 }, 'txt2+=2');
+      return tl;
+    }
+
+    function frame3() {
+      const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.out' } });
+      tl
+        .set(q('#baf-logo'), { y: 100, scale: 10 })
+        .to(q('#baf-txt2a, #baf-txt2b, #baf-txt2c, #baf-txt2d, #baf-txt2e'), { opacity: 0, stagger: 0.05 }, 'txt3')
+        .to(q('#baf-ears'), { y: 0, duration: 3 }, 'txt3+=0.25')
+        .to(q('#baf-img1'), { y: -100, opacity: 0, duration: 3 }, 'txt3+=0.25')
+        .to(q('#baf-logo-wrapper'), { height: '100%' }, 'txt3+=0.25')
+        .to(q('#baf-logo'), { scale: 1, y: 0, duration: 1.25 }, 'txt3+=0.25')
+        .to(q('#baf-tag1a'), { opacity: 1, duration: 0.05 }, 'txt3+=1.5')
+        .to(q('#baf-tag1b'), { opacity: 1, duration: 0.05 }, 'txt3+=1.6')
+        .to(q('#baf-tag2a'), { opacity: 1, duration: 0.05 }, 'txt3+=2')
+        .to(q('#baf-tag2b'), { opacity: 1, duration: 0.05 }, 'txt3+=2.1')
+        .to(q('#baf-cta-hover-wrapper'), { opacity: 1, duration: 0.2 }, 'cta-=0.5')
+        .to(q('#baf-cta-button'), { scaleX: '100%', duration: 0.5 }, 'cta-=0.5')
+        .to(q('#baf-txtcta1'), { y: 0 }, 'cta-=.25')
+        .to(q('#baf-cta-button'), { '--before-position': '140%', ease: 'power1.inOut' }, 'shine');
+      return tl;
+    }
+
+    function showEndFrame() {
+      gsap.set(q('.fromTop'), { y: 0, opacity: 1 });
+      gsap.set(q('#baf-txt1, #baf-txt2'), { y: 0 });
+      gsap.set(q('#baf-txt1a, #baf-txt1b, #baf-txt1c, #baf-txt1d, #baf-txt1e, #baf-txt1f'), { opacity: 0 });
+      gsap.set(q('#baf-txt2a, #baf-txt2b, #baf-txt2c, #baf-txt2d, #baf-txt2e'), { opacity: 0 });
+      gsap.set(q('#baf-ears'), { y: 0 });
+      gsap.set(q('#baf-img1'), { y: -100, opacity: 0 });
+      gsap.set(q('#baf-logo-wrapper'), { height: '100%' });
+      gsap.set(q('#baf-logo'), { scale: 1, y: 0 });
+      gsap.set(q('#baf-tag1a, #baf-tag1b, #baf-tag2a, #baf-tag2b, #baf-cta-hover-wrapper'), { opacity: 1 });
+      gsap.set(q('#baf-cta-button'), { scaleX: '100%', '--before-position': '140%' });
+      gsap.set(q('#baf-txtcta1'), { y: 0 });
+    }
+
+    const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        showEndFrame();
+        return;
+      }
+
+      const master = gsap.timeline();
+      master
+        .add(frame1(), '0')
+        .add(frame2(), '+=1.5')
+        .add(frame3(), '+=1.5');
+      master.repeat(-1);
+      master.repeatDelay(2);
+      master.eventCallback('onRepeat', () => {
+        running.forEach((tl) => tl.kill());
+        running.clear();
+      });
+    }, root);
+
+    return () => {
+      ac.abort();
+      running.forEach((tl) => tl.kill());
+      ctx.revert();
+    };
+  }
+
+  function initAds() {
+    document.querySelectorAll('[data-baf-ad]').forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      cleanups.get(root)?.();
+      cleanups.set(root, mount(root));
+    });
+  }
+
+  document.addEventListener('astro:page-load', initAds);
+  document.addEventListener('astro:before-swap', () => {
+    cleanups.forEach((cleanup) => cleanup());
+    cleanups.clear();
+  });
+</script>
+
+<div class="work-displayad--wrapper" data-baf-ad>
+  <div id="baf-container">
+    <div id="baf-link" aria-label="Big Ass Fans">
+      <div id="baf-img1-wrapper">
+        <img id="baf-img1" src="/img/displayads/baf-img1.png" alt="Fan background" />
+      </div>
+
+      <svg id="baf-ears" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 300 130">
+        <defs>
+          <clipPath id={`${uid}-clip-ear-left`}>
+            <path d="M73.07,4.89l-20.02,8.58,40.77,91.54c24.32-19.31,44.34-26.46,36.47-48.63S73.07,4.89,73.07,4.89Z" fill="none"/>
+          </clipPath>
+          <clipPath id={`${uid}-clip-ear-right`}>
+            <path d="M224.69,2.75l21.46,13.59-41.89,95.12c-24.32-19.31-44.34-26.46-36.47-48.63,7.87-22.17,56.91-60.07,56.91-60.07Z" fill="none"/>
+          </clipPath>
+          <clipPath id={`${uid}-clip-no-ears`}>
+            <path d="M0,0v130h300V0H0ZM93.81,105.75L53.05,14.2l20.02-8.58s35.12-1.84,42.98,20.33,2.07,60.49-22.24,79.8ZM204.26,112.18c-24.32-19.31-46.43-56.77-38.57-78.94S224.69,3.48,224.69,3.48l21.46,13.59-41.89,95.12Z" fill="none"/>
+          </clipPath>
+        </defs>
+        <g id="baf-ear-wrapper" clip-path={`url(#${uid}-clip-no-ears)`}>
+          <image width="300" height="130" xlink:href="/img/displayads/baf-ears.jpg"/>
+        </g>
+        <g id="baf-ear-left" clip-path={`url(#${uid}-clip-ear-left)`}>
+          <image width="300" height="130" xlink:href="/img/displayads/baf-ears.jpg"/>
+        </g>
+        <g id="baf-ear-right" clip-path={`url(#${uid}-clip-ear-right)`}>
+          <image width="300" height="130" xlink:href="/img/displayads/baf-ears.jpg"/>
+        </g>
+      </svg>
+
+      <div id="baf-txt1">
+        <div id="baf-txt1ab-wrapper">
+          <div id="baf-txt1a" class="sprite"></div>
+          <div id="baf-txt1b" class="sprite"></div>
+        </div>
+        <div id="baf-txt1c-cropper" class="sprite-cropper">
+          <div id="baf-txt1c" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt1d-cropper" class="sprite-cropper">
+          <div id="baf-txt1d" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt1e-cropper" class="sprite-cropper">
+          <div id="baf-txt1e" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt1f-cropper" class="sprite-cropper">
+          <div id="baf-txt1f" class="sprite fromTop"></div>
+        </div>
+      </div>
+
+      <div id="baf-txt2">
+        <div id="baf-txt2a" class="sprite"></div>
+        <div id="baf-txt2b-cropper" class="sprite-cropper">
+          <div id="baf-txt2b" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt2c-cropper" class="sprite-cropper">
+          <div id="baf-txt2c" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt2d-cropper" class="sprite-cropper">
+          <div id="baf-txt2d" class="sprite fromTop"></div>
+        </div>
+        <div id="baf-txt2e-cropper" class="sprite-cropper">
+          <div id="baf-txt2e" class="sprite fromTop"></div>
+        </div>
+      </div>
+
+      <div id="baf-logo-wrapper">
+        <div id="baf-yellow-bg"></div>
+        <div id="baf-logo" class="sprite"></div>
+      </div>
+
+      <div id="baf-txt3">
+        <div id="baf-tag1a" class="tag sprite"></div>
+        <div id="baf-tag1b" class="tag sprite"></div>
+        <div id="baf-tag2a" class="tag sprite"></div>
+        <div id="baf-tag2b" class="tag sprite"></div>
+      </div>
+
+      <div id="baf-border"></div>
+
+      <div id="baf-cta-hover-wrapper">
+        <div id="baf-cta-button"></div>
+        <div id="baf-txtcta-cropper" class="sprite-cropper">
+          <div id="baf-txtcta1" class="sprite fromTop txtcta"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #baf-container,
+  #baf-container div,
+  #baf-container a,
+  #baf-container img,
+  #baf-container button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+
+  div, img, button, svg {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  [data-baf-ad] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    container-type: size;
+  }
+
+  #baf-link {
+    cursor: pointer;
+  }
+
+  #baf-container {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    height: 250px;
+    transform-origin: top left;
+    transform: scale(min(calc(100cqw / 300px), calc(100cqh / 250px)));
+    background-color: #000;
+    line-height: 1;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  }
+
+  #baf-border {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #fff;
+    z-index: 100;
+  }
+
+  #baf-img1 {
+    width: 264px;
+    height: 111px;
+    top: -35px;
+    left: 18px;
+    transform-origin: 150px 0px;
+  }
+
+  #baf-txt1ab-wrapper {
+    transform-origin: 0 0;
+  }
+
+  #baf-ears {
+    width: 180px;
+    height: 78px;
+    left: 59px;
+    top: auto;
+    bottom: -5px;
+  }
+
+  #baf-yellow-bg {
+    top: 100%;
+    background-color: #ffc425;
+  }
+
+  #baf-logo-wrapper {
+    top: auto;
+    bottom: 0;
+    height: 0;
+  }
+
+  #baf-logo {
+    transform-origin: 150px 70px;
+  }
+
+  #baf-logo-wrapper > div {
+    top: auto;
+    bottom: 0;
+    height: 250px;
+  }
+
+  .fromTop {
+    top: 40px;
+  }
+
+  .fromBottom {
+    top: -40px;
+  }
+
+  #baf-txt1c-cropper,
+  #baf-txt1d-cropper { top: -103px; }
+  #baf-txt1c,
+  #baf-txt1d { top: 103px; }
+  #baf-txt1e-cropper,
+  #baf-txt1f-cropper { top: -74px; }
+  #baf-txt1e,
+  #baf-txt1f { top: 74px; }
+
+  #baf-txt2b-cropper,
+  #baf-txt2c-cropper { top: -103px; }
+  #baf-txt2b,
+  #baf-txt2c { top: 103px; }
+  #baf-txt2d-cropper,
+  #baf-txt2e-cropper { top: -74px; }
+  #baf-txt2d,
+  #baf-txt2e { top: 74px; }
+
+  #baf-txtcta-cropper { top: -38px; }
+  #baf-txtcta1 { top: 38px; }
+
+  .sprite {
+    background-image: url("/img/displayads/baf-sprite.svg");
+    background-size: 3000px 3000px;
+  }
+
+  #baf-txt1a { background-position: 0 0; }
+  #baf-txt1b { background-position: -300px 0; }
+  #baf-txt1c { background-position: -600px 0; }
+  #baf-txt1d { background-position: -900px 0; }
+  #baf-txt1e { background-position: -1200px 0; }
+  #baf-txt1f { background-position: -1500px 0; }
+  #baf-txt2a { background-position: 0 -600px; }
+  #baf-txt2b { background-position: -300px -600px; }
+  #baf-txt2c { background-position: -600px -600px; }
+  #baf-txt2d { background-position: -900px -600px; }
+  #baf-txt2e { background-position: -1200px -600px; }
+  #baf-txt2f { background-position: -1500px -600px; }
+  #baf-txt2g { background-position: -1800px -600px; }
+  #baf-logo { background-position: 0 -1200px; }
+  #baf-tag1a { background-position: -300px -1200px; }
+  #baf-tag1b { background-position: -600px -1200px; }
+  #baf-tag2a { background-position: -900px -1200px; }
+  #baf-tag2b { background-position: -1200px -1200px; }
+  #baf-txtcta1 { background-position: 0 -1800px; }
+
+  #baf-txt1a, #baf-txt1b, #baf-txt1c, #baf-txt1d, #baf-txt1e, #baf-txt1f,
+  #baf-txt2a, #baf-txt2b, #baf-txt2c, #baf-txt2d, #baf-txt2e, #baf-txt2f, #baf-txt2g,
+  .tag,
+  #baf-cta-hover-wrapper, .txtcta {
+    opacity: 0;
+  }
+
+  #baf-cta-button {
+    --before-position: -40%;
+    background: #000000;
+    width: 133px;
+    height: 24px;
+    left: 84px;
+    top: 188px;
+    transform-origin: 50% 50%;
+    position: relative;
+  }
+
+  #baf-cta-button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: var(--before-position);
+    width: 30px;
+    height: 200%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(255, 196, 37, 1) 50%, rgba(0, 0, 0, 1) 100%);
+    transform-origin: 50% 50%;
+    transform: rotate(25deg);
+    opacity: 0.8;
+  }
+
+  #baf-link #baf-cta-hover-wrapper {
+    transform-origin: 150px 200px;
+    transition: transform 0.05s ease-in-out;
+  }
+
+  #baf-link:hover #baf-cta-hover-wrapper {
+    transform: scale(0.97);
+  }
+</style>
