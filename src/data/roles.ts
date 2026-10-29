@@ -25,7 +25,7 @@ export const roles = {
   designer: {
     id: 'designer',
     path: '/is-a-designer',
-    label: 'designer',
+    label: 'graphic designer',
     title: 'Brian Travers is a designer',
     heroIntro:
       'with a career rooted in graphic design and front-end engineering, I take on selective design work to keep those skills sharp and bring a strong visual point of view to digital products.',
@@ -34,7 +34,7 @@ export const roles = {
   motion: {
     id: 'motion',
     path: '/does-motion-graphics',
-    label: 'motion graphic designer',
+    label: 'motion designer',
     title: 'Brian Travers also does motion graphics',
     heroIntro:
       "with enough knowledge of Adobe Premiere and After Effects to be dangerous.",

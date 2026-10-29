@@ -57,10 +57,14 @@
   --block: var(--space-4x);
   --gap: var(--space-md);
   --max-width-text: 800px;
-  --max-width-focus: 300px;
+  --max-width-focus: 500px;
 
   @include at-least(lg) {
     --max-width-focus: 600px;
+  }
+
+  @include at-least(xl) {
+    --max-width-focus: 800px;
   }
 }
 
