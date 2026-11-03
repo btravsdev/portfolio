@@ -385,6 +385,20 @@ small, .text_small {
   }
 }
 
+[data-copy-reveal]:not(.is-revealed) {
+  opacity: 0.25;
+}
+
+[data-copy-reveal].is-revealed {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-copy-reveal] {
+    opacity: 1;
+  }
+}
+
 .hero-copy__intro {
   margin-top: 0.35em;
 }

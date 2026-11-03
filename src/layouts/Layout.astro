@@ -98,10 +98,14 @@ const seo: PageSeo = {
 
   <script>
     import { initScrollReveal } from '../scripts/scrollReveal';
+    import { destroyCopyReveal, initCopyReveal } from '../scripts/copyReveal';
 
     document.addEventListener('astro:page-load', () => {
       initScrollReveal();
+      initCopyReveal();
     });
+
+    document.addEventListener('astro:before-swap', destroyCopyReveal);
   </script>
 
 </body>

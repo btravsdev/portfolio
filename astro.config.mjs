@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [sitemap()],
   vite: {
     optimizeDeps: {
-      include: ['gsap', 'gsap/DrawSVGPlugin', 'gsap/MorphSVGPlugin'],
+      include: ['gsap', 'gsap/DrawSVGPlugin', 'gsap/MorphSVGPlugin', 'gsap/SplitText'],
     },
   },
 });
